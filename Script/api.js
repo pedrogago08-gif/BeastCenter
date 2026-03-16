@@ -1,16 +1,21 @@
 (function () {
     "use strict";
 
-    var DEFAULT_API_BASE = "http://localhost:3000/api";
+    function getDefaultApiBase() {
+        if (window.location && window.location.origin && /^https?:/i.test(window.location.protocol)) {
+            return window.location.origin.replace(/\/+$/, "") + "/api";
+        }
+        return "http://localhost:3000/api";
+    }
 
     function normalizeBase(url) {
-        return (url || DEFAULT_API_BASE).replace(/\/+$/, "");
+        return (url || getDefaultApiBase()).replace(/\/+$/, "");
     }
 
     function getConfiguredBase() {
         var fromWindow = window.BEASTCENTER_API_BASE;
         var fromStorage = localStorage.getItem("beastcenter_api_base");
-        return normalizeBase(fromWindow || fromStorage || DEFAULT_API_BASE);
+        return normalizeBase(fromWindow || fromStorage || getDefaultApiBase());
     }
 
     async function request(path, options) {
