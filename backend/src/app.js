@@ -24,6 +24,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/trainers", trainerRoutes);
 app.use("/api/classes", classRoutes);
 
+app.use(express.static(path.join(projectRoot, "Pages")));
 app.use("/Pages", express.static(path.join(projectRoot, "Pages")));
 app.use("/Style", express.static(path.join(projectRoot, "Style")));
 app.use("/Script", express.static(path.join(projectRoot, "Script")));
