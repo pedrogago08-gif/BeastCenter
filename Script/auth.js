@@ -199,18 +199,19 @@ async function handleRegister(event) {
     }
 
     try {
-        var response = await window.BeastCenterApi.register({
+        await window.BeastCenterApi.register({
             name: name,
             email: email,
             password: password,
             plan: plan
         });
 
-        setCurrentUser(response.user);
-        showToast("Conta criada com sucesso!", "success");
+        showToast("Conta criada com sucesso! Faz login para entrar.", "success");
         setTimeout(function () {
-            window.location.href = "cliente/dashboard.html";
-        }, 800);
+            switchToLogin();
+            document.getElementById("login-email").value = email;
+            document.getElementById("login-password").value = "";
+        }, 600);
     } catch (error) {
         showToast(error.message || "Falha ao criar conta", "error");
     }
