@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Definicoes - Area de Cliente BeastCenter">
+    <title>Definicoes - BeastCenter</title>
+    <link rel="stylesheet" href="../../Style/cliente.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../../images/logo.png" alt="BeastCenter Logo">
+            <h2>BeastCenter</h2>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item"><span>Dashboard</span></a>
+            <a href="historico.html" class="menu-item"><span>Historico de Treinos</span></a>
+            <a href="aulas-marcadas.html" class="menu-item"><span>Aulas Marcadas</span></a>
+            <a href="progresso.html" class="menu-item"><span>Progresso</span></a>
+            <a href="personal-trainers.html" class="menu-item"><span>Personal Trainers</span></a>
+            <a href="recompensas.html" class="menu-item"><span>Recompensas</span></a>
+            <a href="plano-alimentar.html" class="menu-item"><span>Plano Alimentar</span></a>
+            <a href="loja.html" class="menu-item"><span>Loja</span></a>
+            <a href="definicoes.html" class="menu-item active"><span>Definicoes</span></a>
+            <hr>
+            <a href="../Index.html" class="menu-item logout" id="client-logout-link"><span>Sair</span></a>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1>Definicoes</h1>
+                <p class="page-kicker">Preferencias da conta e dados pessoais. Ainda sem gravacao real nesta area.</p>
+            </div>
+            <div class="user-info">
+                <span class="notification-icon"><span class="badge">0</span></span>
+                <div class="user-profile">
+                    <div class="user-avatar" id="client-user-avatar">BC</div>
+                    <div class="user-details">
+                        <span class="user-name" id="client-user-name">Cliente</span>
+                        <span class="user-plan" id="client-user-plan">Sem plano ativo</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="page-container">
+            <div class="page-grid">
+                <div class="page-column">
+                    <section class="page-panel">
+                        <h2>Perfil</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="settings-name">Nome</label>
+                                <input id="settings-name" type="text" placeholder="Nome do utilizador">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-email">Email</label>
+                                <input id="settings-email" type="email" placeholder="email@exemplo.com">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="settings-note">Observacoes</label>
+                                <textarea id="settings-note" rows="4" placeholder="Preferencias, notas ou objetivos"></textarea>
+                            </div>
+                        </div>
+                        <p class="muted-note">Esta pagina ja existe e abre corretamente, mas a gravacao ainda nao esta ligada a backend.</p>
+                    </section>
+                </div>
+                <div class="page-column">
+                    <section class="page-hero">
+                        <h2>Conta</h2>
+                        <p>Quando ligarmos esta area ao backend, vais conseguir atualizar dados, password e preferencias daqui.</p>
+                    </section>
+                    <section class="page-panel">
+                        <h2>Estado</h2>
+                        <ul class="panel-list">
+                            <li><strong>Autenticacao</strong><span class="status-pill">Ativa</span></li>
+                            <li><strong>Sincronizacao</strong><span>Pendente de integracao</span></li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../../Script/api.js"></script>
+    <script src="../../Script/cliente-area.js"></script>
+    <script src="../../Script/main.js"></script>
+</body>
+</html>

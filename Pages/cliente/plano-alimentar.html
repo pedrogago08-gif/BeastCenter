@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plano alimentar - Area de Cliente BeastCenter">
+    <title>Plano Alimentar - BeastCenter</title>
+    <link rel="stylesheet" href="../../Style/cliente.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../../images/logo.png" alt="BeastCenter Logo">
+            <h2>BeastCenter</h2>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item"><span>Dashboard</span></a>
+            <a href="historico.html" class="menu-item"><span>Historico de Treinos</span></a>
+            <a href="aulas-marcadas.html" class="menu-item"><span>Aulas Marcadas</span></a>
+            <a href="progresso.html" class="menu-item"><span>Progresso</span></a>
+            <a href="personal-trainers.html" class="menu-item"><span>Personal Trainers</span></a>
+            <a href="recompensas.html" class="menu-item"><span>Recompensas</span></a>
+            <a href="plano-alimentar.html" class="menu-item active"><span>Plano Alimentar</span></a>
+            <a href="loja.html" class="menu-item"><span>Loja</span></a>
+            <a href="definicoes.html" class="menu-item"><span>Definicoes</span></a>
+            <hr>
+            <a href="../Index.html" class="menu-item logout" id="client-logout-link"><span>Sair</span></a>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1>Plano Alimentar</h1>
+                <p class="page-kicker">As refeicoes, macros e notas do nutricionista vao aparecer aqui quando esse servico estiver ativo.</p>
+            </div>
+            <div class="user-info">
+                <span class="notification-icon"><span class="badge">0</span></span>
+                <div class="user-profile">
+                    <div class="user-avatar" id="client-user-avatar">BC</div>
+                    <div class="user-details">
+                        <span class="user-name" id="client-user-name">Cliente</span>
+                        <span class="user-plan" id="client-user-plan">Sem plano ativo</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="page-container">
+            <div class="page-grid">
+                <div class="page-column">
+                    <section class="page-panel">
+                        <h2>Plano atual</h2>
+                        <div class="empty-state-block">
+                            <h3>Sem plano alimentar associado</h3>
+                            <p>Quando houver um plano real para a tua conta, vais ver refeicoes, horarios e objetivos nutricionais aqui.</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="page-column">
+                    <section class="page-hero">
+                        <h2>Seguimento nutricional</h2>
+                        <p>Acompanhamento, observacoes e atualizacoes do teu plano vao ficar centralizados nesta pagina.</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../../Script/api.js"></script>
+    <script src="../../Script/cliente-area.js"></script>
+    <script src="../../Script/main.js"></script>
+</body>
+</html>
