@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: beastcenter
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node backend/src/server.js
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+      - key: CLIENT_ORIGIN
+        value: "*"

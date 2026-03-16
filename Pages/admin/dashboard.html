@@ -1,0 +1,392 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Configuração de caracteres UTF-8 para suportar caracteres especiais -->
+    <meta charset="UTF-8">
+    <!-- Torna o site responsivo em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Painel de Administração - BeastCenter">
+    <title>Admin Dashboard - BeastCenter</title>
+    <!-- Ligação ao ficheiro CSS para estilização -->
+    <link rel="stylesheet" href="../../Style/admin.css">
+    <script src="../../Script/admin-guard.js"></script>
+</head>
+<body>
+    <!-- Sidebar de navegação administrativa -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <img src="../../images/logo.png" alt="BeastCenter Logo">
+            <h2>Admin Panel</h2>
+        </div>
+
+        <!-- Menu de navegação do administrador -->
+        <nav class="admin-menu">
+            <a href="dashboard.html" class="menu-item active">
+                <span class="icon"></span>
+                <span>Dashboard</span>
+            </a>
+            <a href="estatisticas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Estatísticas</span>
+            </a>
+            <a href="usuarios.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Utilizadores</span>
+            </a>
+            <a href="trainers.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Personal Trainers</span>
+            </a>
+            <a href="aulas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Aulas</span>
+            </a>
+            <a href="loja.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Loja</span>
+            </a>            <a href="planos.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Planos</span>
+            </a>
+            <a href="mensagens.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Mensagens</span>
+                <span class="badge">12</span>
+            </a>
+            <a href="recompensas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Sistema de Recompensas</span>
+            </a>
+            <a href="notificacoes.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Notificações</span>
+            </a>
+
+            <hr>
+
+            <a href="../Index.html" class="menu-item logout">
+                <span class="icon"></span>
+                <span>Sair</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo principal do painel admin -->
+    <main class="admin-content">
+
+        <!-- Topbar com informações do admin -->
+        <header class="admin-topbar">
+            <h1>Dashboard Administrativo</h1>
+            <div class="admin-user-info">
+                <span class="notification-icon"><span class="badge">5</span></span>
+                <div class="admin-profile">
+                    <img src="/images/admin-avatar.jpg" alt="Admin Avatar">
+                    <div class="admin-details">
+                        <span class="admin-name">Administrador</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo do Dashboard Admin -->
+        <div class="admin-dashboard-container">
+
+            <!-- Cards de estatísticas principais -->
+            <section class="admin-stats-grid">
+
+                <div class="stat-card primary">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Membros Ativos</p>
+                        </div>
+                        <div class="stat-icon"></div>
+                    </div>
+                    <div class="stat-change positive">
+                        <span>Atualizado com dados reais</span>
+                    </div>
+                </div>
+
+                <div class="stat-card success">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <h3>EUR 0</h3>
+                            <p>Receita Estimada</p>
+                        </div>
+                        <div class="stat-icon"></div>
+                    </div>
+                    <div class="stat-change positive">
+                        <span>Calculado por inscricoes reais</span>
+                    </div>
+                </div>
+
+                <div class="stat-card warning">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Aulas Planeadas</p>
+                        </div>
+                        <div class="stat-icon"></div>
+                    </div>
+                    <div class="stat-change neutral">
+                        <span>Sem dados ainda</span>
+                    </div>
+                </div>
+
+                <div class="stat-card info">
+                    <div class="stat-content">
+                        <div class="stat-info">
+                            <h3>0%</h3>
+                            <p>Taxa de Ocupacao</p>
+                        </div>
+                        <div class="stat-icon"></div>
+                    </div>
+                    <div class="stat-change positive">
+                        <span>Baseado em contas ativas reais</span>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Layout de duas colunas -->
+            <div class="admin-layout">
+
+                <!-- Coluna esquerda -->
+                <div class="admin-left-column">
+
+                    <!-- Gráfico de Novos Membros -->
+                    <section class="admin-section chart-section">
+                        <div class="section-header">
+                            <h2>Novos Membros (Últimos 6 meses)</h2>
+                            <select class="period-selector">
+                                <option>Últimos 6 meses</option>
+                                <option>Último ano</option>
+                                <option>Tudo</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="membrosChart"></canvas>
+                        </div>
+                    </section>
+
+                    <!-- Atividade Recente -->
+                    <section class="admin-section">
+                        <div class="section-header">
+                            <h2>Atividade Recente</h2>
+                            <a href="historico.html" class="view-all">Ver tudo</a>
+                        </div>
+                        <div class="atividade-list">
+                            <div class="atividade-item">
+                                <div class="atividade-info">
+                                    <p>Ainda nao ha atividade real para mostrar.</p>
+                                    <span class="time">Os eventos vao aparecer quando existirem contas, inscricoes e alteracoes reais.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Aulas Mais Populares -->
+                    <section class="admin-section">
+                        <div class="section-header">
+                            <h2>Aulas Mais Populares</h2>
+                        </div>
+                        <div class="popular-aulas">
+                            <div class="aula-rank-item">
+                                <span class="rank">1</span>
+                                <div class="aula-info">
+                                    <h4>Sem dados</h4>
+                                    <p>Aulas reais vao aparecer aqui</p>
+                                </div>
+                                <div class="aula-stats">
+                                    <span class="attendance">0% ocupacao</span>
+                                </div>
+                            </div>
+                            <div class="aula-rank-item">
+                                <span class="rank">2</span>
+                                <div class="aula-info">
+                                    <h4>Sem dados</h4>
+                                    <p>Aguardando inscricoes</p>
+                                </div>
+                                <div class="aula-stats">
+                                    <span class="attendance">0% ocupacao</span>
+                                </div>
+                            </div>
+                            <div class="aula-rank-item">
+                                <span class="rank">3</span>
+                                <div class="aula-info">
+                                    <h4>Sem dados</h4>
+                                    <p>Aguardando agenda real</p>
+                                </div>
+                                <div class="aula-stats">
+                                    <span class="attendance">0% ocupacao</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Coluna direita -->
+                <div class="admin-right-column">
+
+                    <!-- Ações Rápidas -->
+                    <section class="admin-section">
+                        <h2>Ações Rápidas</h2>
+                        <div class="quick-actions">
+                            <button class="action-btn" onclick="window.location.href='usuarios.html?action=add'">
+                                <span class="icon"></span>
+                                <span>Adicionar Utilizador</span>
+                            </button>
+                            <button class="action-btn" onclick="window.location.href='aulas.html?action=create'">
+                                <span class="icon"></span>
+                                <span>Criar Nova Aula</span>
+                            </button>
+                            <button class="action-btn" onclick="window.location.href='trainers.html?action=add'">
+                                <span class="icon"></span>
+                                <span>Adicionar PT</span>
+                            </button>
+                            <button class="action-btn" onclick="window.location.href='loja.html?action=add'">
+                                <span class="icon"></span>
+                                <span>Adicionar Produto</span>
+                            </button>
+                            <button class="action-btn" onclick="window.location.href='notificacoes.html?action=send'">
+                                <span class="icon"></span>
+                                <span>Enviar Notificação</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Alertas e Pendências -->
+                    <section class="admin-section alerts-section">
+                        <h2>Alertas e Pendências</h2>
+                        <div class="alerts-list">
+                            <div class="alert-item critical">
+                                <span class="alert-icon"></span>
+                                <div class="alert-info">
+                                    <h4>Pagamentos Pendentes</h4>
+                                    <p>Sem pendencias registadas.</p>
+                                </div>
+                                <button class="btn-small">Ver</button>
+                            </div>
+                            <div class="alert-item warning">
+                                <span class="alert-icon"></span>
+                                <div class="alert-info">
+                                    <h4>Stock Baixo</h4>
+                                    <p>Sem alertas reais registados.</p>
+                                </div>
+                                <button class="btn-small">Ver</button>
+                            </div>
+                            <div class="alert-item info">
+                                <span class="alert-icon"></span>
+                                <div class="alert-info">
+                                    <h4>Mensagens Nao Lidas</h4>
+                                    <p>Sem mensagens novas neste momento.</p>
+                                </div>
+                                <button class="btn-small">Ver</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Distribuição de Planos -->
+                    <section class="admin-section">
+                        <h2>Distribuição de Planos</h2>
+                        <div class="planos-chart">
+                            <canvas id="planosChart"></canvas>
+                        </div>
+                        <div class="planos-legend">
+                            <div class="legend-item">
+                                <span class="color-box basico"></span>
+                                <span>Basico: 0 membros (0%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="color-box extra"></span>
+                                <span>Extra: 0 membros (0%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="color-box premium"></span>
+                                <span>Premium: 0 membros (0%)</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Top Personal Trainers -->
+                    <section class="admin-section">
+                        <h2>Top Personal Trainers</h2>
+                        <div class="top-trainers">
+                            <div class="trainer-rank-item">
+                                <span class="trainer-avatar-fallback">--</span>
+                                <div class="trainer-info">
+                                    <h4>Sem trainers</h4>
+                                    <p>Aguardando registos reais</p>
+                                </div>
+                            </div>
+                            <div class="trainer-rank-item">
+                                <span class="trainer-avatar-fallback">--</span>
+                                <div class="trainer-info">
+                                    <h4>Sem trainers</h4>
+                                    <p>Aguardando registos reais</p>
+                                </div>
+                            </div>
+                            <div class="trainer-rank-item">
+                                <span class="trainer-avatar-fallback">--</span>
+                                <div class="trainer-info">
+                                    <h4>Sem trainers</h4>
+                                    <p>Aguardando registos reais</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Horários de Pico -->
+                    <section class="admin-section">
+                        <h2>Horários de Pico</h2>
+                        <div class="peak-hours">
+                            <div class="hour-bar">
+                                <span class="hour">06h-09h</span>
+                                <div class="bar-container">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                                <span class="percentage">0%</span>
+                            </div>
+                            <div class="hour-bar">
+                                <span class="hour">09h-12h</span>
+                                <div class="bar-container">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                                <span class="percentage">0%</span>
+                            </div>
+                            <div class="hour-bar">
+                                <span class="hour">12h-15h</span>
+                                <div class="bar-container">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                                <span class="percentage">0%</span>
+                            </div>
+                            <div class="hour-bar peak">
+                                <span class="hour">18h-21h</span>
+                                <div class="bar-container">
+                                    <div class="bar" style="width: 0%"></div>
+                                </div>
+                                <span class="percentage">0%</span>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Ligação aos ficheiros JavaScript -->
+    <script src="../../Script/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../Script/admin-dashboard.js"></script>
+    <script src="../../Script/admin.js"></script>
+</body>
+</html>
+
+

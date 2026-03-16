@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerir Utilizadores - Admin BeastCenter">
+    <title>Gerir Utilizadores - Admin BeastCenter</title>
+    <link rel="stylesheet" href="../../Style/admin.css">
+    <script src="../../Script/admin-guard.js"></script>
+</head>
+<body>
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <img src="../../images/logo.png" alt="BeastCenter Logo">
+            <h2>Admin Panel</h2>
+        </div>
+
+        <nav class="admin-menu">
+            <a href="dashboard.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Dashboard</span>
+            </a>
+            <a href="estatisticas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Estatisticas</span>
+            </a>
+            <a href="usuarios.html" class="menu-item active">
+                <span class="icon"></span>
+                <span>Gerir Utilizadores</span>
+            </a>
+            <a href="trainers.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Personal Trainers</span>
+            </a>
+            <a href="aulas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Aulas</span>
+            </a>
+            <a href="loja.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Loja</span>
+            </a>
+            <a href="planos.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Planos</span>
+            </a>
+            <a href="mensagens.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Mensagens</span>
+                <span class="badge">12</span>
+            </a>
+            <a href="recompensas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Sistema de Recompensas</span>
+            </a>
+            <a href="notificacoes.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Notificacoes</span>
+            </a>
+
+            <hr>
+
+            <a href="../Index.html" class="menu-item logout">
+                <span class="icon"></span>
+                <span>Sair</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="admin-content">
+        <header class="admin-topbar">
+            <div>
+                <h1>Gerir Utilizadores</h1>
+                <p class="page-kicker">Pesquisa, edita, exporta e gere o estado dos membros em tempo real.</p>
+            </div>
+            <div class="admin-user-info">
+                <span class="notification-icon"><span class="badge" id="users-alert-count">0</span></span>
+                <div class="admin-profile">
+                    <img src="/images/admin-avatar.jpg" alt="Admin Avatar">
+                    <div class="admin-details">
+                        <span class="admin-name">Administrador</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="admin-page-container">
+            <section class="actions-bar">
+                <button class="btn-primary" id="add-user-btn">Adicionar Utilizador</button>
+
+                <div class="filters">
+                    <input type="text" class="search-input" placeholder="Pesquisar por nome ou email..." id="search-users">
+                    <select class="filter-select" id="filter-plan">
+                        <option value="all">Todos os Planos</option>
+                        <option value="basico">Plano Basico</option>
+                        <option value="extra">Plano Extra</option>
+                        <option value="premium">Plano Premium</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                    <select class="filter-select" id="filter-status">
+                        <option value="all">Todos os Status</option>
+                        <option value="ativo">Ativos</option>
+                        <option value="inativo">Inativos</option>
+                        <option value="suspenso">Suspensos</option>
+                    </select>
+                    <button class="btn-export" id="export-users-btn">Exportar CSV</button>
+                </div>
+            </section>
+
+            <section class="summary-cards">
+                <div class="summary-card">
+                    <h3 id="summary-total-users">0</h3>
+                    <p>Total de Membros</p>
+                </div>
+                <div class="summary-card active">
+                    <h3 id="summary-active-users">0</h3>
+                    <p>Membros Ativos</p>
+                </div>
+                <div class="summary-card inactive">
+                    <h3 id="summary-inactive-users">0</h3>
+                    <p>Membros Inativos</p>
+                </div>
+                <div class="summary-card new">
+                    <h3 id="summary-new-users">0</h3>
+                    <p>Novos Este Mes</p>
+                </div>
+            </section>
+
+            <section class="users-table-section">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="select-all"></th>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Plano</th>
+                            <th>Status</th>
+                            <th>Data de Inscricao</th>
+                            <th>Ultima Atividade</th>
+                            <th>Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-tbody"></tbody>
+                </table>
+
+                <div class="pagination">
+                    <button class="pagination-btn" id="previous-page-btn">Anterior</button>
+                    <div class="pagination-numbers" id="pagination-numbers"></div>
+                    <button class="pagination-btn" id="next-page-btn">Proximo</button>
+                </div>
+            </section>
+
+            <section class="bulk-actions" id="bulk-actions" style="display: none;">
+                <div class="bulk-info">
+                    <span id="selected-count">0</span> utilizadores selecionados
+                </div>
+                <div class="bulk-buttons">
+                    <button class="btn-bulk" data-bulk-action="email">Enviar Email</button>
+                    <button class="btn-bulk" data-bulk-action="plan">Alterar Plano</button>
+                    <button class="btn-bulk" data-bulk-action="export">Exportar</button>
+                    <button class="btn-bulk danger" data-bulk-action="deactivate">Desativar</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="user-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="user-modal-title">Adicionar Novo Utilizador</h2>
+                <button class="close-modal" id="close-user-modal">x</button>
+            </div>
+            <form class="user-form" id="user-form">
+                <input type="hidden" id="user-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="user-name">Nome Completo</label>
+                        <input type="text" id="user-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-email">Email</label>
+                        <input type="email" id="user-email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="user-phone">Telefone</label>
+                        <input type="tel" id="user-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-created-at">Data de Inscricao</label>
+                        <input type="date" id="user-created-at">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="user-plan">Plano</label>
+                        <select id="user-plan" required>
+                            <option value="basico">Basico</option>
+                            <option value="extra">Extra</option>
+                            <option value="premium">Premium</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-status">Status</label>
+                        <select id="user-status" required>
+                            <option value="ativo">Ativo</option>
+                            <option value="inativo">Inativo</option>
+                            <option value="suspenso">Suspenso</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="user-password">Password</label>
+                        <input type="password" id="user-password" placeholder="Minimo 8 caracteres">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-last-activity">Ultima Atividade</label>
+                        <input type="text" id="user-last-activity" placeholder="Hoje, 18:30">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancel-user-modal">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="user-details-modal" class="modal" style="display: none;">
+        <div class="modal-content modal-content-narrow">
+            <div class="modal-header">
+                <h2>Detalhes do Utilizador</h2>
+                <button class="close-modal" id="close-user-details-modal">x</button>
+            </div>
+            <div class="details-grid" id="user-details-content"></div>
+        </div>
+    </div>
+
+    <script src="../../Script/api.js"></script>
+    <script src="../../Script/admin-usuarios.js"></script>
+    <script src="../../Script/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Equipa de Personal Trainers certificados do BeastCenter">
+    <title>Personal Trainers - BeastCenter</title>
+    <link rel="stylesheet" href="../Style/pages.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="../images/logo.png" alt="Logo BeastCenter">
+            BeastCenter
+        </div>
+        <nav>
+            <ul>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="trainers.html" class="active">Personal Trainers</a></li>
+                <li><a href="aulas.html">Aulas</a></li>
+                <li><a href="loja/produtos.html">Loja</a></li>
+                <li><a href="#sobre">Sobre Nos</a></li>
+                <li><button class="login-btn" onclick="window.location.href='login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-small trainers-hero">
+        <h1>Personal Trainers</h1>
+        <p>Treinos personalizados, acompanhamento real e resultados mediveis.</p>
+        <div class="trainers-kpis">
+            <div class="kpi">
+                <strong>0</strong>
+                <span>Trainers Certificados</span>
+            </div>
+            <div class="kpi">
+                <strong>0</strong>
+                <span>Clientes Acompanhados</span>
+            </div>
+            <div class="kpi">
+                <strong>0/5</strong>
+                <span>Satisfacao Media</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="trainers-section">
+        <div class="container">
+            <div class="trainers-section-head">
+                <h2>Escolhe o teu treinador</h2>
+                <p>Todos os profissionais abaixo tem espaco preparado para foto, para preencheres quando tiveres as imagens finais.</p>
+            </div>
+
+            <div class="trainers-grid" id="trainers-grid"></div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Pronto para comecar?</h2>
+            <p>Faz uma sessao experimental e recebe um plano inicial com o trainer ideal para o teu objetivo.</p>
+            <button class="btn large" onclick="window.location.href='aula-experimental.html'">Marcar Treino Gratis</button>
+        </div>
+    </section>
+
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BeastCenter</h4>
+                <p>O teu ginasio de excelencia</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rapidos</h4>
+                <ul>
+                    <li><a href="planos.html">Planos</a></li>
+                    <li><a href="trainers.html">Personal Trainers</a></li>
+                    <li><a href="aulas.html">Aulas</a></li>
+                    <li><a href="loja/produtos.html">Loja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nos</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <a href="https://www.facebook.com/BeastCenter" target="_blank">Facebook</a> |
+                <a href="https://www.instagram.com/BeastCenter" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter &copy; 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../Script/main.js"></script>
+    <script src="../Script/api.js"></script>
+    <script src="../Script/trainers.js"></script>
+</body>
+</html>
+
+

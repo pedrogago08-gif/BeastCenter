@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Configuração de caracteres UTF-8 para suportar caracteres especiais -->
+    <meta charset="UTF-8">
+    <!-- Torna o site responsivo em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard - Área de Cliente BeastCenter">
+    <title>Dashboard - BeastCenter</title>
+    <!-- Ligação ao ficheiro CSS para estilização -->
+    <link rel="stylesheet" href="../../Style/cliente.css">
+</head>
+<body>
+    <!-- Sidebar de navegação da área de cliente -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../../images/logo.png" alt="BeastCenter Logo">
+            <h2>BeastCenter</h2>
+        </div>
+
+        <!-- Menu de navegação -->
+        <nav class="sidebar-menu">
+            <a href="dashboard.html" class="menu-item active">
+                <span class="icon"></span>
+                <span>Dashboard</span>
+            </a>
+            <a href="historico.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Histórico de Treinos</span>
+            </a>
+            <a href="aulas-marcadas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Aulas Marcadas</span>
+            </a>
+            <a href="progresso.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Progresso</span>
+            </a>
+            <a href="personal-trainers.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Personal Trainers</span>
+            </a>
+            <a href="recompensas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Recompensas</span>
+            </a>
+            <a href="plano-alimentar.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Plano Alimentar</span>
+            </a>
+            <a href="loja.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Loja</span>
+            </a>
+            <a href="definicoes.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Definições</span>
+            </a>
+
+            <hr>
+
+            <a href="../Index.html" class="menu-item logout">
+                <span class="icon"></span>
+                <span>Sair</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+
+        <!-- Topbar com informações do utilizador -->
+        <header class="topbar">
+            <h1>Dashboard</h1>
+            <div class="user-info">
+                <span class="notification-icon"><span class="badge">3</span></span>
+                <div class="user-profile">
+                    <img src="/images/users/default-avatar.jpg" alt="Avatar">
+                    <div class="user-details">
+                        <span class="user-name">João Silva</span>
+                        <span class="user-plan">Plano Extra</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo do Dashboard -->
+        <div class="dashboard-container">
+
+            <!-- Cards de resumo rápido -->
+            <section class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>Treinos este mês</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-info">
+                        <h3>18h 30m</h3>
+                        <p>Tempo total</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-info">
+                        <h3>4</h3>
+                        <p>Aulas marcadas</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon"></div>
+                    <div class="stat-info">
+                        <h3>850</h3>
+                        <p>Pontos acumulados</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Layout de duas colunas -->
+            <div class="dashboard-layout">
+
+                <!-- Coluna esquerda -->
+                <div class="left-column">
+
+                    <!-- Próximas Aulas -->
+                    <section class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Próximas Aulas</h2>
+                            <a href="aulas-marcadas.html" class="view-all">Ver todas</a>
+                        </div>
+                        <div class="aulas-list">
+                            <div class="aula-item">
+                                <div class="aula-time">
+                                    <span class="day">Hoje</span>
+                                    <span class="hour">18:00</span>
+                                </div>
+                                <div class="aula-info">
+                                    <h4>HIIT</h4>
+                                    <p>Maria Santos • Sala 2</p>
+                                </div>
+                                <button class="btn small">Check-in</button>
+                            </div>
+
+                            <div class="aula-item">
+                                <div class="aula-time">
+                                    <span class="day">Amanhã</span>
+                                    <span class="hour">19:30</span>
+                                </div>
+                                <div class="aula-info">
+                                    <h4>Yoga</h4>
+                                    <p>Ana Rodrigues • Sala Zen</p>
+                                </div>
+                                <button class="btn small secondary">Detalhes</button>
+                            </div>
+
+                            <div class="aula-item">
+                                <div class="aula-time">
+                                    <span class="day">Qua</span>
+                                    <span class="hour">07:00</span>
+                                </div>
+                                <div class="aula-info">
+                                    <h4>Spinning</h4>
+                                    <p>João Silva • Sala Cardio</p>
+                                </div>
+                                <button class="btn small secondary">Detalhes</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Progresso Semanal -->
+                    <section class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Progresso Semanal</h2>
+                            <a href="progresso.html" class="view-all">Ver detalhes</a>
+                        </div>
+                        <div class="progress-chart">
+                            <div class="week-days">
+                                <div class="day-bar">
+                                    <div class="bar" style="height: 80%"></div>
+                                    <span>Seg</span>
+                                </div>
+                                <div class="day-bar">
+                                    <div class="bar" style="height: 60%"></div>
+                                    <span>Ter</span>
+                                </div>
+                                <div class="day-bar">
+                                    <div class="bar" style="height: 90%"></div>
+                                    <span>Qua</span>
+                                </div>
+                                <div class="day-bar active">
+                                    <div class="bar" style="height: 100%"></div>
+                                    <span>Qui</span>
+                                </div>
+                                <div class="day-bar future">
+                                    <div class="bar" style="height: 0%"></div>
+                                    <span>Sex</span>
+                                </div>
+                                <div class="day-bar future">
+                                    <div class="bar" style="height: 0%"></div>
+                                    <span>Sáb</span>
+                                </div>
+                                <div class="day-bar future">
+                                    <div class="bar" style="height: 0%"></div>
+                                    <span>Dom</span>
+                                </div>
+                            </div>
+                            <p class="progress-text">Completaste 4 de 5 treinos semanais!</p>
+                        </div>
+                    </section>
+
+                    <!-- Últimos Treinos -->
+                    <section class="dashboard-section">
+                        <div class="section-header">
+                            <h2>Últimos Treinos</h2>
+                            <a href="historico.html" class="view-all">Ver histórico</a>
+                        </div>
+                        <div class="treinos-list">
+                            <div class="treino-item">
+                                <div class="treino-icon"></div>
+                                <div class="treino-info">
+                                    <h4>Treino de Peito e Tríceps</h4>
+                                    <p>Hoje • 60 min • 450 kcal</p>
+                                </div>
+                            </div>
+                            <div class="treino-item">
+                                <div class="treino-icon"></div>
+                                <div class="treino-info">
+                                    <h4>Cardio HIIT</h4>
+                                    <p>Ontem • 30 min • 380 kcal</p>
+                                </div>
+                            </div>
+                            <div class="treino-item">
+                                <div class="treino-icon"></div>
+                                <div class="treino-info">
+                                    <h4>Treino de Pernas</h4>
+                                    <p>02 Dez • 75 min • 520 kcal</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Coluna direita -->
+                <div class="right-column">
+
+                    <!-- Informações do Plano -->
+                    <section class="dashboard-section plano-info">
+                        <h2>O Teu Plano</h2>
+                        <div class="plano-card">
+                            <h3>Plano Extra</h3>
+                            <div class="plano-features">
+                                <p>2 entradas por dia</p>
+                                <p>Wi-Fi grátis</p>
+                                <p>Acesso à piscina e spa</p>
+                                <p>Snack diário grátis</p>
+                            </div>
+                            <div class="plano-renovacao">
+                                <p>Renova em: <strong>25 Dez 2025</strong></p>
+                            </div>
+                            <button class="btn upgrade-btn" onclick="window.location.href='../planos.html'">Upgrade para Premium</button>
+                        </div>
+                    </section>
+
+                    <!-- Recomendações Personalizadas -->
+                    <section class="dashboard-section">
+                        <h2>Recomendações</h2>
+                        <div class="recomendacoes-list">
+                            <div class="recomendacao-item">
+                                <span class="icon"></span>
+                                <div class="reco-text">
+                                    <h4>Aumenta a intensidade</h4>
+                                    <p>Baseado no teu progresso, estás pronto para treinos mais intensos!</p>
+                                </div>
+                            </div>
+                            <div class="recomendacao-item">
+                                <span class="icon"></span>
+                                <div class="reco-text">
+                                    <h4>Plano alimentar disponível</h4>
+                                    <p>Criámos um plano personalizado para ti.</p>
+                                    <a href="plano-alimentar.html">Ver plano</a>
+                                </div>
+                            </div>
+                            <div class="recomendacao-item">
+                                <span class="icon"></span>
+                                <div class="reco-text">
+                                    <h4>Recompensa desbloqueada!</h4>
+                                    <p>Tens uma recompensa à tua espera.</p>
+                                    <a href="recompensas.html">Resgatar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Personal Trainer Atribuído -->
+                    <section class="dashboard-section">
+                        <h2>O Teu Personal Trainer</h2>
+                        <div class="trainer-card-small">
+                            <img src="/images/trainers/trainer1.jpg" alt="João Silva">
+                            <div class="trainer-info">
+                                <h4>João Silva</h4>
+                                <p>Especialista em Hipertrofia</p>
+                                <button class="btn small" onclick="window.location.href='personal-trainers.html'">Marcar Sessão</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Novidades -->
+                    <section class="dashboard-section">
+                        <h2>Novidades</h2>
+                        <div class="novidades-list">
+                            <div class="novidade-item">
+                                <span class="date">01 Dez</span>
+                                <p>Novos equipamentos chegaram! Vem experimentar.</p>
+                            </div>
+                            <div class="novidade-item">
+                                <span class="date">28 Nov</span>
+                                <p>Aula especial de Yoga no sábado às 10h.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Ligação ao ficheiro JavaScript -->
+    <script src="../../Script/dashboard.js"></script>
+    <script src="../../Script/main.js"></script>
+</body>
+</html>
+

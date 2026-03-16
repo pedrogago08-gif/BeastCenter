@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerir Personal Trainers - Admin BeastCenter">
+    <title>Gerir Personal Trainers - Admin BeastCenter</title>
+    <link rel="stylesheet" href="../../Style/admin.css">
+    <script src="../../Script/admin-guard.js"></script>
+</head>
+<body>
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <img src="../../images/logo.png" alt="BeastCenter Logo">
+            <h2>Admin Panel</h2>
+        </div>
+
+        <nav class="admin-menu">
+            <a href="dashboard.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Dashboard</span>
+            </a>
+            <a href="estatisticas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Estatisticas</span>
+            </a>
+            <a href="usuarios.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Utilizadores</span>
+            </a>
+            <a href="trainers.html" class="menu-item active">
+                <span class="icon"></span>
+                <span>Gerir Personal Trainers</span>
+            </a>
+            <a href="aulas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Aulas</span>
+            </a>
+            <a href="loja.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Loja</span>
+            </a>
+            <a href="planos.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Gerir Planos</span>
+            </a>
+            <a href="mensagens.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Mensagens</span>
+                <span class="badge">12</span>
+            </a>
+            <a href="recompensas.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Sistema de Recompensas</span>
+            </a>
+            <a href="notificacoes.html" class="menu-item">
+                <span class="icon"></span>
+                <span>Notificacoes</span>
+            </a>
+
+            <hr>
+
+            <a href="../Index.html" class="menu-item logout">
+                <span class="icon"></span>
+                <span>Sair</span>
+            </a>
+        </nav>
+    </aside>
+
+    <main class="admin-content">
+        <header class="admin-topbar">
+            <h1>Gerir Personal Trainers</h1>
+            <div class="admin-user-info">
+                <span class="notification-icon"><span class="badge">5</span></span>
+                <div class="admin-profile">
+                    <img src="/images/admin-avatar.jpg" alt="Admin Avatar">
+                    <div class="admin-details">
+                        <span class="admin-name">Administrador</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="admin-page-container">
+            <section class="actions-bar">
+                <button class="btn-primary" id="add-trainer-btn">Adicionar Trainer</button>
+                <div class="filters">
+                    <input type="text" class="search-input" id="search-trainers" placeholder="Pesquisar por nome...">
+                    <select class="filter-select" id="filter-status">
+                        <option value="all">Todos os Status</option>
+                        <option value="ativo">Ativos</option>
+                        <option value="inativo">Inativos</option>
+                    </select>
+                    <button class="btn-export" id="export-trainers-btn">Exportar JSON</button>
+                </div>
+            </section>
+
+            <section class="summary-cards trainers-summary-cards">
+                <div class="summary-card">
+                    <h3 id="summary-total">0</h3>
+                    <p>Total Trainers</p>
+                </div>
+                <div class="summary-card active">
+                    <h3 id="summary-active">0</h3>
+                    <p>Ativos</p>
+                </div>
+                <div class="summary-card inactive">
+                    <h3 id="summary-inactive">0</h3>
+                    <p>Inativos</p>
+                </div>
+                <div class="summary-card new">
+                    <h3 id="summary-rating">0.0</h3>
+                    <p>Rating Medio</p>
+                </div>
+            </section>
+
+            <section class="users-table-section">
+                <table class="admin-table" id="trainers-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Trainer</th>
+                            <th>Especializacao</th>
+                            <th>Experiencia</th>
+                            <th>Clientes</th>
+                            <th>Rating</th>
+                            <th>Status</th>
+                            <th>Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="trainers-tbody"></tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <div id="trainer-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="trainer-modal-title">Adicionar Trainer</h2>
+                <button class="close-modal" id="close-trainer-modal">x</button>
+            </div>
+            <form class="user-form trainer-form" id="trainer-form">
+                <input type="hidden" id="trainer-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="trainer-name">Nome</label>
+                        <input type="text" id="trainer-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trainer-specialization">Especializacao</label>
+                        <input type="text" id="trainer-specialization" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="trainer-experience">Experiencia (anos)</label>
+                        <input type="number" id="trainer-experience" min="0" max="60" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trainer-clients">Clientes</label>
+                        <input type="number" id="trainer-clients" min="0" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="trainer-rating">Rating (0 a 5)</label>
+                        <input type="number" id="trainer-rating" min="0" max="5" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trainer-status">Status</label>
+                        <select id="trainer-status" required>
+                            <option value="ativo">Ativo</option>
+                            <option value="inativo">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="trainer-image">Foto (caminho ou URL)</label>
+                        <input type="text" id="trainer-image" placeholder="/images/trainers/nome.jpg">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancel-trainer-modal">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../../Script/api.js"></script>
+    <script src="../../Script/admin-trainers.js"></script>
+    <script src="../../Script/admin.js"></script>
+</body>
+</html>
+

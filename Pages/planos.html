@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Configuração de caracteres UTF-8 para suportar caracteres especiais -->
+    <meta charset="UTF-8">
+    <!-- Torna o site responsivo em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Planos de Adesão - BeastCenter">
+    <title>Planos - BeastCenter</title>
+    <!-- Ligação ao ficheiro CSS para estilização da página -->
+    <link rel="stylesheet" href="../Style/pages.css">
+    <style>
+        /* Estilos adicionais para a página de planos */
+        .comparacao-section {
+            background-color: #F9F9F9;
+        }
+
+        .tabela-comparacao {
+            overflow-x: auto;
+            margin-top: 2rem;
+        }
+
+        .tabela-comparacao table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabela-comparacao th,
+        .tabela-comparacao td {
+            padding: 1.2rem;
+            text-align: center;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        .tabela-comparacao th {
+            background: linear-gradient(135deg, #FF6B35, #FF8C5A);
+            color: white;
+            font-weight: bold;
+        }
+
+        .tabela-comparacao th:first-child {
+            text-align: left;
+        }
+
+        .tabela-comparacao td:first-child {
+            text-align: left;
+            font-weight: 600;
+            color: #2D2D2D;
+        }
+
+        .faq-section {
+            background-color: white;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .faq-item {
+            background: #F9F9F9;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 15px;
+            border-left: 4px solid #FF6B35;
+        }
+
+        .faq-item h4 {
+            color: #1A1A2E;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .faq-item a {
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de navegação principal do site -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="../images/logo.png" alt="Logo BeastCenter">
+            BeastCenter
+        </div>
+        <!-- Menu de navegação com links para diferentes secções -->
+        <nav>
+            <ul>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="planos.html" class="active">Planos</a></li>
+                <li><a href="trainers.html">Personal Trainers</a></li>
+                <li><a href="aulas.html">Aulas</a></li>
+                <li><a href="loja/produtos.html">Loja</a></li>                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><button class="login-btn" onclick="window.location.href='login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Secção hero -->
+    <section class="hero-small">
+        <h1>Planos de Adesão</h1>
+        <p>Escolhe o plano perfeito para os teus objetivos</p>
+    </section>
+
+    <!-- Secção principal que exibe todos os planos disponíveis -->
+    <section class="planos-section">
+        <div class="container">
+            <h2>Nossos Planos</h2>
+            <p class="subtitle">Todos os planos incluem acesso ao ginásio e balneários</p>
+
+            <!-- Grid com os 3 planos -->
+            <div class="planos-grid">
+
+                <!-- Card 1 - Plano Básico -->
+                <div class="plano-card">
+                    <h3>Plano Básico</h3>
+                    <p class="plano-desc">Ideal para quem está a começar</p>
+                    <span class="preco">19,99€<small>/mês</small></span>
+
+                    <!-- Lista de benefícios incluídos no plano -->
+                    <ul>
+                        <li>1 entrada por dia</li>
+                        <li>Acesso ao ginásio</li>
+                        <li>Balneários e cacifos</li>
+                        <li>Acompanhamento inicial</li>
+                        <li>Wi-Fi</li>
+                        <li>Piscina e SPA</li>
+                        <li>Aulas de grupo</li>
+                    </ul>
+
+                    <button class="btn" onclick="window.location.href='login.html'">Escolher Plano</button>
+                </div>
+
+                <!-- Card 2 - Plano Extra (Mais Popular) -->
+                <div class="plano-card destaque">
+                    <span class="badge-popular">Mais Popular</span>
+                    <h3>Plano Extra</h3>
+                    <p class="plano-desc">O equilíbrio perfeito entre preço e vantagens</p>
+                    <span class="preco">31,99€<small>/mês</small></span>
+
+                    <!-- Lista de benefícios incluídos no plano -->
+                    <ul>
+                        <li>2 entradas por dia</li>
+                        <li>Todos os benefícios do Básico</li>
+                        <li>Wi-Fi grátis</li>
+                        <li>Acesso à piscina e spa</li>
+                        <li>Aulas de grupo ilimitadas</li>
+                        <li>Snack diário grátis</li>
+                        <li>Desconto de 10% na loja</li>
+                    </ul>
+
+                    <button class="btn" onclick="window.location.href='login.html'">Escolher Plano</button>
+                </div>
+
+                <!-- Card 3 - Plano Premium -->
+                <div class="plano-card">
+                    <h3>Plano Premium</h3>
+                    <p class="plano-desc">Acesso total sem limites</p>
+                    <span class="preco">49,99€<small>/mês</small></span>
+
+                    <!-- Lista de benefícios incluídos no plano -->
+                    <ul>
+                        <li>Entradas ilimitadas</li>
+                        <li>Todos os benefícios do Extra</li>
+                        <li>2 sessões de PT/mês</li>
+                        <li>Acesso a vídeos premium</li>
+                        <li>Plano alimentar personalizado</li>
+                        <li>Avaliação física mensal</li>
+                        <li>Desconto de 20% na loja</li>
+                        <li>Acesso a eventos exclusivos</li>
+                    </ul>
+
+                    <button class="btn" onclick="window.location.href='login.html'">Escolher Plano</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção de comparação de planos -->
+    <section class="comparacao-section">
+        <div class="container">
+            <h2>Comparação de Planos</h2>
+            <div class="tabela-comparacao">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Características</th>
+                            <th>Básico</th>
+                            <th>Extra</th>
+                            <th>Premium</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Entradas por dia</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>Ilimitado</td>
+                        </tr>
+                        <tr>
+                            <td>Acesso ao ginásio</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td>Aulas de grupo</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td>Piscina e SPA</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td>Personal Trainer</td>
+                            <td>Não</td>
+                            <td>Não</td>
+                            <td>2/mês</td>
+                        </tr>
+                        <tr>
+                            <td>Plano Alimentar</td>
+                            <td>Não</td>
+                            <td>Não</td>
+                            <td>Sim</td>
+                        </tr>
+                        <tr>
+                            <td>Desconto na Loja</td>
+                            <td>-</td>
+                            <td>10%</td>
+                            <td>20%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção de FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Perguntas Frequentes</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h4>Posso mudar de plano a qualquer momento?</h4>
+                    <p>Sim! Podes fazer upgrade ou downgrade do teu plano a qualquer momento. As alterações entram em vigor no próximo ciclo de faturação.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Existe período de fidelização?</h4>
+                    <p>Não. Todos os nossos planos são mensais e podes cancelar quando quiseres, sem penalizações.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Posso experimentar antes de me inscrever?</h4>
+                    <p>Sim! Oferecemos um treino gratuito no ginásio. <a href="aulas.html">Marca já o teu treino!</a></p>
+                </div>
+                <div class="faq-item">
+                    <h4>Os planos incluem estacionamento?</h4>
+                    <p>Sim, todos os membros têm acesso a estacionamento gratuito nas instalações do BeastCenter.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Pronto para Começar?</h2>
+            <p>Junta-te à família BeastCenter e transforma o teu corpo hoje!</p>
+            <button class="btn large" onclick="window.location.href='login.html'">Inscrever Agora</button>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BeastCenter</h4>
+                <p>O teu ginásio de excelência</p>
+                <p>Transforma o teu corpo, transforma a tua vida</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="planos.html">Planos</a></li>
+                    <li><a href="trainers.html">Personal Trainers</a></li>
+                    <li><a href="aulas.html">Aulas</a></li>
+                    <li><a href="loja/produtos.html">Loja</a></li>                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nós</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+                <p>Morada: Rua do Ginásio, 123, Lisboa</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <p>Segue-nos nas redes sociais:</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/BeastCenter" target="_blank">Facebook</a>
+                    <a href="https://www.instagram.com/BeastCenter" target="_blank">Instagram</a>
+                    <a href="https://www.youtube.com/BeastCenter" target="_blank">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter © 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Ligação ao ficheiro JavaScript -->
+    <script src="../Script/main.js"></script>
+</body>
+</html>
+
+
+

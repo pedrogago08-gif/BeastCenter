@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Configuração de caracteres UTF-8 para suportar caracteres especiais -->
+    <meta charset="UTF-8">
+    <!-- Torna o site responsivo em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carrinho de Compras - BeastCenter">
+    <title>Carrinho - BeastCenter</title>
+    <!-- Ligação ao ficheiro CSS para estilização -->
+    <link rel="stylesheet" href="../../Style/loja.css">
+</head>
+<body>
+    <!-- Barra de navegação principal do site -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="../../images/logo.png" alt="Logo BeastCenter">
+            BeastCenter
+        </div>
+        <!-- Menu de navegação -->
+        <nav>
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="../planos.html">Planos</a></li>
+                <li><a href="../trainers.html">Personal Trainers</a></li>
+                <li><a href="../aulas.html">Aulas</a></li>
+                <li><a href="produtos.html">Loja</a></li>                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><button class="cart-btn active" onclick="window.location.href='carrinho.html'">Carrinho (<span id="cart-count">0</span>)</button></li>
+                <li><button class="login-btn" onclick="window.location.href='../login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Secção hero -->
+    <section class="hero-small">
+        <h1>Carrinho de Compras</h1>
+        <p>Revê os teus produtos antes de finalizar</p>
+    </section>
+
+    <!-- Secção do carrinho -->
+    <section class="carrinho-section">
+        <div class="container">
+            <div class="carrinho-layout">
+
+                <!-- Lista de produtos no carrinho -->
+                <div class="carrinho-items">
+                    <h2>Produtos no Carrinho</h2>
+                    <div id="cart-items"></div>
+                    <div class="continue-shopping">
+                        <button class="btn secondary" onclick="window.location.href='produtos.html'">Continuar a Comprar</button>
+                    </div>
+                </div>
+
+                <!-- Resumo da encomenda -->
+                <div class="carrinho-resumo">
+                    <h2>Resumo da Encomenda</h2>
+
+                    <div class="resumo-linha">
+                        <span>Subtotal (<span id="cart-items-count">0</span> itens):</span>
+                        <span class="valor" id="subtotal">0,00€</span>
+                    </div>
+
+                    
+                    <div class="resumo-linha" id="desconto-row" style="display: none;">
+                        <span>Desconto:</span>
+                        <span class="valor" id="desconto">- 0,00€</span>
+                    </div>
+
+
+                    <div class="resumo-linha desconto-info">
+                        <span>Faltam <strong>50,00€</strong> para portes grátis!</span>
+                    </div>
+
+                    <hr>
+
+                    <!-- Código de desconto -->
+                    <div class="cupao-section">
+                        <h3>Tens um Código de desconto?</h3>
+                        <div class="cupao-input">
+                            <input type="text" id="cupao-code" placeholder="Código promocional">
+                            <button class="btn small" onclick="applyCoupon()">Aplicar</button>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Total -->
+                    <div class="resumo-linha total">
+                        <span>Total:</span>
+                        <span class="valor" id="total">0,00€</span>
+                    </div>
+
+                    <!-- Botão de finalizar compra -->
+                    <button class="btn large checkout-btn" onclick="window.location.href='checkout.html'">Finalizar Compra</button>
+
+                    <!-- Métodos de pagamento aceites -->
+                    <div class="payment-methods">
+                        <p>Pagamento seguro com:</p>
+                        <div class="payment-icons">
+                            <img src="/images/payment/visa.png" alt="Visa">
+                            <img src="/images/payment/mastercard.png" alt="Mastercard">
+                            <img src="/images/payment/mbway.png" alt="MB Way">
+                            <img src="/images/payment/multibanco.png" alt="Multibanco">
+                            <img src="/images/payment/paypal.png" alt="PayPal">
+                        </div>
+                    </div>
+
+                    <!-- Garantias -->
+                    <div class="garantias">
+                        <div class="garantia-item">
+                            <span class="icon"></span>
+                            <span>Envio rápido 24-48h</span>
+                        </div>
+                        <div class="garantia-item">
+                            <span class="icon"></span>
+                            <span>Devolução grátis 30 dias</span>
+                        </div>
+                        <div class="garantia-item">
+                            <span class="icon"></span>
+                            <span>Pagamento 100% seguro</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Produtos recomendados -->
+    <section class="recomendacoes-section">
+        <div class="container">
+            <h2>Também podes gostar</h2>
+            <div class="produtos-grid-small">
+
+                <div class="produto-card-small">
+                    <img src="../../images/products/whey-vanilla.jpg" alt="Whey Protein Isolado">
+                    <h4>Whey Isolado</h4>
+                    <span class="price">39,99€</span>
+                    <button class="btn small" onclick="addToCart('whey-vanilla', 'Whey Protein Baunilha 1kg', 39.99)">Adicionar</button>
+                </div>
+
+                <div class="produto-card-small">
+                    <img src="../../images/products/creatina.jpg" alt="Creatina">
+                    <h4>Creatina</h4>
+                    <span class="price">24,99€</span>
+                    <button class="btn small" onclick="addToCart('creatina', 'Creatina Monohidratada 300g', 24.99)">Adicionar</button>
+                </div>
+
+                <div class="produto-card-small">
+                    <img src="../../images/products/bcaa.jpg" alt="BCAA">
+                    <h4>BCAA 2:1:1 - Limão</h4>
+                    <span class="price">29,99€</span>
+                    <button class="btn small" onclick="addToCart('bcaa', 'BCAA 2:1:1 Limão 500g', 29.99)">Adicionar</button>
+                </div>
+
+                <div class="produto-card-small">
+                    <img src="../../images/products/proteinbar.jpg" alt="Barras de Proteína">
+                    <h4>Barras Proteína</h4>
+                    <span class="price">19,99€</span>
+                    <button class="btn small" onclick="addToCart('proteinbar', 'Barras de Proteína Pack 12', 19.99)">Adicionar</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BeastCenter</h4>
+                <p>O teu ginásio de excelência</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="../planos.html">Planos</a></li>
+                    <li><a href="../trainers.html">Personal Trainers</a></li>
+                    <li><a href="../aulas.html">Aulas</a></li>
+                    <li><a href="produtos.html">Loja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nós</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <a href="https://www.facebook.com/BeastCenter" target="_blank">Facebook</a> |
+                <a href="https://www.instagram.com/BeastCenter" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter © 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Ligação ao ficheiro JavaScript -->
+    <script src="../../Script/loja.js"></script>
+    <script src="../../Script/main.js"></script>
+</body>
+</html>
+
+
+
+
+

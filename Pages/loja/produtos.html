@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Configuração de caracteres UTF-8 para suportar caracteres especiais -->
+    <meta charset="UTF-8">
+    <!-- Torna o site responsivo em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loja BeastCenter - Suplementos e Snacks">
+    <title>Loja - BeastCenter</title>
+    <!-- Ligação ao ficheiro CSS para estilização -->
+    <link rel="stylesheet" href="../../Style/loja.css">
+</head>
+<body>
+    <!-- Barra de navegação principal do site -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="../../images/logo.png" alt="Logo BeastCenter">
+            BeastCenter
+        </div>
+        <!-- Menu de navegação -->
+        <nav>
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="../planos.html">Planos</a></li>
+                <li><a href="../trainers.html">Personal Trainers</a></li>
+                <li><a href="../aulas.html">Aulas</a></li>
+                <li><a href="produtos.html" class="active">Loja</a></li>                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><button class="cart-btn" onclick="window.location.href='carrinho.html'">Carrinho (<span id="cart-count">0</span>)</button></li>
+                <li><button class="login-btn" onclick="window.location.href='../login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Secção hero -->
+    <section class="hero-small">
+        <h1>Loja BeastCenter</h1>
+        <p>Equipamento, suplementos e snacks para impulsionar o teu treino</p>
+    </section>
+
+    <!-- Filtros e categorias -->
+    <section class="shop-filters">
+        <div class="container">
+            <div class="filter-bar">
+                <!-- Categorias -->
+                <div class="categories">
+                    <button class="category-btn active" data-category="all">Todos</button>
+                    <button class="category-btn" data-category="merch">Merch</button>
+                    <button class="category-btn" data-category="suplementos">Suplementos</button>
+                    <button class="category-btn" data-category="snacks">Snacks</button>
+                </div>
+
+                <!-- Ordenação -->
+                <div class="sort-options">
+                    <label>Ordenar por:</label>
+                    <select id="sort-select">
+                        <option value="recente">Mais Recente</option>
+                        <option value="preco-asc">Preço: Menor para Maior</option>
+                        <option value="preco-desc">Preço: Maior para Menor</option>
+                        <option value="popular">Mais Popular</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grid de produtos -->
+    <section class="produtos-section">
+        <div class="container">
+            <div class="produtos-grid">
+
+                <!-- CATEGORIA: MERCH -->
+
+                <!-- Produto 1 - T-shirt -->
+                <div class="produto-card" data-category="merch" data-price="24.99">
+                    <div class="produto-image">
+                        <img src="../../images/products/tshirt-black.jpg" alt="T-shirt BeastCenter Preta">
+                        <span class="badge novo">Novo</span>
+                    </div>
+                    <h3>T-shirt BeastCenter - Preta</h3>
+                    <p class="produto-desc">100% Algodão. Conforto e estilo</p>
+                    <div class="produto-rating">
+                        5/5 (45 reviews)
+                    </div>
+                    <div class="produto-price">24,99€</div>
+                    <button class="btn add-to-cart" onclick="addToCart('tshirt-black', 'T-shirt BeastCenter Preta', 24.99)">Adicionar ao Carrinho</button>
+                </div>
+
+                <!-- Produto 2 - Hoodie -->
+                <div class="produto-card" data-category="merch" data-price="49.99">
+                    <div class="produto-image">
+                        <img src="../../images/products/hoodie-grey.jpg" alt="Hoodie BeastCenter">
+                        <span class="badge novo">Novo</span>
+                    </div>
+                    <h3>Hoodie BeastCenter - Cinza</h3>
+                    <p class="produto-desc">Algodão premium. Perfeito para o inverno</p>
+                    <div class="produto-rating">
+                        5/5 (32 reviews)
+                    </div>
+                    <div class="produto-price">49,99€</div>
+                    <button class="btn add-to-cart" onclick="addToCart('hoodie-grey', 'Hoodie BeastCenter Cinza', 49.99)">Adicionar ao Carrinho</button>
+                </div>
+
+                <!-- Produto 3 - Garrafa -->
+                <div class="produto-card" data-category="merch" data-price="14.99">
+                    <div class="produto-image">
+                        <img src="../../images/products/bottle.jpg" alt="Garrafa BeastCenter">
+                    </div>
+                    <h3>Garrafa de Água BeastCenter 1L</h3>
+                    <p class="produto-desc">Inox. Mantém a temperatura</p>
+                    <div class="produto-rating">
+                        5/5 (78 reviews)
+                    </div>
+                    <div class="produto-price">14,99€</div>
+                    <button class="btn add-to-cart" onclick="addToCart('bottle', 'Garrafa BeastCenter 1L', 14.99)">Adicionar ao Carrinho</button>
+                </div>
+
+                <!-- Produto 4 - Toalha -->
+                <div class="produto-card" data-category="merch" data-price="9.99">
+                    <div class="produto-image">
+                        <img src="../../images/products/towel.jpg" alt="Toalha BeastCenter">
+                    </div>
+                    <h3>Toalha de Ginásio BeastCenter</h3>
+                    <p class="produto-desc">Microfibra. Absorção rápida</p>
+                    <div class="produto-rating">
+                        4/5 (23 reviews)
+                    </div>
+                    <div class="produto-price">9,99€</div>
+                    <button class="btn add-to-cart" onclick="addToCart('towel', 'Toalha BeastCenter', 9.99)">Adicionar ao Carrinho</button>
+                </div>
+
+                <!-- CATEGORIA: SUPLEMENTOS -->
+
+                <!-- Produto 5 - Whey Protein -->
+                <div class="produto-card" data-category="suplementos" data-price="39.99">
+                    <div class="produto-image produto-gallery">
+                        <div class="produto-thumbs">
+                            <img src="../../images/products/whey-vanilla.jpg" alt="Whey Isolado Baunilha - Vista 1">
+                            <img src="../../images/products/whey-vanilla2.jpg" alt="Whey Isolado Baunilha - Vista 2">
+                        </div>
+                        <div class="produto-main">
+                            <img src="../../images/products/whey-vanilla.jpg" alt="Whey Protein Isolado - Baunilha">
+                        </div>
+                        <span class="badge destaque">Mais Vendido</span>
+                    </div>
+                    <h3>Whey Protein Isolado - Baunilha</h3>
+                    <p class="produto-desc">1kg. 25g proteína por dose</p>
+                    <div class="produto-rating">
+                        0/5 (0 reviews)
+                    </div>
+                    <div class="produto-price">39,99€</div>
+                    <button class="btn add-to-cart" onclick="addToCart('whey-vanilla', 'Whey Protein Baunilha 1kg', 39.99)">Adicionar ao Carrinho</button>
+                </div>
+
+                <!-- Produto 6 - Creatina -->
+                <div class="produto-card" data-category="suplementos" data-price="24.99">
+                    <div class="produto-image produto-gallery">
+                        <div class="produto-thumbs">
+                            <img src="../../images/products/creatina.jpg" alt="Creatina - Vista 1">
+                            <img src="../../images/products/creatina2.jpg" alt="Creatina - Vista 2">
+                        </div>
+                        <div class="produto-main">
+                            <img src="../../images/products/creatina.jpg" alt="Creatina">
+                        </div>
+                    </div>
+                    <h3>Creatina Monohidratada</h3>
+                    <p class="produto-desc">300g. Pura e micronizada</p>
+                    <div class="produto-rating">
+                        5/5 (89 reviews)
+                    </div>
+                    <div class="produto-price">24,99€</div>
+                    <button class="btn add-to-cart" onclick="addToCart('creatina', 'Creatina Monohidratada 300g', 24.99)">Adicionar ao Carrinho</button>
+                </div>
+
+                <!-- Produto 7 - BCAA -->
+                <div class="produto-card" data-category="suplementos" data-price="29.99">
+                    <div class="produto-image produto-gallery">
+                        <div class="produto-thumbs">
+                            <img src="../../images/products/bcaa.jpg" alt="BCAA - Vista 1">
+                            <img src="../../images/products/bcaa2.jpg" alt="BCAA - Vista 2">
+                        </div>
+                        <div class="produto-main">
+                            <img src="../../images/products/bcaa.jpg" alt="BCAA">
+                        </div>
+                    </div>
+                    <h3>BCAA 2:1:1 - Limão</h3>
+                    <p class="produto-desc">500g. Ratio otimizado</p>
+                    <div class="produto-rating">
+                        4/5 (67 reviews)
+                    </div>
+                    <div class="produto-price">29,99€</div>
+                    <button class="btn add-to-cart" onclick="addToCart('bcaa', 'BCAA 2:1:1 Limão 500g', 29.99)">Adicionar ao Carrinho</button>
+                </div>
+
+                <!-- Produto 8 - Pre-Workout -->
+                <div class="produto-card" data-category="suplementos" data-price="34.99">
+                    <div class="produto-image produto-gallery">
+                        <div class="produto-thumbs">
+                            <img src="../../images/products/preworkout.jpg" alt="Pre-Workout - Vista 1">
+                            <img src="../../images/products/preworkout2.jpg" alt="Pre-Workout - Vista 2">
+                        </div>
+                        <div class="produto-main">
+                            <img src="../../images/products/preworkout.jpg" alt="Pre-Workout">
+                        </div>
+                        <span class="badge novo">Novo</span>
+                    </div>
+                    <h3>Pre-Workout Extreme</h3>
+                    <p class="produto-desc">300g. Energia e foco máximo</p>
+                    <div class="produto-rating">
+                        5/5 (102 reviews)
+                    </div>
+                    <div class="produto-price">34,99€</div>
+                    <button class="btn add-to-cart" onclick="addToCart('preworkout', 'Pre-Workout Extreme 300g', 34.99)">Adicionar ao Carrinho</button>
+                </div>
+
+                <!-- CATEGORIA: SNACKS -->
+
+                <!-- Produto 9 - Barras de Proteína -->
+                <div class="produto-card" data-category="snacks" data-price="19.99">
+                    <div class="produto-image produto-gallery">
+                        <div class="produto-thumbs">
+                            <img src="../../images/products/proteinbar.jpg" alt="Barras de Proteína - Vista 1">
+                            <img src="../../images/products/proteinbar2.jpg" alt="Barras de Proteína - Vista 2">
+                        </div>
+                        <div class="produto-main">
+                            <img src="../../images/products/proteinbar.jpg" alt="Barras de Proteína">
+                        </div>
+                    </div>
+                    <h3>Barras de Proteína - Pack 12un</h3>
+                    <p class="produto-desc">Sabor Chocolate Brownie. 20g proteína</p>
+                    <div class="produto-rating">
+                        5/5 (134 reviews)
+                    </div>
+                    <div class="produto-price">19,99€</div>
+                    <button class="btn add-to-cart" onclick="addToCart('proteinbar', 'Barras de Proteína Pack 12', 19.99)">Adicionar ao Carrinho</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner promocional -->
+    <section class="promo-banner">
+        <div class="container">
+            <h2>Portes Grátis em compras acima de 50€</h2>
+            <p>Válido para Portugal Continental</p>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BeastCenter</h4>
+                <p>O teu ginásio de excelência</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="../planos.html">Planos</a></li>
+                    <li><a href="../trainers.html">Personal Trainers</a></li>
+                    <li><a href="../aulas.html">Aulas</a></li>
+                    <li><a href="produtos.html">Loja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nós</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <a href="https://www.facebook.com/BeastCenter" target="_blank">Facebook</a> |
+                <a href="https://www.instagram.com/BeastCenter" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter © 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Ligação ao ficheiro JavaScript -->
+    <script src="../../Script/loja.js"></script>
+    <script src="../../Script/main.js"></script>
+</body>
+</html>
+
+
+

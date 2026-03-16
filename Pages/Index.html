@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Configuração de caracteres UTF-8 para suportar caracteres especiais -->
+    <meta charset="UTF-8" />
+    <!-- Torna o site responsivo em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Descrição do site para motores de busca (SEO) -->
+    <meta name="description" content="BeastCenter - O melhor centro de fitness para alcançar seu máximo potencial." />
+    <!-- Meta tag para partilha em redes sociais -->
+    <meta property="og:title" content="BeastCenter - Página Principal" />
+    <title>BeastCenter - Página Principal</title>
+    <!-- Ligação aos ficheiros CSS para estilização -->
+    <link rel="stylesheet" href="../Style/pages.css">
+    <link rel="stylesheet" href="../Style/index.css">
+</head>
+<body>
+    <!-- Barra de navegação principal do site -->
+    <header class="navbar">
+        <!-- Logo do ginásio -->
+        <div class="logo">
+            <img src="../images/logo.png" alt="Logo BeastCenter" />
+            BeastCenter
+        </div>
+        <!-- Menu de navegação com links para diferentes secções -->
+        <nav>
+            <ul>
+                <li><a href="Index.html" class="active">Home</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="trainers.html">Personal Trainers</a></li>
+                <li><a href="aulas.html">Aulas</a></li>
+                <li><a href="loja/produtos.html">Loja</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><button class="login-btn" onclick="window.location.href='login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Secção hero - Slider principal -->
+    <section id="home" class="hero">
+        <div class="hero-slider">
+            <div class="hero-slide active" style="background-image: url('https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=1600'); background-position: center 35%;">
+                <div class="hero-content">
+                    <span class="hero-eyebrow">BeastCenter</span>
+                    <h1>Constrói a tua melhor versão</h1>
+                    <p>Treina no melhor ambiente para atingires o teu potencial máximo.</p>
+                    <div class="buttons">
+                        <a href="planos.html" class="btn">Ver Planos</a>
+                        <a href="#aula" class="btn secondary">Treino Grátis</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=1600')">
+                <div class="hero-content">
+                    <span class="hero-eyebrow">Plano Mais Escolhido</span>
+                    <h1>Plano Extra é o Mais Escolhido</h1>
+                    <p>Mais acesso, mais vantagens, mais resultados — o equilíbrio perfeito.</p>
+                    <div class="buttons">
+                        <a href="#planos" class="btn">Ver Plano Extra</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-slide" style="background-image: url('https://images.pexels.com/photos/4397838/pexels-photo-4397838.jpeg?auto=compress&cs=tinysrgb&w=1600')">
+                <div class="hero-content">
+                    <span class="hero-eyebrow">Loja e Suplementos</span>
+                    <h1>Loja BeastCenter</h1>
+                    <p>Merch, suplementos e snacks para elevar o teu treino.</p>
+                    <div class="buttons">
+                        <a href="loja/produtos.html" class="btn">Ir à Loja</a>
+                        <a href="loja/produtos.html" class="btn secondary">Ver Novidades</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-dots">
+                <button class="hero-dot active" type="button" aria-label="Slide 1"></button>
+                <button class="hero-dot" type="button" aria-label="Slide 2"></button>
+                <button class="hero-dot" type="button" aria-label="Slide 3"></button>
+            </div>
+            <button class="hero-arrow hero-arrow-prev" type="button" aria-label="Slide anterior">‹</button>
+            <button class="hero-arrow hero-arrow-next" type="button" aria-label="Próximo slide">›</button>
+        </div>
+    </section>
+
+    <!-- Secção de destaques -->
+    <section class="features-section">
+        <div class="container">
+            <h2>Porquê Escolher o BeastCenter?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>Equipamento Moderno</h3>
+                    <p>Equipamento de última geração para todos os tipos de treino</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>Personal Trainers</h3>
+                    <p>Equipa de profissionais certificados para te ajudar</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>Aulas de Grupo</h3>
+                    <p>Mais de 50 aulas semanais de diversas modalidades</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>Piscina e SPA</h3>
+                    <p>Relaxa após o treino nas nossas instalações premium</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>Acesso 24/7</h3>
+                    <p>Treina quando quiseres com acesso total todos os dias</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"></div>
+                    <h3>App Exclusiva</h3>
+                    <p>Planos, aulas e progresso num so lugar para acompanhar</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção de planos - Mostra o plano mais popular do ginásio -->
+    <section id="planos" class="planos-section single-plan-section">
+        <div class="container">
+            <h2>Planos de Adesão</h2>
+            <p class="subtitle">Escolhe o plano perfeito para ti</p>
+            <div class="planos-grid single-plan">
+                <!-- Card com informações do plano Extra -->
+                <div class="plano-card destaque">
+                    <span class="badge-popular">Mais Popular</span>
+                    <h3>Plano Extra</h3>
+                    <p class="plano-desc">O equilíbrio perfeito entre preço e vantagens</p>
+                    <!-- Lista de benefícios incluídos no plano -->
+                    <ul>
+                        <li>2 entradas por dia</li>
+                        <li>Wi-Fi grátis</li>
+                        <li>Acesso à piscina e spa</li>
+                        <li>Snack diário grátis</li>
+                    </ul>
+                    <span class="preco">31,99€/mês</span>
+                    <button class="btn" onclick="window.location.href='planos.html'">Ver mais planos</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção de aula experimental -->
+    <section id="aula" class="cta-section">
+        <div class="container">
+            <h2>Experimenta Grátis!</h2>
+            <p>Marca um treino gratuito no ginásio e conhece o BeastCenter</p>
+            <button class="btn large" onclick="window.location.href='aulas.html'">Marcar Treino Grátis</button>
+        </div>
+    </section>
+
+    <!-- Rodapé com informações sobre Nós e redes sociais -->
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="../images/logo.png" alt="Logo BeastCenter" />
+                    <h4>BeastCenter</h4>
+                </div>
+                <p>O teu ginásio de excelência</p>
+                <p>Transforma o teu corpo, transforma a tua vida</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="planos.html">Planos</a></li>
+                    <li><a href="trainers.html">Personal Trainers</a></li>
+                    <li><a href="aulas.html">Aulas</a></li>
+                    <li><a href="loja/produtos.html">Loja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nós</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+                <p>Morada: Rua do Ginásio, 123, Lisboa</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <p>Segue-nos nas redes sociais:</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/BeastCenter" target="_blank">Facebook</a>
+                    <a href="https://www.instagram.com/BeastCenter" target="_blank">Instagram</a>
+                    <a href="https://www.youtube.com/BeastCenter" target="_blank">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter © 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Ligação ao ficheiro JavaScript principal -->
+    <script src="../Script/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

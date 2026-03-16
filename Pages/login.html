@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Configuração de caracteres UTF-8 para suportar caracteres especiais -->
+    <meta charset="UTF-8">
+    <!-- Torna o site responsivo em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login - BeastCenter">
+    <title>Login - BeastCenter</title>
+    <!-- Ligação ao ficheiro CSS para estilização -->
+    <link rel="stylesheet" href="../Style/auth.css">
+</head>
+<body>
+    <!-- Container principal de autenticação -->
+    <div class="auth-container">
+
+        <!-- Logo e link para voltar -->
+        <div class="auth-header">
+            <a href="Index.html" class="back-link">Voltar ao Site</a>
+            <div class="logo-large" id="admin-secret-trigger" tabindex="0" role="button" aria-label="Ativar acesso administrativo escondido">
+                <img src="../images/logo.png" alt="Logo BeastCenter">
+                <h1>BeastCenter</h1>
+            </div>
+        </div>
+
+        <!-- Formulário de Login -->
+        <div class="auth-box" id="login-box">
+            <h2>Bem-vindo de volta!</h2>
+            <p class="subtitle">Entre na sua conta</p>
+
+            <div class="admin-secret-panel" id="admin-secret-panel" hidden>
+                <div class="admin-secret-badge">Modo administrativo</div>
+                <p class="admin-secret-text">Acesso reservado. Introduz utilizador e password de administrador.</p>
+
+                <form id="admin-login-form" class="admin-secret-form" onsubmit="return handleAdminLogin(event)">
+                    <div class="form-group">
+                        <label for="admin-username">Utilizador</label>
+                        <input type="text" id="admin-username" name="username" placeholder="Utilizador admin" autocomplete="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admin-password">Password</label>
+                        <input type="password" id="admin-password" name="password" placeholder="Password administrativa" autocomplete="current-password">
+                    </div>
+
+                    <div class="admin-secret-actions">
+                        <button type="submit" class="btn-auth">Entrar no Admin</button>
+                        <button type="button" class="btn-admin-back" onclick="hideAdminLogin()">Voltar ao login normal</button>
+                    </div>
+                </form>
+            </div>
+
+            <form id="login-form" onsubmit="return handleLogin(event)">
+                <!-- Campo de Email -->
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" name="email" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <!-- Campo de Password -->
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <!-- Lembrar-me e Esqueci-me da password -->
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="remember">
+                        <span>Lembrar-me</span>
+                    </label>
+                    <a href="recuperar-password.html" class="forgot-password">Esqueci-me da password</a>
+                </div>
+
+                <!-- Botão de Login -->
+                <button type="submit" class="btn-auth">Entrar</button>
+
+                <!-- Ou separador -->
+                <div class="separator">
+                    <span>ou</span>
+                </div>
+
+                <!-- Botões de login social -->
+                <div class="social-login">
+                    <button type="button" class="btn-social google" onclick="loginWithGoogle()">
+                        <img src="/images/google-icon.png" alt="Google">
+                        Continuar com Google
+                    </button>
+                    <button type="button" class="btn-social facebook" onclick="loginWithFacebook()">
+                        <img src="/images/facebook-icon.png" alt="Facebook">
+                        Continuar com Facebook
+                    </button>
+                </div>
+
+                <!-- Link para criar conta -->
+                <p class="switch-auth">
+                    Ainda não tens conta? <a href="#" onclick="switchToRegister(); return false;">Criar conta</a>
+                </p>
+            </form>
+        </div>
+
+        <!-- Formulário de Registo (escondido por defeito) -->
+        <div class="auth-box" id="register-box" style="display: none;">
+            <h2>Cria a tua conta</h2>
+            <p class="subtitle">Começa a tua jornada connosco</p>
+
+            <form id="register-form" onsubmit="return handleRegister(event)">
+                <!-- Campo de Nome -->
+                <div class="form-group">
+                    <label for="register-name">Nome Completo</label>
+                    <input type="text" id="register-name" name="name" placeholder="O teu nome" required>
+                </div>
+
+                <!-- Campo de Email -->
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" name="email" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <!-- Campo de Password -->
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" name="password" placeholder="Mínimo 8 caracteres" required minlength="8">
+                    <small class="password-hint">Usa pelo menos 8 caracteres com letras e números</small>
+                </div>
+
+                <!-- Campo de Confirmar Password -->
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirmar Password</label>
+                    <input type="password" id="register-confirm-password" name="confirm-password" placeholder="Repete a password" required>
+                </div>
+
+                <!-- Seleção de Plano -->
+                <div class="form-group">
+                    <label for="register-plan">Escolhe o teu plano</label>
+                    <select id="register-plan" name="plan" required>
+                        <option value="">Seleciona um plano</option>
+                        <option value="basico">Plano Básico - 19,99€/mês</option>
+                        <option value="extra">Plano Extra - 31,99€/mês</option>
+                        <option value="premium">Plano Premium - 49,99€/mês</option>
+                    </select>
+                </div>
+
+                <!-- Termos e condições -->
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="terms" required>
+                        <span>Aceito os <a href="termos.html" target="_blank">Termos e Condições</a> e a <a href="privacidade.html" target="_blank">Política de Privacidade</a></span>
+                    </label>
+                </div>
+
+                <!-- Botão de Registo -->
+                <button type="submit" class="btn-auth">Criar Conta</button>
+
+                <!-- Ou separador -->
+                <div class="separator">
+                    <span>ou</span>
+                </div>
+
+                <!-- Botões de registo social -->
+                <div class="social-login">
+                    <button type="button" class="btn-social google" onclick="registerWithGoogle()">
+                        <img src="/images/google-icon.png" alt="Google">
+                        Registar com Google
+                    </button>
+                    <button type="button" class="btn-social facebook" onclick="registerWithFacebook()">
+                        <img src="/images/facebook-icon.png" alt="Facebook">
+                        Registar com Facebook
+                    </button>
+                </div>
+
+                <!-- Link para login -->
+                <p class="switch-auth">
+                    Já tens conta? <a href="#" onclick="switchToLogin(); return false;">Fazer login</a>
+                </p>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Ligação ao ficheiro JavaScript -->
+    <script src="../Script/api.js"></script>
+    <script src="../Script/auth.js"></script>
+</body>
+</html>
+

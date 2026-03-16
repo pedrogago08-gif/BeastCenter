@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aulas - Admin BeastCenter</title>
+    <link rel="stylesheet" href="../../Style/admin.css">
+    <script src="../../Script/admin-guard.js"></script>
+</head>
+<body>
+    <aside class="admin-sidebar">
+        <div class="sidebar-header"><img src="../../images/logo.png" alt="BeastCenter Logo"><h2>Admin Panel</h2></div>
+        <nav class="admin-menu">
+            <a href="dashboard.html" class="menu-item"><span>Dashboard</span></a>
+            <a href="estatisticas.html" class="menu-item"><span>Estatisticas</span></a>
+            <a href="usuarios.html" class="menu-item"><span>Gerir Utilizadores</span></a>
+            <a href="trainers.html" class="menu-item"><span>Gerir Personal Trainers</span></a>
+            <a href="aulas.html" class="menu-item active"><span>Gerir Aulas</span></a>
+            <a href="loja.html" class="menu-item"><span>Gerir Loja</span></a>
+            <a href="planos.html" class="menu-item"><span>Gerir Planos</span></a>
+            <a href="mensagens.html" class="menu-item"><span>Mensagens</span></a>
+            <a href="recompensas.html" class="menu-item"><span>Sistema de Recompensas</span></a>
+            <a href="notificacoes.html" class="menu-item"><span>Notificacoes</span></a>
+            <hr>
+            <a href="../Index.html" class="menu-item logout"><span>Sair</span></a>
+        </nav>
+    </aside>
+    <main class="admin-content">
+        <header class="admin-topbar">
+            <div>
+                <h1>Gerir Aulas</h1>
+                <p class="page-kicker">Cria, edita e publica o horario real de aulas do BeastCenter.</p>
+            </div>
+            <div class="admin-user-info">
+                <div class="admin-profile">
+                    <img src="/images/admin-avatar.jpg" alt="Admin Avatar">
+                    <div class="admin-details">
+                        <span class="admin-name">Administrador</span>
+                        <span class="admin-role">Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="admin-page-container">
+            <section class="actions-bar">
+                <button class="btn-primary" id="add-class-btn">Adicionar Aula</button>
+                <div class="filters">
+                    <input type="text" class="search-input" id="search-classes" placeholder="Pesquisar por nome ou trainer...">
+                    <select class="filter-select" id="filter-day">
+                        <option value="all">Todos os dias</option>
+                        <option value="segunda">Segunda</option>
+                        <option value="terca">Terca</option>
+                        <option value="quarta">Quarta</option>
+                        <option value="quinta">Quinta</option>
+                        <option value="sexta">Sexta</option>
+                        <option value="sabado">Sabado</option>
+                    </select>
+                    <select class="filter-select" id="filter-class-status">
+                        <option value="all">Todos os estados</option>
+                        <option value="ativa">Ativas</option>
+                        <option value="inativa">Inativas</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="summary-cards">
+                <div class="summary-card">
+                    <h3 id="summary-total-classes">0</h3>
+                    <p>Total de Aulas</p>
+                </div>
+                <div class="summary-card active">
+                    <h3 id="summary-active-classes">0</h3>
+                    <p>Aulas Ativas</p>
+                </div>
+                <div class="summary-card inactive">
+                    <h3 id="summary-inactive-classes">0</h3>
+                    <p>Aulas Inativas</p>
+                </div>
+                <div class="summary-card new">
+                    <h3 id="summary-capacity-classes">0</h3>
+                    <p>Capacidade Total</p>
+                </div>
+            </section>
+
+            <section class="users-table-section">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Aula</th>
+                            <th>Categoria</th>
+                            <th>Trainer</th>
+                            <th>Dia</th>
+                            <th>Hora</th>
+                            <th>Capacidade</th>
+                            <th>Status</th>
+                            <th>Acoes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classes-tbody"></tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <div id="class-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="class-modal-title">Adicionar Aula</h2>
+                <button class="close-modal" id="close-class-modal">x</button>
+            </div>
+            <form class="user-form" id="class-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="class-title">Nome da Aula</label>
+                        <input type="text" id="class-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="class-category">Categoria</label>
+                        <input type="text" id="class-category" placeholder="hiit, yoga, spinning..." required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="class-trainer">Trainer</label>
+                        <input type="text" id="class-trainer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="class-location">Local</label>
+                        <input type="text" id="class-location" placeholder="Sala 1">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="class-day">Dia</label>
+                        <select id="class-day" required>
+                            <option value="segunda">Segunda</option>
+                            <option value="terca">Terca</option>
+                            <option value="quarta">Quarta</option>
+                            <option value="quinta">Quinta</option>
+                            <option value="sexta">Sexta</option>
+                            <option value="sabado">Sabado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="class-time">Hora</label>
+                        <input type="time" id="class-time" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="class-duration">Duracao (min)</label>
+                        <input type="number" id="class-duration" min="15" value="45" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="class-capacity">Capacidade</label>
+                        <input type="number" id="class-capacity" min="1" value="20" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="class-enrolled">Inscritos</label>
+                        <input type="number" id="class-enrolled" min="0" value="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="class-status">Status</label>
+                        <select id="class-status" required>
+                            <option value="ativa">Ativa</option>
+                            <option value="inativa">Inativa</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="class-description">Descricao</label>
+                        <input type="text" id="class-description" placeholder="Descricao curta da aula">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancel-class-modal">Cancelar</button>
+                    <button type="submit" class="btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../../Script/api.js"></script>
+    <script src="../../Script/admin-aulas.js"></script>
+    <script src="../../Script/admin.js"></script>
+</body>
+</html>

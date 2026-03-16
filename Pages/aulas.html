@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Configuração de caracteres UTF-8 para suportar caracteres especiais -->
+    <meta charset="UTF-8">
+    <!-- Torna o site responsivo em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Horário de aulas de grupo no BeastCenter">
+    <title>Aulas - BeastCenter</title>
+    <!-- Ligação ao ficheiro CSS para estilização -->
+    <link rel="stylesheet" href="../Style/pages.css">
+</head>
+<body>
+    <!-- Barra de navegação principal do site -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="../images/logo.png" alt="Logo BeastCenter">
+            BeastCenter
+        </div>
+        <!-- Menu de navegação -->
+        <nav>
+            <ul>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="trainers.html">Personal Trainers</a></li>
+                <li><a href="aulas.html" class="active">Aulas</a></li>
+                <li><a href="loja/produtos.html">Loja</a></li>                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><button class="login-btn" onclick="window.location.href='login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Secção hero -->
+    <section class="hero-small">
+        <h1>Aulas de Grupo</h1>
+        <p>Treina em grupo e mantém-te motivado!</p>
+    </section>
+
+    <!-- Secção de tipos de aulas disponíveis -->
+    <section class="aulas-tipos">
+        <div class="container">
+            <h2>Tipos de Aulas</h2>
+            <div class="aulas-grid">
+
+                <!-- Card Spinning -->
+                <div class="aula-tipo-card">
+                    <div class="icon"></div>
+                    <h3>Spinning</h3>
+                    <p>Treino cardiovascular intenso em bicicleta. Queima calorias e melhora a resistência.</p>
+                    <span class="duracao">45 min</span>
+                </div>
+
+                <!-- Card Zumba -->
+                <div class="aula-tipo-card">
+                    <div class="icon"></div>
+                    <h3>Zumba</h3>
+                    <p>Dança e fitness combinados. Diversão garantida enquanto te exercitas.</p>
+                    <span class="duracao">60 min</span>
+                </div>
+
+                <!-- Card Yoga -->
+                <div class="aula-tipo-card">
+                    <div class="icon"></div>
+                    <h3>Yoga</h3>
+                    <p>Melhora a flexibilidade, equilíbrio e bem-estar mental.</p>
+                    <span class="duracao">60 min</span>
+                </div>
+
+                <!-- Card Pilates -->
+                <div class="aula-tipo-card">
+                    <div class="icon"></div>
+                    <h3>Pilates</h3>
+                    <p>Fortalecimento do core e melhoria da postura.</p>
+                    <span class="duracao">50 min</span>
+                </div>
+
+                <!-- Card HIIT -->
+                <div class="aula-tipo-card">
+                    <div class="icon"></div>
+                    <h3>HIIT</h3>
+                    <p>Treino intervalado de alta intensidade. Máxima queima calórica.</p>
+                    <span class="duracao">30 min</span>
+                </div>
+
+                <!-- Card Body Pump -->
+                <div class="aula-tipo-card">
+                    <div class="icon"></div>
+                    <h3>Body Pump</h3>
+                    <p>Treino com pesos ao som de música motivante.</p>
+                    <span class="duracao">55 min</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção de Horário Semanal -->
+    <section class="horario-section">
+        <div class="container">
+            <h2>Horário Semanal</h2>
+
+            <!-- Tabela de horários -->
+            <div class="horario-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hora</th>
+                            <th>Segunda</th>
+                            <th>Terça</th>
+                            <th>Quarta</th>
+                            <th>Quinta</th>
+                            <th>Sexta</th>
+                            <th>Sábado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classes-schedule-body"></tbody>
+                </table>
+            </div>
+
+            <!-- Botão para marcar aulas (apenas para membros) -->
+            <div class="marcar-aula-cta">
+                <p>Para marcar presença nas aulas, faça login na sua conta</p>
+                <button class="btn large" onclick="window.location.href='login.html'">Login / Registo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção CTA para aula experimental -->
+    <section class="cta-section">
+        <h2>Primeira vez no BeastCenter?</h2>
+        <p>Experimenta um treino gratuito!</p>
+        <button class="btn large" onclick="window.location.href='aula-experimental.html'">Marcar Treino Grátis</button>
+    </section>
+
+    <!-- Rodapé -->
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BeastCenter</h4>
+                <p>O teu ginásio de excelência</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="planos.html">Planos</a></li>
+                    <li><a href="trainers.html">Personal Trainers</a></li>
+                    <li><a href="aulas.html">Aulas</a></li>
+                    <li><a href="loja/produtos.html">Loja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nós</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <a href="https://www.facebook.com/BeastCenter" target="_blank">Facebook</a> |
+                <a href="https://www.instagram.com/BeastCenter" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter © 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Ligação ao ficheiro JavaScript -->
+    <script src="../Script/main.js"></script>
+    <script src="../Script/api.js"></script>
+    <script src="../Script/aulas.js"></script>
+</body>
+</html>
+
+
+

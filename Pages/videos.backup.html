@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <!-- Configuração de caracteres UTF-8 para suportar caracteres especiais -->
+    <meta charset="UTF-8">
+    <!-- Torna o site responsivo em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Biblioteca de vídeos de treino - BeastCenter">
+    <title>Vídeos - BeastCenter</title>
+    <!-- Ligação ao ficheiro CSS para estilização -->
+    <link rel="stylesheet" href="../Style/pages.css">
+</head>
+<body>
+    <!-- Barra de navegação principal do site -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="../images/logo.png" alt="Logo BeastCenter">
+            BeastCenter
+        </div>
+        <!-- Menu de navegação -->
+        <nav>
+            <ul>
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="planos.html">Planos</a></li>
+                <li><a href="trainers.html">Personal Trainers</a></li>
+                <li><a href="aulas.html">Aulas</a></li>
+                <li><a href="loja/produtos.html">Loja</a></li>
+                <li><a href="videos.html" class="active">Vídeos</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><button class="login-btn" onclick="window.location.href='login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Secção hero -->
+    <section class="hero-small">
+        <h1>Biblioteca de Vídeos</h1>
+        <p>Treina onde e quando quiseres com os nossos vídeos exclusivos</p>
+    </section>
+
+    <!-- Aviso de conteúdo premium -->
+    <div class="premium-notice">
+        <div class="container">
+            <p>Alguns vídeos são exclusivos para membros Premium. <a href="planos.html">Upgrade agora!</a></p>
+        </div>
+    </div>
+
+    <!-- Filtros de categorias -->
+    <section class="video-filters">
+        <div class="container">
+            <h2>Categorias</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-category="all">Todos</button>
+                <button class="filter-btn" data-category="forca">Força</button>
+                <button class="filter-btn" data-category="cardio">Cardio</button>
+                <button class="filter-btn" data-category="flexibilidade">Flexibilidade</button>
+                <button class="filter-btn" data-category="hiit">HIIT</button>
+                <button class="filter-btn" data-category="funcional">Funcional</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Secção de vídeos -->
+    <section class="videos-section">
+        <div class="container">
+
+            <!-- Categoria: Força -->
+            <h3 class="category-title">Treinos de Força</h3>
+            <div class="videos-grid">
+
+                <!-- Vídeo 1 - Gratuito -->
+                <div class="video-card" data-category="forca">
+                    <div class="video-thumbnail">
+                        <img src="/images/videos/forca1.jpg" alt="Treino de Peito">
+                        <span class="badge free">Gratuito</span>
+                        <div class="play-btn"></div>
+                    </div>
+                    <h4>Treino Completo de Peito</h4>
+                    <p>João Silva • 25 min • Iniciante</p>
+                    <button class="btn small" onclick="playVideo('forca1')">Assistir</button>
+                </div>
+
+                <!-- Vídeo 2 - Premium -->
+                <div class="video-card premium-locked" data-category="forca">
+                    <div class="video-thumbnail">
+                        <img src="/images/videos/forca2.jpg" alt="Treino de Costas">
+                        <span class="badge premium">Premium</span>
+                        <div class="lock-icon"></div>
+                    </div>
+                    <h4>Treino Avançado de Costas</h4>
+                    <p>João Silva • 30 min • Avançado</p>
+                    <button class="btn small disabled">Premium</button>
+                </div>
+
+                <!-- Vídeo 3 - Gratuito -->
+                <div class="video-card" data-category="forca">
+                    <div class="video-thumbnail">
+                        <img src="/images/videos/forca3.jpg" alt="Treino de Pernas">
+                        <span class="badge free">Gratuito</span>
+                        <div class="play-btn"></div>
+                    </div>
+                    <h4>Treino de Pernas para Iniciantes</h4>
+                    <p>Pedro Costa • 20 min • Iniciante</p>
+                    <button class="btn small" onclick="playVideo('forca3')">Assistir</button>
+                </div>
+
+                <!-- Vídeo 4 - Premium -->
+                <div class="video-card premium-locked" data-category="forca">
+                    <div class="video-thumbnail">
+                        <img src="/images/videos/forca4.jpg" alt="Treino de Ombros">
+                        <span class="badge premium">Premium</span>
+                        <div class="lock-icon"></div>
+                    </div>
+                    <h4>Hipertrofia de Ombros</h4>
+                    <p>João Silva • 35 min • Avançado</p>
+                    <button class="btn small disabled">Premium</button>
+                </div>
+
+            </div>
+
+            <!-- Categoria: Cardio -->
+            <h3 class="category-title">Treinos de Cardio</h3>
+            <div class="videos-grid">
+
+                <div class="video-card" data-category="cardio">
+                    <div class="video-thumbnail">
+                        <img src="/images/videos/cardio1.jpg" alt="Cardio Queima Gordura">
+                        <span class="badge free">Gratuito</span>
+                        <div class="play-btn"></div>
+                    </div>
+                    <h4>Cardio Queima Gordura</h4>
+                    <p>Maria Santos • 20 min • Todos os níveis</p>
+                    <button class="btn small" onclick="playVideo('cardio1')">Assistir</button>
+                </div>
+
+                <div class="video-card premium-locked" data-category="cardio">
+                    <div class="video-thumbnail">
+                        <img src="/images/videos/cardio2.jpg" alt="Running Avançado">
+                        <span class="badge premium">Premium</span>
+                        <div class="lock-icon"></div>
+                    </div>
+                    <h4>Treino de Running Avançado</h4>
+                    <p>Maria Santos • 40 min • Avançado</p>
+                    <button class="btn small disabled">Premium</button>
+                </div>
+
+            </div>
+
+            <!-- Categoria: HIIT -->
+            <h3 class="category-title">Treinos HIIT</h3>
+            <div class="videos-grid">
+
+                <div class="video-card" data-category="hiit">
+                    <div class="video-thumbnail">
+                        <img src="/images/videos/hiit1.jpg" alt="HIIT 15 min">
+                        <span class="badge free">Gratuito</span>
+                        <div class="play-btn"></div>
+                    </div>
+                    <h4>HIIT 15 Minutos</h4>
+                    <p>Maria Santos • 15 min • Intermediário</p>
+                    <button class="btn small" onclick="playVideo('hiit1')">Assistir</button>
+                </div>
+
+                <div class="video-card premium-locked" data-category="hiit">
+                    <div class="video-thumbnail">
+                        <img src="/images/videos/hiit2.jpg" alt="HIIT Extremo">
+                        <span class="badge premium">Premium</span>
+                        <div class="lock-icon"></div>
+                    </div>
+                    <h4>HIIT Extremo - Queima Máxima</h4>
+                    <p>Maria Santos • 30 min • Avançado</p>
+                    <button class="btn small disabled">Premium</button>
+                </div>
+
+            </div>
+
+            <!-- Categoria: Flexibilidade -->
+            <h3 class="category-title">Flexibilidade e Bem-estar</h3>
+            <div class="videos-grid">
+
+                <div class="video-card" data-category="flexibilidade">
+                    <div class="video-thumbnail">
+                        <img src="/images/videos/yoga1.jpg" alt="Yoga para Iniciantes">
+                        <span class="badge free">Gratuito</span>
+                        <div class="play-btn"></div>
+                    </div>
+                    <h4>Yoga para Iniciantes</h4>
+                    <p>Ana Rodrigues • 30 min • Iniciante</p>
+                    <button class="btn small" onclick="playVideo('yoga1')">Assistir</button>
+                </div>
+
+                <div class="video-card premium-locked" data-category="flexibilidade">
+                    <div class="video-thumbnail">
+                        <img src="/images/videos/pilates1.jpg" alt="Pilates Avançado">
+                        <span class="badge premium">Premium</span>
+                        <div class="lock-icon"></div>
+                    </div>
+                    <h4>Pilates Avançado</h4>
+                    <p>Ana Rodrigues • 45 min • Avançado</p>
+                    <button class="btn small disabled">Premium</button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA para upgrade Premium -->
+    <section class="cta-section">
+        <h2>Quer acesso a todos os vídeos?</h2>
+        <p>Upgrade para Premium e acede a mais de 200 vídeos exclusivos!</p>
+        <button class="btn large" onclick="window.location.href='planos.html'">Ver Planos Premium</button>
+    </section>
+
+    <!-- Rodapé -->
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BeastCenter</h4>
+                <p>O teu ginásio de excelência</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="planos.html">Planos</a></li>
+                    <li><a href="trainers.html">Personal Trainers</a></li>
+                    <li><a href="aulas.html">Aulas</a></li>
+                    <li><a href="loja/produtos.html">Loja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nós</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <a href="https://www.facebook.com/BeastCenter" target="_blank">Facebook</a> |
+                <a href="https://www.instagram.com/BeastCenter" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter © 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Ligação ao ficheiro JavaScript -->
+    <script src="../Script/videos.js"></script>
+    <script src="../Script/main.js"></script>
+</body>
+</html>
+
