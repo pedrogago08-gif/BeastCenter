@@ -580,6 +580,15 @@ select {
     color: var(--client-text-soft);
 }
 
+.dashboard-locked {
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-locked .empty-state-block {
+    display: grid;
+    gap: 1rem;
+}
+
 .panel-list,
 .settings-list,
 .feature-list {

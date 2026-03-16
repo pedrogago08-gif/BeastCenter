@@ -117,6 +117,11 @@
                     <input type="email" id="register-email" name="email" placeholder="seuemail@exemplo.com" required>
                 </div>
 
+                <div class="form-group">
+                    <label for="register-phone">Numero de Telemovel</label>
+                    <input type="tel" id="register-phone" name="phone" placeholder="912 345 678" required>
+                </div>
+
                 <!-- Campo de Password -->
                 <div class="form-group">
                     <label for="register-password">Password</label>
@@ -128,17 +133,6 @@
                 <div class="form-group">
                     <label for="register-confirm-password">Confirmar Password</label>
                     <input type="password" id="register-confirm-password" name="confirm-password" placeholder="Repete a password" required>
-                </div>
-
-                <!-- Seleção de Plano -->
-                <div class="form-group">
-                    <label for="register-plan">Escolhe o teu plano</label>
-                    <select id="register-plan" name="plan" required>
-                        <option value="">Seleciona um plano</option>
-                        <option value="basico">Plano Básico - 19,99€/mês</option>
-                        <option value="extra">Plano Extra - 31,99€/mês</option>
-                        <option value="premium">Plano Premium - 49,99€/mês</option>
-                    </select>
                 </div>
 
                 <!-- Termos e condições -->
@@ -161,11 +155,11 @@
                 <div class="social-login">
                     <button type="button" class="btn-social google" onclick="registerWithGoogle()">
                         <img src="/images/google-icon.png" alt="Google">
-                        Registar com Google
+                        Continuar com Google
                     </button>
                     <button type="button" class="btn-social facebook" onclick="registerWithFacebook()">
                         <img src="/images/facebook-icon.png" alt="Facebook">
-                        Registar com Facebook
+                        Continuar com Facebook
                     </button>
                 </div>
 

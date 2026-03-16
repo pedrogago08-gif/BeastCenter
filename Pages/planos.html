@@ -84,6 +84,140 @@
             text-decoration: none;
             font-weight: 600;
         }
+
+        .checkout-section {
+            background: linear-gradient(180deg, #111111 0%, #1a1a1a 100%);
+            color: white;
+        }
+
+        .checkout-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .checkout-card,
+        .payment-summary {
+            padding: 1.75rem;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+        }
+
+        .checkout-section h2,
+        .checkout-section p,
+        .checkout-section label,
+        .checkout-section h3 {
+            color: white;
+        }
+
+        .checkout-intro {
+            color: rgba(255, 255, 255, 0.78);
+            margin-bottom: 1.25rem;
+        }
+
+        .payment-method-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .payment-option {
+            position: relative;
+            padding: 1rem;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .payment-option:hover {
+            border-color: rgba(228, 30, 43, 0.55);
+            transform: translateY(-3px);
+        }
+
+        .payment-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .payment-option strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: white;
+        }
+
+        .payment-option span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.92rem;
+        }
+
+        .payment-option.selected {
+            border-color: rgba(228, 30, 43, 0.85);
+            box-shadow: 0 12px 28px rgba(228, 30, 43, 0.24);
+            background: rgba(228, 30, 43, 0.12);
+        }
+
+        .payment-summary p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .payment-summary .summary-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin: 1rem 0;
+        }
+
+        .summary-list {
+            list-style: none;
+            margin-top: 1rem;
+            display: grid;
+            gap: 0.8rem;
+        }
+
+        .summary-list li {
+            padding: 0.9rem 1rem;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .payment-status-message {
+            margin-top: 1rem;
+            padding: 0.95rem 1rem;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.82);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .payment-status-message.success {
+            background: rgba(76, 175, 80, 0.16);
+            border-color: rgba(76, 175, 80, 0.32);
+        }
+
+        .payment-status-message.error {
+            background: rgba(228, 30, 43, 0.16);
+            border-color: rgba(228, 30, 43, 0.36);
+        }
+
+        @media (max-width: 900px) {
+            .checkout-shell {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-method-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -139,7 +273,7 @@
                         <li>Aulas de grupo</li>
                     </ul>
 
-                    <button class="btn" onclick="window.location.href='login.html'">Escolher Plano</button>
+                    <button class="btn plan-select-btn" type="button" data-plan="basico" data-price="19.99">Escolher Plano</button>
                 </div>
 
                 <!-- Card 2 - Plano Extra (Mais Popular) -->
@@ -160,7 +294,7 @@
                         <li>Desconto de 10% na loja</li>
                     </ul>
 
-                    <button class="btn" onclick="window.location.href='login.html'">Escolher Plano</button>
+                    <button class="btn plan-select-btn" type="button" data-plan="extra" data-price="31.99">Escolher Plano</button>
                 </div>
 
                 <!-- Card 3 - Plano Premium -->
@@ -181,9 +315,60 @@
                         <li>Acesso a eventos exclusivos</li>
                     </ul>
 
-                    <button class="btn" onclick="window.location.href='login.html'">Escolher Plano</button>
+                    <button class="btn plan-select-btn" type="button" data-plan="premium" data-price="49.99">Escolher Plano</button>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    <section class="checkout-section" id="checkout">
+        <div class="container">
+            <div class="checkout-shell">
+                <div class="checkout-card">
+                    <h2>Pagamento do Plano</h2>
+                    <p class="checkout-intro">Cria conta primeiro, escolhe o plano aqui e confirma o pagamento para ativar o acesso completo ao dashboard.</p>
+
+                    <div class="payment-status-message" id="plan-checkout-message">
+                        Seleciona um plano acima para continuares para o pagamento.
+                    </div>
+
+                    <div class="payment-method-grid" id="payment-method-grid">
+                        <label class="payment-option" data-method="card">
+                            <input type="radio" name="payment-method" value="card">
+                            <strong>Cartao de credito/debito</strong>
+                            <span>Pagamento imediato e ativacao instantanea.</span>
+                        </label>
+                        <label class="payment-option" data-method="mbway">
+                            <input type="radio" name="payment-method" value="mbway">
+                            <strong>MB Way</strong>
+                            <span>Confirmacao rapida pelo telemovel.</span>
+                        </label>
+                        <label class="payment-option" data-method="paypal">
+                            <input type="radio" name="payment-method" value="paypal">
+                            <strong>PayPal</strong>
+                            <span>Paga com a tua conta PayPal em seguranca.</span>
+                        </label>
+                        <label class="payment-option" data-method="multibanco">
+                            <input type="radio" name="payment-method" value="multibanco">
+                            <strong>Referencia Multibanco</strong>
+                            <span>Recebe a referencia e confirma o pagamento.</span>
+                        </label>
+                    </div>
+
+                    <button class="btn large" type="button" id="confirm-plan-payment">Avancar para pagamento</button>
+                </div>
+
+                <aside class="payment-summary">
+                    <h3>Resumo da subscricao</h3>
+                    <p>O plano so fica ativo depois do pagamento ser confirmado.</p>
+                    <div class="summary-price" id="selected-plan-price">--</div>
+                    <ul class="summary-list">
+                        <li><strong>Plano selecionado:</strong> <span id="selected-plan-name">Nenhum plano escolhido</span></li>
+                        <li><strong>Metodo:</strong> <span id="selected-payment-method">Nenhum metodo selecionado</span></li>
+                        <li><strong>Estado da conta:</strong> <span id="plan-account-state">Sem plano ativo</span></li>
+                    </ul>
+                </aside>
             </div>
         </div>
     </section>
@@ -281,7 +466,7 @@
         <div class="container">
             <h2>Pronto para Começar?</h2>
             <p>Junta-te à família BeastCenter e transforma o teu corpo hoje!</p>
-            <button class="btn large" onclick="window.location.href='login.html'">Inscrever Agora</button>
+            <button class="btn large" onclick="window.location.href='login.html'">Criar Conta</button>
         </div>
     </section>
 
@@ -321,7 +506,9 @@
     </footer>
 
     <!-- Ligação ao ficheiro JavaScript -->
+    <script src="../Script/api.js"></script>
     <script src="../Script/main.js"></script>
+    <script src="../Script/planos.js"></script>
 </body>
 </html>
 

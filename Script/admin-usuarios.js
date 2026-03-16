@@ -88,7 +88,7 @@
             id: Number(user.id),
             name: user.name,
             email: user.email,
-            plan: user.plan || "basico",
+            plan: user.plan || "none",
             status: user.status || "ativo",
             createdAt: user.createdAt || new Date().toISOString().slice(0, 10),
             lastActivity: user.lastActivity || "Sem atividade",
@@ -103,7 +103,7 @@
             id: Number(user.id) || 2000 + index,
             name: user.name || "Utilizador",
             email: user.email || "sem-email@email.com",
-            plan: user.plan || "basico",
+            plan: user.plan || "none",
             status: user.status || "ativo",
             createdAt: (user.createdAt || new Date().toISOString()).slice(0, 10),
             lastActivity: user.lastActivity || "Recente",
@@ -201,7 +201,7 @@
             email: user.email || "",
             phone: user.phone || "",
             createdAt: user.createdAt ? String(user.createdAt).slice(0, 10) : new Date().toISOString().slice(0, 10),
-            plan: user.plan || "basico",
+            plan: user.plan || "none",
             status: user.status || "ativo",
             password: "",
             lastActivity: user.lastActivity ? new Date(user.lastActivity).toLocaleString("pt-PT") : "Sem atividade",
@@ -234,12 +234,13 @@
 
     function formatPlanLabel(plan) {
         var labels = {
+            none: "Sem plano",
             basico: "Basico",
             extra: "Extra",
             premium: "Premium",
             admin: "Admin"
         };
-        return labels[plan] || "Basico";
+        return labels[plan] || "Sem plano";
     }
 
     function formatDate(dateText) {
@@ -326,7 +327,7 @@
             var selected = state.selectedIds.indexOf(user.id) !== -1 ? "checked" : "";
             var statusClass = user.status === "ativo" ? "active" : (user.status === "inativo" ? "inactive" : "suspended");
             var statusLabel = user.status.charAt(0).toUpperCase() + user.status.slice(1);
-            var planClass = user.plan === "basico" ? "basico" : (user.plan === "extra" ? "extra" : (user.plan === "premium" ? "premium" : "admin"));
+            var planClass = user.plan === "basico" ? "basico" : (user.plan === "extra" ? "extra" : (user.plan === "premium" ? "premium" : (user.plan === "admin" ? "admin" : "basico")));
             var toggleAction = user.status === "ativo" ? "deactivate" : "activate";
             var toggleLabel = user.status === "ativo" ? "Desativar" : "Ativar";
             var initials = getInitials(user.name);
@@ -404,7 +405,7 @@
             refs.modalTitle.textContent = "Adicionar Novo Utilizador";
             refs.inputCreatedAt.value = new Date().toISOString().slice(0, 10);
             refs.inputStatus.value = "ativo";
-            refs.inputPlan.value = "basico";
+            refs.inputPlan.value = "none";
             refs.inputPassword.required = true;
         }
 

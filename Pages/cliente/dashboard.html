@@ -48,6 +48,16 @@
         </header>
 
         <div class="dashboard-container">
+            <section class="dashboard-section dashboard-locked" id="client-dashboard-locked" hidden>
+                <h2>Acesso limitado</h2>
+                <div class="empty-state-block">
+                    <h3>Ainda nao tens nenhum plano ativo.</h3>
+                    <p>Adere a um plano para desbloquear esta area e veres reservas, progresso, historico e beneficios completos.</p>
+                    <button class="btn" type="button" onclick="window.location.href='../planos.html'">Ver planos</button>
+                </div>
+            </section>
+
+            <div id="client-dashboard-full">
             <section class="client-hero">
                 <div class="client-hero-copy">
                     <span class="hero-chip">Area Pessoal BeastCenter</span>
@@ -145,6 +155,7 @@
                         </div>
                     </section>
                 </div>
+            </div>
             </div>
         </div>
     </main>

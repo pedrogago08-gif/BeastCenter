@@ -12,6 +12,7 @@
 
     function planLabel(plan) {
         var labels = {
+            none: "Sem plano ativo",
             basico: "Plano Basico",
             extra: "Plano Extra",
             premium: "Plano Premium",
@@ -27,6 +28,10 @@
             premium: ["Entradas ilimitadas", "Piscina e spa", "Aulas premium", "Acesso prioritario"]
         };
         return features[plan] || [];
+    }
+
+    function hasActivePlan(user) {
+        return !!(user && user.planStatus === "active" && user.paymentStatus === "paid" && user.plan && user.plan !== "none");
     }
 
     function userInitials(name) {
@@ -75,6 +80,18 @@
         document.getElementById("client-user-plan").textContent = planLabel(user.plan);
         document.getElementById("client-user-avatar").textContent = userInitials(user.name);
         fillPlan(user);
+
+        var lockedBlock = document.getElementById("client-dashboard-locked");
+        var fullBlock = document.getElementById("client-dashboard-full");
+        var activePlan = hasActivePlan(user);
+
+        if (lockedBlock) {
+            lockedBlock.hidden = activePlan;
+        }
+
+        if (fullBlock) {
+            fullBlock.hidden = !activePlan;
+        }
 
     }
 

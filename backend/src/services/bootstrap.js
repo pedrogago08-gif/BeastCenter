@@ -14,6 +14,9 @@ async function ensureDefaultAdmin() {
         passwordHash: hashPassword("admin123"),
         role: "admin",
         plan: "admin",
+        planStatus: "active",
+        paymentStatus: "paid",
+        authProvider: "local",
         status: "ativo"
     });
 

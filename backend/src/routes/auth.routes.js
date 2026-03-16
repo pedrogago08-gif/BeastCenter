@@ -7,8 +7,19 @@ const router = express.Router();
 
 router.post("/register", async function (req, res, next) {
     try {
+        const name = String(req.body.name || "").trim();
         const email = String(req.body.email || "").trim().toLowerCase();
+        const phone = String(req.body.phone || "").trim();
         const password = String(req.body.password || "");
+
+        if (name.length < 3) {
+            return res.status(400).json({ error: "Nome invalido" });
+        }
+
+        if (!email || !password || password.length < 8) {
+            return res.status(400).json({ error: "Dados de registo invalidos" });
+        }
+
         const existingUser = await User.findOne({ email: email });
 
         if (existingUser) {
@@ -16,18 +27,37 @@ router.post("/register", async function (req, res, next) {
         }
 
         const createdUser = await User.create({
-            name: String(req.body.name || "").trim(),
+            name: name,
             email: email,
             passwordHash: hashPassword(password),
-            plan: req.body.plan || "basico",
+            plan: "none",
+            planStatus: "none",
+            paymentStatus: "none",
             role: "cliente",
             status: "ativo",
-            phone: req.body.phone || "",
+            phone: phone,
+            authProvider: "local",
             lastActivity: new Date()
         });
 
         return res.status(201).json({
             user: serializeUser(createdUser)
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.post("/social", async function (req, res, next) {
+    try {
+        const provider = String(req.body.provider || "").trim().toLowerCase();
+
+        if (provider !== "google" && provider !== "facebook") {
+            return res.status(400).json({ error: "Provider social invalido" });
+        }
+
+        return res.status(501).json({
+            error: "OAuth com " + provider + " precisa de credenciais externas e callback configurados."
         });
     } catch (error) {
         next(error);

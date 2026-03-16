@@ -169,9 +169,9 @@ async function handleRegister(event) {
 
     var name = document.getElementById("register-name").value;
     var email = document.getElementById("register-email").value;
+    var phone = document.getElementById("register-phone").value;
     var password = document.getElementById("register-password").value;
     var confirmPassword = document.getElementById("register-confirm-password").value;
-    var plan = document.getElementById("register-plan").value;
 
     if (!name || name.length < 3) {
         showToast("Nome deve ter pelo menos 3 caracteres", "error");
@@ -180,6 +180,11 @@ async function handleRegister(event) {
 
     if (!validateEmail(email)) {
         showToast("Por favor, insere um email valido", "error");
+        return false;
+    }
+
+    if (!phone || phone.replace(/\D/g, "").length < 9) {
+        showToast("Introduz um numero de telemovel valido", "error");
         return false;
     }
 
@@ -193,25 +198,18 @@ async function handleRegister(event) {
         return false;
     }
 
-    if (!plan) {
-        showToast("Por favor, seleciona um plano", "error");
-        return false;
-    }
-
     try {
         await window.BeastCenterApi.register({
             name: name,
             email: email,
+            phone: phone,
             password: password,
-            plan: plan
         });
 
-        showToast("Conta criada com sucesso! Faz login para entrar.", "success");
+        showToast("Conta criada com sucesso! Agora ja podes entrar e depois escolher um plano.", "success");
         setTimeout(function () {
-            switchToLogin();
-            document.getElementById("login-email").value = email;
-            document.getElementById("login-password").value = "";
-        }, 600);
+            window.location.href = "Index.html";
+        }, 700);
     } catch (error) {
         showToast(error.message || "Falha ao criar conta", "error");
     }
@@ -220,19 +218,27 @@ async function handleRegister(event) {
 }
 
 function loginWithGoogle() {
-    showToast("Funcionalidade em desenvolvimento", "info");
+    handleSocialAuth("google");
 }
 
 function loginWithFacebook() {
-    showToast("Funcionalidade em desenvolvimento", "info");
+    handleSocialAuth("facebook");
 }
 
 function registerWithGoogle() {
-    showToast("Funcionalidade em desenvolvimento", "info");
+    handleSocialAuth("google");
 }
 
 function registerWithFacebook() {
-    showToast("Funcionalidade em desenvolvimento", "info");
+    handleSocialAuth("facebook");
+}
+
+async function handleSocialAuth(provider) {
+    try {
+        await window.BeastCenterApi.socialAuth({ provider: provider });
+    } catch (error) {
+        showToast(error.message || "OAuth indisponivel neste momento", "info");
+    }
 }
 
 document.getElementById("register-password")?.addEventListener("input", function (event) {

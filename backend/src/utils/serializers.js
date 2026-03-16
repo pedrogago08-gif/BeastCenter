@@ -6,8 +6,11 @@ function serializeUser(user) {
         username: user.username || "",
         role: user.role,
         plan: user.plan,
+        planStatus: user.planStatus || "none",
+        paymentStatus: user.paymentStatus || "none",
         status: user.status,
         phone: user.phone || "",
+        authProvider: user.authProvider || "local",
         createdAt: user.createdAt,
         lastActivity: user.lastActivity
     };

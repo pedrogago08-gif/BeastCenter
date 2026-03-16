@@ -33,8 +33,18 @@ const userSchema = new mongoose.Schema(
         },
         plan: {
             type: String,
-            enum: ["basico", "extra", "premium", "admin"],
-            default: "basico"
+            enum: ["none", "basico", "extra", "premium", "admin"],
+            default: "none"
+        },
+        planStatus: {
+            type: String,
+            enum: ["none", "pending_payment", "active", "cancelled"],
+            default: "none"
+        },
+        paymentStatus: {
+            type: String,
+            enum: ["none", "pending", "paid", "failed"],
+            default: "none"
         },
         status: {
             type: String,
@@ -44,6 +54,11 @@ const userSchema = new mongoose.Schema(
         phone: {
             type: String,
             default: ""
+        },
+        authProvider: {
+            type: String,
+            enum: ["local", "google", "facebook"],
+            default: "local"
         },
         lastActivity: {
             type: Date,

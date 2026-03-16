@@ -66,6 +66,12 @@
                 body: JSON.stringify(payload)
             });
         },
+        socialAuth: function (payload) {
+            return request("/auth/social", {
+                method: "POST",
+                body: JSON.stringify(payload)
+            });
+        },
         getUsers: function () {
             return request("/users");
         },
@@ -78,6 +84,12 @@
         updateUser: function (id, payload) {
             return request("/users/" + encodeURIComponent(id), {
                 method: "PATCH",
+                body: JSON.stringify(payload)
+            });
+        },
+        activatePlan: function (id, payload) {
+            return request("/users/" + encodeURIComponent(id) + "/activate-plan", {
+                method: "POST",
                 body: JSON.stringify(payload)
             });
         },

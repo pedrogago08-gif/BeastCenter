@@ -41,7 +41,10 @@
             if (user.plan === "extra") {
                 return total + 31.99;
             }
-            return total + 19.99;
+            if (user.plan === "basico") {
+                return total + 19.99;
+            }
+            return total;
         }, 0);
         var weeklyClasses = classes.filter(function (item) { return item.status === "ativa"; }).length;
         var occupancy = users.length === 0 ? 0 : Math.min(98, Math.round((activeUsers / users.length) * 100));

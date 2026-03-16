@@ -12,6 +12,7 @@
 
     function planLabel(plan) {
         var labels = {
+            none: "Sem plano ativo",
             basico: "Plano Basico",
             extra: "Plano Extra",
             premium: "Plano Premium",
