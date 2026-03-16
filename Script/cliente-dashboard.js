@@ -76,14 +76,6 @@
         document.getElementById("client-user-avatar").textContent = userInitials(user.name);
         fillPlan(user);
 
-        var logoutLink = document.getElementById("client-logout-link");
-        if (logoutLink) {
-            logoutLink.addEventListener("click", function (event) {
-                event.preventDefault();
-                localStorage.removeItem("currentUser");
-                window.location.href = "../Index.html";
-            });
-        }
     }
 
     init();

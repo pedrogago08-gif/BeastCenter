@@ -62,14 +62,6 @@
         setValue("settings-name", user.name);
         setValue("settings-email", user.email);
 
-        var logoutLink = document.getElementById("client-logout-link");
-        if (logoutLink) {
-            logoutLink.addEventListener("click", function (event) {
-                event.preventDefault();
-                localStorage.removeItem("currentUser");
-                window.location.href = "../Index.html";
-            });
-        }
     }
 
     init();
