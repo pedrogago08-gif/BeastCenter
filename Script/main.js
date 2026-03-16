@@ -172,7 +172,7 @@ function updatePublicNavbar() {
     if (!existingDashboardItem) {
         const dashboardItem = document.createElement('li');
         dashboardItem.id = 'site-dashboard-link';
-        dashboardItem.innerHTML = '<a href="#">Minha Area</a>';
+        dashboardItem.innerHTML = '<a href="#">Dashboard</a>';
         const dashboardAnchor = dashboardItem.querySelector('a');
         dashboardAnchor.href = getRelativeUrl(getDashboardUrlForUser(user));
 
@@ -191,7 +191,7 @@ function updatePublicNavbar() {
     if (!existingLogoutItem) {
         const logoutItem = document.createElement('li');
         logoutItem.id = 'site-logout-item';
-        logoutItem.innerHTML = '<button type="button" class="login-btn logout-nav-btn">Sair</button>';
+        logoutItem.innerHTML = '<button type="button" class="login-btn logout-nav-btn">Logout</button>';
         const logoutButton = logoutItem.querySelector('button');
         logoutButton.addEventListener('click', function () {
             localStorage.removeItem('currentUser');

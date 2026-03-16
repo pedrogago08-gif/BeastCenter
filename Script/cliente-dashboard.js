@@ -81,7 +81,7 @@
             logoutLink.addEventListener("click", function (event) {
                 event.preventDefault();
                 localStorage.removeItem("currentUser");
-                window.location.href = "../login.html";
+                window.location.href = "../Index.html";
             });
         }
     }

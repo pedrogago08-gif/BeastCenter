@@ -155,7 +155,7 @@ async function handleLogin(event) {
         setCurrentUser(response.user);
         showToast("Login realizado com sucesso!", "success");
         setTimeout(function () {
-            window.location.href = response.user.role === "admin" ? "admin/dashboard.html" : "cliente/dashboard.html";
+            window.location.href = response.user.role === "admin" ? "admin/dashboard.html" : "Index.html";
         }, 800);
     } catch (error) {
         showToast(error.message || "Email ou password incorretos", "error");
