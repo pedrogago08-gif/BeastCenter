@@ -19,7 +19,7 @@ router.post("/", async function (req, res, next) {
         const payload = {
             name: req.body.name,
             email: req.body.email,
-            username: req.body.username || null,
+            username: req.body.username || undefined,
             passwordHash: req.body.passwordHash || hashPassword(req.body.password || "temporary123"),
             role: req.body.role || "cliente",
             plan: req.body.plan || "none",

@@ -42,6 +42,13 @@ app.use(function (req, res) {
 
 app.use(function (error, req, res, next) {
     console.error(error);
+
+    if (error && error.code === 11000) {
+        return res.status(409).json({
+            error: "Ja existe um registo com esses dados"
+        });
+    }
+
     res.status(500).json({
         error: "Erro interno do servidor"
     });
