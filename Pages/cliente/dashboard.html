@@ -48,79 +48,83 @@
         </header>
 
         <div class="dashboard-container">
-            <section class="quick-stats">
-                <div class="stat-card">
-                    <div class="stat-card-accent"></div>
-                    <div class="stat-info">
-                        <h3 id="client-stat-workouts">0</h3>
-                        <p>Treinos registados</p>
+            <section class="client-hero">
+                <div class="client-hero-copy">
+                    <span class="hero-chip">Area Pessoal BeastCenter</span>
+                    <h2>O teu espaco dentro do clube</h2>
+                    <p>Reservas, progresso, plano e historico vao sendo preenchidos automaticamente a medida que usares a tua conta.</p>
+                    <div class="client-hero-actions">
+                        <a href="aulas-marcadas.html" class="btn">Ver aulas</a>
+                        <a href="../planos.html" class="btn secondary">Explorar planos</a>
                     </div>
                 </div>
-
-                <div class="stat-card">
-                    <div class="stat-card-accent"></div>
-                    <div class="stat-info">
-                        <h3 id="client-stat-time">0h</h3>
-                        <p>Tempo total</p>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-card-accent"></div>
-                    <div class="stat-info">
-                        <h3 id="client-stat-classes">0</h3>
-                        <p>Aulas marcadas</p>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-card-accent"></div>
-                    <div class="stat-info">
-                        <h3 id="client-stat-points">0</h3>
-                        <p>Pontos acumulados</p>
+                <div class="client-hero-panel">
+                    <h3>Conta ativa</h3>
+                    <p>Estas autenticado e a tua area privada ja esta pronta para receber dados reais.</p>
+                    <div class="hero-panel-grid">
+                        <div>
+                            <strong id="client-stat-workouts">0</strong>
+                            <span>treinos</span>
+                        </div>
+                        <div>
+                            <strong id="client-stat-classes">0</strong>
+                            <span>aulas</span>
+                        </div>
+                        <div>
+                            <strong id="client-stat-time">0h</strong>
+                            <span>tempo</span>
+                        </div>
+                        <div>
+                            <strong id="client-stat-points">0</strong>
+                            <span>pontos</span>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <div class="dashboard-layout">
+            <section class="quick-links-grid">
+                <a class="quick-link-card" href="historico.html">
+                    <strong>Historico</strong>
+                    <span>Consulta treinos e sessoes concluidas</span>
+                </a>
+                <a class="quick-link-card" href="progresso.html">
+                    <strong>Progresso</strong>
+                    <span>Vais acompanhar a tua evolucao aqui</span>
+                </a>
+                <a class="quick-link-card" href="definicoes.html">
+                    <strong>Conta</strong>
+                    <span>Dados pessoais e preferencias da tua area</span>
+                </a>
+            </section>
+
+            <div class="dashboard-layout dashboard-layout-alt">
                 <div class="left-column">
                     <section class="dashboard-section">
                         <div class="section-header">
-                            <h2>Proximas Aulas</h2>
-                            <a href="aulas-marcadas.html" class="view-all">Ver todas</a>
+                            <h2>Proximas Reservas</h2>
+                            <a href="aulas-marcadas.html" class="view-all">Abrir agenda</a>
                         </div>
                         <div class="empty-state-block" id="client-upcoming-classes">
-                            <h3>Ainda nao tens aulas marcadas</h3>
-                            <p>Quando marcares aulas no site, elas vao aparecer aqui.</p>
+                            <h3>Ainda nao tens reservas</h3>
+                            <p>Quando marcares aulas, PTs ou servicos, vao aparecer aqui com data e estado.</p>
                         </div>
                     </section>
 
                     <section class="dashboard-section">
                         <div class="section-header">
-                            <h2>Progresso</h2>
-                            <a href="progresso.html" class="view-all">Ver detalhes</a>
-                        </div>
-                        <div class="empty-state-block">
-                            <h3>Sem progresso registado</h3>
-                            <p>Os graficos e objetivos vao aparecer quando tiveres treinos concluidos.</p>
-                        </div>
-                    </section>
-
-                    <section class="dashboard-section">
-                        <div class="section-header">
-                            <h2>Ultimos Treinos</h2>
+                            <h2>Atividade da Conta</h2>
                             <a href="historico.html" class="view-all">Ver historico</a>
                         </div>
                         <div class="empty-state-block">
-                            <h3>Sem historico ainda</h3>
-                            <p>Os teus treinos concluidos vao aparecer aqui.</p>
+                            <h3>Sem atividade registada</h3>
+                            <p>Check-ins, treinos concluidos e interacoes da tua conta vao surgir aqui.</p>
                         </div>
                     </section>
                 </div>
 
                 <div class="right-column">
                     <section class="dashboard-section plan-card-shell">
-                        <h2>O Teu Plano</h2>
+                        <h2>Plano Atual</h2>
                         <div class="plan-card-content">
                             <h3 id="client-plan-name">Sem plano ativo</h3>
                             <div class="plan-features" id="client-plan-features">
@@ -129,31 +133,15 @@
                             <div class="plan-renewal" id="client-plan-renewal">
                                 <p>Sem data de renovacao definida.</p>
                             </div>
-                            <button class="btn upgrade-btn" onclick="window.location.href='../planos.html'">Ver planos</button>
+                            <button class="btn upgrade-btn" onclick="window.location.href='../planos.html'">Gerir plano</button>
                         </div>
                     </section>
 
                     <section class="dashboard-section">
-                        <h2>Recomendacoes</h2>
+                        <h2>Proximo passo</h2>
                         <div class="empty-state-block">
-                            <h3>Sem recomendacoes ainda</h3>
-                            <p>Quando houver atividade real na tua conta, vamos sugerir proximos passos aqui.</p>
-                        </div>
-                    </section>
-
-                    <section class="dashboard-section">
-                        <h2>Personal Trainer</h2>
-                        <div class="empty-state-block">
-                            <h3>Nenhum trainer atribuido</h3>
-                            <p>Podes escolher um trainer quando esse modulo estiver configurado para a tua conta.</p>
-                        </div>
-                    </section>
-
-                    <section class="dashboard-section">
-                        <h2>Novidades</h2>
-                        <div class="empty-state-block">
-                            <h3>Sem novidades personalizadas</h3>
-                            <p>As novidades da tua conta e do teu plano vao aparecer aqui.</p>
+                            <h3>Comeca a usar a tua conta</h3>
+                            <p>Assim que houver reservas, progresso ou compras, esta pagina passa a mostrar tudo de forma automatica.</p>
                         </div>
                     </section>
                 </div>
@@ -162,6 +150,7 @@
     </main>
 
     <script src="../../Script/api.js"></script>
+    <script src="../../Script/cliente-area.js"></script>
     <script src="../../Script/cliente-dashboard.js"></script>
     <script src="../../Script/main.js"></script>
 </body>

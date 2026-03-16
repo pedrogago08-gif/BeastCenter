@@ -105,6 +105,102 @@ function setLocalStorage(key, value) {
     }
 }
 
+function getDashboardUrlForUser(user) {
+    if (!user) {
+        return "login.html";
+    }
+
+    return user.role === "admin" ? "admin/dashboard.html" : "cliente/dashboard.html";
+}
+
+function getRelativeUrl(path) {
+    const currentPath = window.location.pathname.toLowerCase();
+    const isStorePage = currentPath.includes("/pages/loja/");
+    const isClientPage = currentPath.includes("/pages/cliente/");
+    const isAdminPage = currentPath.includes("/pages/admin/");
+
+    if (isStorePage || isClientPage || isAdminPage) {
+        return "../" + path;
+    }
+
+    return path;
+}
+
+function updatePublicNavbar() {
+    const navList = document.querySelector('.navbar nav ul');
+    if (!navList) {
+        return;
+    }
+
+    const user = getLocalStorage('currentUser');
+    const loginButton = navList.querySelector('.login-btn');
+    const loginItem = loginButton ? loginButton.closest('li') : null;
+    const existingDashboardItem = document.getElementById('site-dashboard-link');
+    const existingLogoutItem = document.getElementById('site-logout-item');
+
+    if (!user) {
+        if (existingDashboardItem) {
+            existingDashboardItem.remove();
+        }
+
+        if (existingLogoutItem) {
+            existingLogoutItem.remove();
+        }
+
+        if (loginButton) {
+            loginButton.hidden = false;
+            loginButton.textContent = 'Login';
+            loginButton.onclick = function () {
+                window.location.href = getRelativeUrl('login.html');
+            };
+        }
+
+        if (loginItem) {
+            loginItem.hidden = false;
+        }
+        return;
+    }
+
+    if (loginButton) {
+        loginButton.hidden = true;
+    }
+
+    if (loginItem) {
+        loginItem.hidden = true;
+    }
+
+    if (!existingDashboardItem) {
+        const dashboardItem = document.createElement('li');
+        dashboardItem.id = 'site-dashboard-link';
+        dashboardItem.innerHTML = '<a href="#">Minha Area</a>';
+        const dashboardAnchor = dashboardItem.querySelector('a');
+        dashboardAnchor.href = getRelativeUrl(getDashboardUrlForUser(user));
+
+        if (loginButton && loginButton.parentElement) {
+            navList.insertBefore(dashboardItem, loginButton.parentElement);
+        } else {
+            navList.appendChild(dashboardItem);
+        }
+    } else {
+        const dashboardAnchor = existingDashboardItem.querySelector('a');
+        if (dashboardAnchor) {
+            dashboardAnchor.href = getRelativeUrl(getDashboardUrlForUser(user));
+        }
+    }
+
+    if (!existingLogoutItem) {
+        const logoutItem = document.createElement('li');
+        logoutItem.id = 'site-logout-item';
+        logoutItem.innerHTML = '<button type="button" class="login-btn logout-nav-btn">Sair</button>';
+        const logoutButton = logoutItem.querySelector('button');
+        logoutButton.addEventListener('click', function () {
+            localStorage.removeItem('currentUser');
+            window.location.href = getRelativeUrl('Index.html');
+        });
+        navList.appendChild(logoutItem);
+    }
+}
+
 // Inicialização ao carregar a página
 document.addEventListener('DOMContentLoaded', function() {
     console.log('BeastCenter Website carregado!');
@@ -115,6 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Utilizador logado:', user.name);
     }
 
+    updatePublicNavbar();
     initHeroSlider();
 });
 
