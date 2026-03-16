@@ -113,6 +113,10 @@ function getDashboardUrlForUser(user) {
     return user.role === "admin" ? "admin/dashboard.html" : "cliente/dashboard.html";
 }
 
+function hasActivePaidPlan(user) {
+    return !!(user && user.role === "cliente" && user.planStatus === "active" && user.paymentStatus === "paid" && user.plan && user.plan !== "none");
+}
+
 function getRelativeUrl(path) {
     const currentPath = window.location.pathname.toLowerCase();
     const isStorePage = currentPath.includes("/pages/loja/");
@@ -135,6 +139,7 @@ function updatePublicNavbar() {
     const user = getLocalStorage('currentUser');
     const loginButton = navList.querySelector('.login-btn');
     const loginItem = loginButton ? loginButton.closest('li') : null;
+    const planLinks = Array.from(navList.querySelectorAll('a[href$="planos.html"]'));
     const existingDashboardItem = document.getElementById('site-dashboard-link');
     const existingLogoutItem = document.getElementById('site-logout-item');
 
@@ -158,6 +163,13 @@ function updatePublicNavbar() {
         if (loginItem) {
             loginItem.hidden = false;
         }
+
+        planLinks.forEach(function (link) {
+            const item = link.closest('li');
+            if (item) {
+                item.hidden = false;
+            }
+        });
         return;
     }
 
@@ -168,6 +180,13 @@ function updatePublicNavbar() {
     if (loginItem) {
         loginItem.hidden = true;
     }
+
+    planLinks.forEach(function (link) {
+        const item = link.closest('li');
+        if (item) {
+            item.hidden = hasActivePaidPlan(user);
+        }
+    });
 
     if (!existingDashboardItem) {
         const dashboardItem = document.createElement('li');

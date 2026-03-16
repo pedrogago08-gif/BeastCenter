@@ -93,6 +93,11 @@
                 body: JSON.stringify(payload)
             });
         },
+        cancelPlan: function (id) {
+            return request("/users/" + encodeURIComponent(id) + "/cancel-plan", {
+                method: "POST"
+            });
+        },
         getTrainers: function () {
             return request("/trainers");
         },

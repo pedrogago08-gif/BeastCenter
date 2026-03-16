@@ -20,6 +20,10 @@
         localStorage.setItem("currentUser", JSON.stringify(user));
     }
 
+    function hasActivePaidPlan(user) {
+        return !!(user && user.planStatus === "active" && user.paymentStatus === "paid" && user.plan && user.plan !== "none");
+    }
+
     function formatPrice(value) {
         return Number(value || 0).toFixed(2).replace(".", ",") + "€/mes";
     }
@@ -73,7 +77,7 @@
         }
 
         if (accountState) {
-            if (!user || user.planStatus !== "active" || user.paymentStatus !== "paid") {
+            if (!hasActivePaidPlan(user)) {
                 accountState.textContent = "Sem plano ativo";
             } else {
                 accountState.textContent = planLabel(user.plan) + " ativo";
@@ -81,13 +85,41 @@
         }
     }
 
+    function getPaymentPanel(method) {
+        var panels = {
+            card: document.getElementById("payment-form-card"),
+            mbway: document.getElementById("payment-form-mbway"),
+            paypal: document.getElementById("payment-form-paypal"),
+            multibanco: document.getElementById("payment-form-multibanco")
+        };
+
+        return panels[method] || null;
+    }
+
+    function showPaymentPanel(method) {
+        ["card", "mbway", "paypal", "multibanco"].forEach(function (key) {
+            var panel = getPaymentPanel(key);
+            if (panel) {
+                panel.hidden = key !== method;
+            }
+        });
+    }
+
     function bindPlanButtons() {
         Array.prototype.slice.call(document.querySelectorAll(".plan-select-btn")).forEach(function (button) {
             button.addEventListener("click", function () {
+                var user = readCurrentUser();
+
+                if (hasActivePaidPlan(user)) {
+                    setMessage("Ja tens um plano ativo. Para alterar ou cancelar, usa o dashboard.", "error");
+                    return;
+                }
+
                 state.selectedPlan = button.getAttribute("data-plan");
                 state.selectedPrice = button.getAttribute("data-price");
                 updateSummary();
                 setMessage("Plano " + planLabel(state.selectedPlan) + " selecionado. Escolhe agora o metodo de pagamento.", "");
+
                 var checkout = document.getElementById("checkout");
                 if (checkout) {
                     checkout.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -115,9 +147,51 @@
                     radio.checked = true;
                 }
 
+                showPaymentPanel(state.selectedMethod);
                 updateSummary();
             });
         });
+    }
+
+    function validatePaymentInputs(method) {
+        if (method === "card") {
+            return !!(document.getElementById("payment-card-name").value.trim() &&
+                document.getElementById("payment-card-number").value.trim() &&
+                document.getElementById("payment-card-expiry").value.trim() &&
+                document.getElementById("payment-card-cvv").value.trim());
+        }
+
+        if (method === "mbway") {
+            return !!document.getElementById("payment-mbway-phone").value.trim();
+        }
+
+        if (method === "paypal") {
+            return !!document.getElementById("payment-paypal-email").value.trim();
+        }
+
+        if (method === "multibanco") {
+            return !!(document.getElementById("payment-multibanco-name").value.trim() &&
+                document.getElementById("payment-multibanco-email").value.trim());
+        }
+
+        return false;
+    }
+
+    function disablePlanCheckoutForActiveUser() {
+        Array.prototype.slice.call(document.querySelectorAll(".plan-select-btn")).forEach(function (button) {
+            button.disabled = true;
+            button.textContent = "Gerir no dashboard";
+        });
+
+        var confirmButton = document.getElementById("confirm-plan-payment");
+        if (confirmButton) {
+            confirmButton.disabled = true;
+            confirmButton.textContent = "Gerido no dashboard";
+        }
+
+        showPaymentPanel(null);
+        updateSummary();
+        setMessage("Ja tens um plano ativo. Alteracoes e cancelamentos fazem-se no dashboard.", "success");
     }
 
     async function confirmPayment() {
@@ -131,6 +205,11 @@
             return;
         }
 
+        if (hasActivePaidPlan(user)) {
+            setMessage("Ja tens um plano ativo. Para alterar ou cancelar, usa o dashboard.", "error");
+            return;
+        }
+
         if (!state.selectedPlan) {
             setMessage("Seleciona primeiro um plano.", "error");
             return;
@@ -138,6 +217,11 @@
 
         if (!state.selectedMethod) {
             setMessage("Seleciona um metodo de pagamento.", "error");
+            return;
+        }
+
+        if (!validatePaymentInputs(state.selectedMethod)) {
+            setMessage("Preenche os dados do metodo de pagamento selecionado.", "error");
             return;
         }
 
@@ -150,6 +234,7 @@
 
             writeCurrentUser(response.user);
             updateSummary();
+            disablePlanCheckoutForActiveUser();
             setMessage("Pagamento confirmado. O teu plano foi ativado com sucesso.", "success");
         } catch (error) {
             setMessage(error.message || "Nao foi possivel confirmar o pagamento.", "error");
@@ -163,7 +248,12 @@
 
         bindPlanButtons();
         bindPaymentMethods();
+        showPaymentPanel(null);
         updateSummary();
+
+        if (hasActivePaidPlan(readCurrentUser())) {
+            disablePlanCheckoutForActiveUser();
+        }
 
         var confirmButton = document.getElementById("confirm-plan-payment");
         if (confirmButton) {

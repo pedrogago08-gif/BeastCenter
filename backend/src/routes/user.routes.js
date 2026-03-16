@@ -109,4 +109,33 @@ router.post("/:id/activate-plan", async function (req, res, next) {
     }
 });
 
+router.post("/:id/cancel-plan", async function (req, res, next) {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            {
+                plan: "none",
+                planStatus: "cancelled",
+                paymentStatus: "none",
+                status: "ativo",
+                lastActivity: new Date()
+            },
+            {
+                new: true,
+                runValidators: true
+            }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ error: "Utilizador nao encontrado" });
+        }
+
+        return res.json({
+            user: serializeUser(updatedUser)
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
 module.exports = router;

@@ -143,8 +143,94 @@
                             <div class="plan-renewal" id="client-plan-renewal">
                                 <p>Sem data de renovacao definida.</p>
                             </div>
-                            <button class="btn upgrade-btn" onclick="window.location.href='../planos.html'">Gerir plano</button>
+                            <button class="btn upgrade-btn" type="button" id="open-plan-manager-btn">Gerir plano</button>
+                            <button class="btn upgrade-btn secondary" type="button" id="cancel-plan-btn">Cancelar plano</button>
                         </div>
+                    </section>
+
+                    <section class="dashboard-section" id="dashboard-plan-manager" hidden>
+                        <h2>Alterar Plano</h2>
+                        <div class="empty-state-block">
+                            <h3>Escolhe o novo plano</h3>
+                            <p>As alteracoes e o cancelamento do teu plano sao geridos aqui no dashboard.</p>
+                        </div>
+                        <div class="plan-manager-options">
+                            <button type="button" class="btn plan-manager-select" data-plan="basico" data-price="19.99">Plano Basico</button>
+                            <button type="button" class="btn plan-manager-select" data-plan="extra" data-price="31.99">Plano Extra</button>
+                            <button type="button" class="btn plan-manager-select" data-plan="premium" data-price="49.99">Plano Premium</button>
+                        </div>
+                        <div class="payment-method-grid" id="dashboard-payment-method-grid">
+                            <label class="payment-option" data-method="card">
+                                <input type="radio" name="dashboard-payment-method" value="card">
+                                <strong>Cartao de credito/debito</strong>
+                                <span>Confirmacao imediata.</span>
+                            </label>
+                            <label class="payment-option" data-method="mbway">
+                                <input type="radio" name="dashboard-payment-method" value="mbway">
+                                <strong>MB Way</strong>
+                                <span>Validacao por telemovel.</span>
+                            </label>
+                            <label class="payment-option" data-method="paypal">
+                                <input type="radio" name="dashboard-payment-method" value="paypal">
+                                <strong>PayPal</strong>
+                                <span>Pagamento pela conta PayPal.</span>
+                            </label>
+                            <label class="payment-option" data-method="multibanco">
+                                <input type="radio" name="dashboard-payment-method" value="multibanco">
+                                <strong>Referencia Multibanco</strong>
+                                <span>Confirmacao com referencia.</span>
+                            </label>
+                        </div>
+                        <div class="payment-form-panel" id="dashboard-payment-form-card" hidden>
+                            <div class="payment-form-grid">
+                                <div class="payment-field full-width">
+                                    <label for="dashboard-card-name">Nome no cartao</label>
+                                    <input id="dashboard-card-name" type="text" placeholder="Nome como aparece no cartao">
+                                </div>
+                                <div class="payment-field full-width">
+                                    <label for="dashboard-card-number">Numero do cartao</label>
+                                    <input id="dashboard-card-number" type="text" placeholder="0000 0000 0000 0000">
+                                </div>
+                                <div class="payment-field">
+                                    <label for="dashboard-card-expiry">Validade</label>
+                                    <input id="dashboard-card-expiry" type="text" placeholder="MM/AA">
+                                </div>
+                                <div class="payment-field">
+                                    <label for="dashboard-card-cvv">CVV</label>
+                                    <input id="dashboard-card-cvv" type="text" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="payment-form-panel" id="dashboard-payment-form-mbway" hidden>
+                            <div class="payment-form-grid">
+                                <div class="payment-field full-width">
+                                    <label for="dashboard-mbway-phone">Numero MB Way</label>
+                                    <input id="dashboard-mbway-phone" type="tel" placeholder="912 345 678">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="payment-form-panel" id="dashboard-payment-form-paypal" hidden>
+                            <div class="payment-form-grid">
+                                <div class="payment-field full-width">
+                                    <label for="dashboard-paypal-email">Email PayPal</label>
+                                    <input id="dashboard-paypal-email" type="email" placeholder="paypal@email.com">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="payment-form-panel" id="dashboard-payment-form-multibanco" hidden>
+                            <div class="payment-form-grid">
+                                <div class="payment-field full-width">
+                                    <label for="dashboard-mb-name">Nome para referencia</label>
+                                    <input id="dashboard-mb-name" type="text" placeholder="Nome do titular">
+                                </div>
+                                <div class="payment-field full-width">
+                                    <label for="dashboard-mb-email">Email para envio da referencia</label>
+                                    <input id="dashboard-mb-email" type="email" placeholder="email@exemplo.com">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="payment-status-message" id="dashboard-plan-message">Seleciona um plano e um metodo para alterares a tua subscricao.</div>
+                        <button class="btn upgrade-btn" type="button" id="confirm-dashboard-plan-btn">Confirmar alteracao</button>
                     </section>
 
                     <section class="dashboard-section">
