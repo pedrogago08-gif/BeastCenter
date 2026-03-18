@@ -32,13 +32,38 @@
             <div class="trainer-booking-layout">
                 <section class="trainer-booking-card">
                     <span class="profile-badge">Sessao Personalizada</span>
+                    <div class="trainer-booking-visual">
+                        <img id="trainer-book-image" class="trainer-booking-image" src="" alt="">
+                        <div class="trainer-photo-slot trainer-booking-fallback" id="trainer-book-fallback" style="display:none;">
+                            <span>Espaco para Foto</span>
+                        </div>
+                    </div>
                     <h1 id="trainer-book-title">Marcar sessao</h1>
                     <p id="trainer-book-subtitle">Escolhe os teus dados e envia o pedido. O fluxo fica pronto para ser ligado ao backend depois.</p>
                     <div class="trainer-booking-summary" id="trainer-book-summary"></div>
+                    <div class="trainer-booking-note">
+                        <strong>Como funciona</strong>
+                        <p>Depois de enviares o pedido, a equipa BeastCenter confirma contigo a disponibilidade final do trainer e o melhor horario.</p>
+                    </div>
                 </section>
 
                 <section class="trainer-booking-form-shell">
+                    <div class="trainer-booking-locked" id="trainer-booking-locked" hidden>
+                        <span class="status-pill">Acesso reservado</span>
+                        <h2>Precisas de iniciar sessao</h2>
+                        <p>So membros com sessao iniciada podem enviar pedidos de marcacao com personal trainer.</p>
+                        <div class="trainer-profile-actions">
+                            <a class="btn" href="../login.html">Iniciar sessao</a>
+                            <a class="btn secondary" href="../trainers.html">Voltar aos trainers</a>
+                        </div>
+                    </div>
+
                     <form id="trainer-booking-form" class="trainer-booking-form">
+                        <div class="trainer-booking-form-head">
+                            <span class="status-pill">Pedido de sessao</span>
+                            <h2>Escolhe os teus dados</h2>
+                            <p>Preenche o pedido para enviares a tua preferencia de horario e objetivo.</p>
+                        </div>
                         <div class="booking-form-grid">
                             <label class="filter-field">
                                 <span>Nome</span>
@@ -82,7 +107,7 @@
                                 <textarea id="booking-notes" rows="5" placeholder="Conta-nos o teu objetivo, lesoes ou preferencias."></textarea>
                             </label>
                         </div>
-                        <button class="btn large" type="submit">Enviar pedido</button>
+                        <button class="btn large trainer-submit-btn" type="submit">Enviar pedido</button>
                     </form>
                 </section>
             </div>

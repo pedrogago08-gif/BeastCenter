@@ -986,9 +986,95 @@ footer::before {
     padding: 1.4rem;
 }
 
+.trainer-booking-card {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    background:
+        radial-gradient(320px 180px at 100% 0%, rgba(228, 30, 43, 0.08), transparent 60%),
+        rgba(255, 255, 255, 0.96);
+}
+
+.trainer-booking-visual {
+    border-radius: 24px;
+    overflow: hidden;
+    background: linear-gradient(145deg, rgba(245, 245, 245, 0.96), rgba(255, 255, 255, 0.98));
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.trainer-booking-image {
+    width: 100%;
+    aspect-ratio: 4 / 3.7;
+    object-fit: cover;
+    object-position: center 16%;
+    display: block;
+}
+
+.trainer-booking-fallback {
+    aspect-ratio: 4 / 3.7;
+}
+
 .trainer-booking-form {
     display: grid;
     gap: 1rem;
+}
+
+.trainer-booking-form-head {
+    display: grid;
+    gap: 0.35rem;
+    margin-bottom: 0.2rem;
+}
+
+.trainer-booking-form-head h2 {
+    margin: 0;
+    text-align: left;
+}
+
+.trainer-booking-form-head p {
+    color: var(--text-light);
+}
+
+.trainer-booking-note {
+    padding: 1rem 1.1rem;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(245, 245, 245, 0.98), rgba(255, 255, 255, 0.98));
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.trainer-booking-note strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    color: #111111;
+}
+
+.trainer-booking-note p {
+    color: var(--text-light);
+}
+
+.trainer-submit-btn {
+    width: 100%;
+}
+
+.trainer-booking-locked {
+    display: grid;
+    gap: 1rem;
+    padding: 1.4rem;
+    border-radius: 24px;
+    background:
+        radial-gradient(280px 160px at 100% 0%, rgba(228, 30, 43, 0.08), transparent 60%),
+        rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    min-height: 100%;
+    align-content: center;
+}
+
+.trainer-booking-locked h2 {
+    margin: 0;
+    text-align: left;
+}
+
+.trainer-booking-locked p {
+    color: var(--text-light);
 }
 
 .booking-form-grid {

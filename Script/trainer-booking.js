@@ -29,6 +29,28 @@
                 "<div><strong>Avaliacao</strong><span>" + Number(trainer.rating).toFixed(1) + "/5</span></div>"
             ].join("");
         }
+
+        var image = document.getElementById("trainer-book-image");
+        var fallback = document.getElementById("trainer-book-fallback");
+        if (image) {
+            var candidates = Array.isArray(trainer.profileImageCandidates) ? trainer.profileImageCandidates.slice() : ["../../images/trainers/" + trainer.slug + ".jpg"];
+            var index = 0;
+
+            image.src = candidates[0];
+            image.alt = trainer.name;
+            image.onerror = function () {
+                index += 1;
+                if (index < candidates.length) {
+                    image.src = candidates[index];
+                    return;
+                }
+
+                image.style.display = "none";
+                if (fallback) {
+                    fallback.style.display = "grid";
+                }
+            };
+        }
     }
 
     function prefillUser() {
@@ -65,6 +87,26 @@
         });
     }
 
+    function updateAccessState() {
+        var user = readCurrentUser();
+        var locked = document.getElementById("trainer-booking-locked");
+        var form = document.getElementById("trainer-booking-form");
+
+        if (!locked || !form) {
+            return;
+        }
+
+        if (!user) {
+            locked.hidden = false;
+            form.hidden = true;
+            return false;
+        }
+
+        locked.hidden = true;
+        form.hidden = false;
+        return true;
+    }
+
     async function init() {
         var slug = getTrainerSlug();
         if (!slug || !window.BeastCenterTrainersData) {
@@ -79,8 +121,10 @@
         }
 
         renderTrainerSummary(trainer);
-        prefillUser();
-        bindForm(trainer);
+        if (updateAccessState()) {
+            prefillUser();
+            bindForm(trainer);
+        }
     }
 
     init();
