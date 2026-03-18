@@ -58,6 +58,19 @@
         return !!(user && user.planStatus === "active" && user.paymentStatus === "paid" && user.plan && user.plan !== "none");
     }
 
+    function formatMinutesToHours(minutes) {
+        if (!minutes) {
+            return "0h";
+        }
+
+        var hours = Math.floor(minutes / 60);
+        var remaining = minutes % 60;
+        if (!remaining) {
+            return hours + "h";
+        }
+        return hours + "h " + remaining + "m";
+    }
+
     function setDashboardMessage(message, type) {
         var box = document.getElementById("dashboard-plan-message");
         if (!box) {
@@ -86,6 +99,74 @@
             return "<p>" + item + "</p>";
         }).join("");
         renewal.innerHTML = "<p>Plano ativo e pronto a ser gerido nesta area.</p>";
+    }
+
+    function renderClassStats(user) {
+        var bookings = window.BeastCenterClasses ? window.BeastCenterClasses.getUserBookings(user) : [];
+        var totalMinutes = bookings.reduce(function (sum, item) {
+            return sum + Number(item.duration || 0);
+        }, 0);
+        var upcoming = document.getElementById("client-upcoming-classes");
+        var classesStat = document.getElementById("client-stat-classes");
+        var timeStat = document.getElementById("client-stat-time");
+        var notifications = document.getElementById("client-notification-count");
+
+        if (classesStat) {
+            classesStat.textContent = String(bookings.length);
+        }
+
+        if (timeStat) {
+            timeStat.textContent = formatMinutesToHours(totalMinutes);
+        }
+
+        if (notifications) {
+            notifications.textContent = String(bookings.length);
+        }
+
+        if (!upcoming) {
+            return;
+        }
+
+        if (bookings.length === 0) {
+            upcoming.className = "empty-state-block";
+            upcoming.innerHTML = "<h3>Ainda nao tens aulas marcadas</h3><p>Quando reservares uma aula na pagina de Aulas, ela vai aparecer aqui com data, hora e trainer.</p>";
+            return;
+        }
+
+        upcoming.className = "booking-list-shell compact";
+        upcoming.innerHTML = bookings.slice(0, 3).map(function (item) {
+            return (
+                "<article class='booking-card compact'>" +
+                    "<div class='booking-card-head compact'>" +
+                        "<div>" +
+                            "<span class='status-pill'>Confirmada</span>" +
+                            "<h3>" + item.title + "</h3>" +
+                            "<p>" + window.BeastCenterClasses.formatShortDate(item.date) + " · " + item.time + " · " + item.trainerName + "</p>" +
+                        "</div>" +
+                        "<button class='btn secondary booking-cancel-btn' type='button' data-class-id='" + item.id + "'>Cancelar</button>" +
+                    "</div>" +
+                "</article>"
+            );
+        }).join("");
+
+        Array.prototype.slice.call(upcoming.querySelectorAll(".booking-cancel-btn")).forEach(function (button) {
+            button.addEventListener("click", function () {
+                if (!window.confirm("Queres mesmo cancelar esta aula?")) {
+                    return;
+                }
+
+                var result = window.BeastCenterClasses.cancelBooking(button.getAttribute("data-class-id"), user);
+                if (!result.ok) {
+                    window.alert(result.message);
+                    return;
+                }
+
+                refreshHeader(readCurrentUser());
+                if (typeof window.showToast === "function") {
+                    window.showToast("Marcacao cancelada com sucesso.", "success");
+                }
+            });
+        });
     }
 
     function updateVisibility(user) {
@@ -196,6 +277,7 @@
         document.getElementById("client-user-avatar").textContent = userInitials(user.name);
         fillPlan(user);
         updateVisibility(user);
+        renderClassStats(user);
     }
 
     async function confirmPlanChange() {

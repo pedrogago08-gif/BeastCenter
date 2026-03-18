@@ -31,10 +31,10 @@
         <header class="topbar">
             <div>
                 <h1>Aulas Marcadas</h1>
-                <p class="page-kicker">Aqui ficam as tuas reservas e check-ins assim que comecares a marcar aulas.</p>
+                <p class="page-kicker">Todas as tuas reservas de grupo, com cancelamento rapido e estado das vagas.</p>
             </div>
             <div class="user-info">
-                <span class="notification-icon"><span class="badge">0</span></span>
+                <span class="notification-icon"><span class="badge" id="client-bookings-badge">0</span></span>
                 <div class="user-profile">
                     <div class="user-avatar" id="client-user-avatar">BC</div>
                     <div class="user-details">
@@ -48,32 +48,46 @@
             <div class="page-grid">
                 <div class="page-column">
                     <section class="page-panel">
-                        <h2>Reservas</h2>
-                        <div class="empty-state-block">
-                            <h3>Sem aulas reservadas</h3>
-                            <p>Depois de agendares uma aula no BeastCenter, ela aparece aqui com horario, instrutor e estado.</p>
+                        <div class="section-header">
+                            <h2>Minhas Reservas</h2>
+                            <a class="view-all" href="../aulas.html">Marcar mais</a>
+                        </div>
+                        <div id="client-bookings-list" class="booking-list-shell">
+                            <div class="empty-state-block">
+                                <h3>Sem aulas reservadas</h3>
+                                <p>Assim que marcares uma aula na pagina de Aulas, ela aparece aqui com data, hora e trainer.</p>
+                            </div>
                         </div>
                     </section>
                 </div>
                 <div class="page-column">
                     <section class="page-hero">
-                        <h2>Queres marcar a primeira?</h2>
-                        <p>Quando o modulo de marcacoes estiver ligado aos dados reais, este espaco vai mostrar as proximas vagas.</p>
+                        <h2>Agenda ativa</h2>
+                        <p>Gerimos as tuas vagas reservadas aqui. Se cancelares, a vaga fica imediatamente disponivel outra vez.</p>
                     </section>
                     <section class="page-panel">
-                        <h2>Estado atual</h2>
-                        <ul class="panel-list">
+                        <h2>Resumo</h2>
+                        <ul class="panel-list" id="client-bookings-summary">
                             <li><strong>Aulas futuras</strong><span>0</span></li>
-                            <li><strong>Check-ins feitos</strong><span>0</span></li>
-                            <li><strong>Cancelamentos</strong><span>0</span></li>
+                            <li><strong>Total de minutos</strong><span>0</span></li>
+                            <li><strong>Trainers envolvidos</strong><span>0</span></li>
                         </ul>
+                    </section>
+                    <section class="page-panel">
+                        <h2>Precisas de ajuda?</h2>
+                        <div class="empty-state-block">
+                            <h3>Regras de marcacao</h3>
+                            <p>Podes cancelar uma aula a qualquer momento nesta area. A vaga fica libertada automaticamente.</p>
+                        </div>
                     </section>
                 </div>
             </div>
         </div>
     </main>
     <script src="../../Script/api.js"></script>
+    <script src="../../Script/class-bookings.js"></script>
     <script src="../../Script/cliente-area.js"></script>
+    <script src="../../Script/cliente-aulas.js"></script>
     <script src="../../Script/main.js"></script>
 </body>
 </html>
