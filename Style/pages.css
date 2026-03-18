@@ -1181,6 +1181,23 @@ footer::before {
     gap: 1rem;
 }
 
+.class-action-note {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    background: rgba(17, 17, 17, 0.06);
+    color: #111111;
+    font-weight: 700;
+    text-align: center;
+}
+
+.class-action-note.warning {
+    background: rgba(255, 193, 7, 0.16);
+    color: #6A4500;
+}
+
 .class-extra {
     display: flex;
     flex-wrap: wrap;

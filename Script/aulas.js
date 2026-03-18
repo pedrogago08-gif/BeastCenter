@@ -145,6 +145,7 @@
     function renderClassCards(classes) {
         var grid = byId("aulas-cards-grid");
         var currentUser = getHelpers().readCurrentUser();
+        var hasPlanAccess = getHelpers().hasActivePlan(currentUser);
         var bookedMap = {};
 
         if (!grid) {
@@ -167,6 +168,16 @@
 
         grid.innerHTML = classes.map(function (item) {
             var isBooked = !!bookedMap[item.id];
+            var actionMarkup = "";
+
+            if (!currentUser) {
+                actionMarkup = "<span class='class-action-note'>Inicia sessao para marcares esta aula.</span>";
+            } else if (!hasPlanAccess) {
+                actionMarkup = "<span class='class-action-note warning'>Precisas de um plano ativo para reservar vaga.</span>";
+            } else {
+                actionMarkup = "<button class='btn class-book-btn' data-class-id='" + item.id + "' " + (isBooked ? "disabled" : "") + ">" + (isBooked ? "Ja marcada" : "Marcar aula") + "</button>";
+            }
+
             return (
                 "<article class='aulas-class-card'>" +
                     "<div class='aulas-class-top'>" +
@@ -195,7 +206,7 @@
                             "<span>Nivel: " + item.level + "</span>" +
                             "<span>" + timeOfDayLabel(item.time) + "</span>" +
                         "</div>" +
-                        "<button class='btn class-book-btn' data-class-id='" + item.id + "' " + (isBooked ? "disabled" : "") + ">" + (isBooked ? "Ja marcada" : "Marcar aula") + "</button>" +
+                        actionMarkup +
                     "</div>" +
                 "</article>"
             );
@@ -206,12 +217,12 @@
         var currentUser = getHelpers().readCurrentUser();
 
         if (!currentUser) {
-            setStatusBanner("Inicia sessao ou cria conta para comecares a marcar aulas.", "");
+            setStatusBanner("Sem sessao iniciada: podes consultar toda a agenda, mas a marcacao so fica disponivel depois de iniciares sessao e ativares um plano.", "");
             return;
         }
 
         if (!getHelpers().hasActivePlan(currentUser)) {
-            setStatusBanner("Tens sessao iniciada, mas precisas de um plano ativo para reservar vagas nas aulas.", "warning");
+            setStatusBanner("Tens sessao iniciada, mas ainda precisas de escolher e ativar um plano para reservar vagas nas aulas.", "warning");
             return;
         }
 
