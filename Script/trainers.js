@@ -41,6 +41,46 @@
             clients: 31,
             status: "ativo",
             tags: ["Pilates", "Core", "Postura"]
+        },
+        {
+            name: "Joao Freitas",
+            specialization: "Forca e Treino Funcional",
+            experience: 9,
+            description: "Especialista em progressao de forca, tecnica de base e treino funcional aplicado ao dia a dia.",
+            rating: 4.8,
+            clients: 52,
+            status: "ativo",
+            tags: ["Forca", "Funcional", "Tecnica"]
+        },
+        {
+            name: "Rafael Pinto",
+            specialization: "Boxe Fitness e Agilidade",
+            experience: 6,
+            description: "Conduz sessoes intensas com foco em coordenacao, explosao, resistencia e tecnica de combate adaptada.",
+            rating: 4.7,
+            clients: 37,
+            status: "ativo",
+            tags: ["Boxe", "Agilidade", "Cardio"]
+        },
+        {
+            name: "Sofia Carvalho",
+            specialization: "Recomposicao Corporal",
+            experience: 5,
+            description: "Ajuda membros a perder gordura e ganhar definicao com planos ajustados a rotina e experiencia.",
+            rating: 4.8,
+            clients: 33,
+            status: "ativo",
+            tags: ["Definicao", "Motivacao", "Resultados"]
+        },
+        {
+            name: "Pedro Nunes",
+            specialization: "Preparacao Atletica",
+            experience: 10,
+            description: "Focado em velocidade, potencia e performance para praticantes que querem subir de nivel fisico.",
+            rating: 4.9,
+            clients: 41,
+            status: "ativo",
+            tags: ["Potencia", "Velocidade", "Atletico"]
         }
     ];
 
