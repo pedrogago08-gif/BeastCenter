@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Perfil do Personal Trainer BeastCenter">
+    <title>Perfil do Trainer - BeastCenter</title>
+    <link rel="stylesheet" href="../../Style/pages.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="../../images/logo.png" alt="Logo BeastCenter">
+            BeastCenter
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="../planos.html">Planos</a></li>
+                <li><a href="../trainers.html" class="active">Personal Trainers</a></li>
+                <li><a href="../aulas.html">Aulas</a></li>
+                <li><a href="../loja/produtos.html">Loja</a></li>
+                <li><a href="../Index.html#sobre">Sobre Nos</a></li>
+                <li><button class="login-btn" onclick="window.location.href='../login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="trainer-profile-section">
+        <div class="container">
+            <a class="back-link" href="../trainers.html">Voltar aos trainers</a>
+            <div class="trainer-profile-shell" id="trainer-profile-shell">
+                <div class="trainer-profile-photo-wrap">
+                    <img id="trainer-profile-image" class="trainer-profile-photo" src="" alt="">
+                    <div class="trainer-photo-slot trainer-profile-photo-slot" id="trainer-profile-fallback" style="display:none;">
+                        <span>Espaco para Foto</span>
+                        <small id="trainer-profile-photo-path"></small>
+                    </div>
+                </div>
+                <div class="trainer-profile-content">
+                    <span class="profile-badge">BeastCenter Coach</span>
+                    <h1 id="trainer-profile-name">Trainer BeastCenter</h1>
+                    <p class="trainer-profile-specialization" id="trainer-profile-specialization"></p>
+                    <p class="trainer-profile-description" id="trainer-profile-description"></p>
+                    <div class="trainer-profile-stats" id="trainer-profile-stats"></div>
+                    <div class="trainer-profile-tags" id="trainer-profile-tags"></div>
+                    <div class="trainer-profile-panels">
+                        <div class="profile-info-card">
+                            <h3>Sobre este trainer</h3>
+                            <p id="trainer-profile-bio"></p>
+                        </div>
+                        <div class="profile-info-card">
+                            <h3>Ideal para</h3>
+                            <ul id="trainer-profile-focus"></ul>
+                        </div>
+                    </div>
+                    <div class="trainer-profile-actions">
+                        <a class="btn" id="trainer-book-link" href="#">Marcar Sessao</a>
+                        <a class="btn secondary" href="../trainers.html">Ver outros trainers</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BeastCenter</h4>
+                <p>O teu ginasio de excelencia</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rapidos</h4>
+                <ul>
+                    <li><a href="../planos.html">Planos</a></li>
+                    <li><a href="../trainers.html">Personal Trainers</a></li>
+                    <li><a href="../aulas.html">Aulas</a></li>
+                    <li><a href="../loja/produtos.html">Loja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nos</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <a href="https://www.facebook.com/BeastCenter" target="_blank" rel="noreferrer">Facebook</a> |
+                <a href="https://www.instagram.com/BeastCenter" target="_blank" rel="noreferrer">Instagram</a>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter &copy; 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../../Script/main.js"></script>
+    <script src="../../Script/api.js"></script>
+    <script src="../../Script/trainers-data.js"></script>
+    <script src="../../Script/trainer-profile.js"></script>
+</body>
+</html>

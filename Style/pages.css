@@ -851,6 +851,200 @@ footer::before {
     text-align: center;
 }
 
+.back-link {
+    display: inline-flex;
+    margin-bottom: 1.2rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.trainer-profile-section,
+.trainer-booking-section {
+    padding-top: 3rem;
+}
+
+.trainer-profile-shell,
+.trainer-booking-layout {
+    display: grid;
+    grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+    gap: 1.5rem;
+}
+
+.trainer-profile-photo-wrap,
+.trainer-booking-card,
+.trainer-booking-form-shell,
+.profile-info-card {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius-lg);
+}
+
+.trainer-profile-photo-wrap {
+    overflow: hidden;
+}
+
+.trainer-profile-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    display: block;
+}
+
+.trainer-profile-photo-slot {
+    min-height: 100%;
+    aspect-ratio: 4 / 5;
+}
+
+.trainer-profile-content {
+    display: grid;
+    gap: 1rem;
+}
+
+.profile-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.38rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(228, 30, 43, 0.12);
+    color: var(--primary-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.trainer-profile-content h1 {
+    font-size: 3rem;
+    line-height: 0.95;
+    color: var(--text-dark);
+    font-family: var(--font-heading);
+}
+
+.trainer-profile-specialization {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.trainer-profile-description {
+    color: var(--text-light);
+    font-size: 1.05rem;
+}
+
+.trainer-profile-stats,
+.trainer-booking-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+}
+
+.trainer-profile-stats div,
+.trainer-booking-summary div {
+    padding: 1rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.trainer-profile-stats strong,
+.trainer-booking-summary strong {
+    display: block;
+    color: #111111;
+    font-size: 1.35rem;
+}
+
+.trainer-profile-stats span,
+.trainer-booking-summary span {
+    color: var(--text-light);
+}
+
+.trainer-profile-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.trainer-profile-tags span {
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(228, 30, 43, 0.12);
+    color: #73080F;
+    border: 1px solid rgba(228, 30, 43, 0.22);
+    font-weight: 700;
+    font-size: 0.82rem;
+}
+
+.trainer-profile-panels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.profile-info-card {
+    padding: 1.25rem;
+}
+
+.profile-info-card h3 {
+    margin-bottom: 0.55rem;
+}
+
+.profile-info-card p,
+.profile-info-card li {
+    color: var(--text-light);
+}
+
+.profile-info-card ul {
+    padding-left: 1.1rem;
+}
+
+.trainer-profile-actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.trainer-booking-card,
+.trainer-booking-form-shell {
+    padding: 1.4rem;
+}
+
+.trainer-booking-form {
+    display: grid;
+    gap: 1rem;
+}
+
+.booking-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.booking-form-grid input,
+.booking-form-grid select,
+.booking-form-grid textarea {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.96);
+    outline: none;
+}
+
+.booking-form-grid input:focus,
+.booking-form-grid select:focus,
+.booking-form-grid textarea:focus {
+    border-color: rgba(228, 30, 43, 0.5);
+    box-shadow: 0 0 0 4px rgba(228, 30, 43, 0.12);
+}
+
+.booking-notes-field {
+    grid-column: 1 / -1;
+}
+
 @media (max-width: 768px) {
     .trainers-kpis {
         grid-template-columns: 1fr;
@@ -859,6 +1053,15 @@ footer::before {
 
     .trainer-card .description {
         min-height: 0;
+    }
+
+    .trainer-profile-shell,
+    .trainer-booking-layout,
+    .trainer-profile-panels,
+    .trainer-profile-stats,
+    .trainer-booking-summary,
+    .booking-form-grid {
+        grid-template-columns: 1fr;
     }
 }
 

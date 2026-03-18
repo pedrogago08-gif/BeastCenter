@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Marcacao de sessao com Personal Trainer BeastCenter">
+    <title>Marcar Sessao - BeastCenter</title>
+    <link rel="stylesheet" href="../../Style/pages.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="../../images/logo.png" alt="Logo BeastCenter">
+            BeastCenter
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="../planos.html">Planos</a></li>
+                <li><a href="../trainers.html" class="active">Personal Trainers</a></li>
+                <li><a href="../aulas.html">Aulas</a></li>
+                <li><a href="../loja/produtos.html">Loja</a></li>
+                <li><a href="../Index.html#sobre">Sobre Nos</a></li>
+                <li><button class="login-btn" onclick="window.location.href='../login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="trainer-booking-section">
+        <div class="container">
+            <a class="back-link" id="trainer-book-back-link" href="../trainers.html">Voltar aos trainers</a>
+            <div class="trainer-booking-layout">
+                <section class="trainer-booking-card">
+                    <span class="profile-badge">Sessao Personalizada</span>
+                    <h1 id="trainer-book-title">Marcar sessao</h1>
+                    <p id="trainer-book-subtitle">Escolhe os teus dados e envia o pedido. O fluxo fica pronto para ser ligado ao backend depois.</p>
+                    <div class="trainer-booking-summary" id="trainer-book-summary"></div>
+                </section>
+
+                <section class="trainer-booking-form-shell">
+                    <form id="trainer-booking-form" class="trainer-booking-form">
+                        <div class="booking-form-grid">
+                            <label class="filter-field">
+                                <span>Nome</span>
+                                <input type="text" id="booking-name" required>
+                            </label>
+                            <label class="filter-field">
+                                <span>Email</span>
+                                <input type="email" id="booking-email" required>
+                            </label>
+                            <label class="filter-field">
+                                <span>Telemovel</span>
+                                <input type="tel" id="booking-phone" required>
+                            </label>
+                            <label class="filter-field">
+                                <span>Objetivo</span>
+                                <select id="booking-goal" required>
+                                    <option value="">Seleciona</option>
+                                    <option value="hipertrofia">Hipertrofia</option>
+                                    <option value="emagrecimento">Emagrecimento</option>
+                                    <option value="performance">Performance</option>
+                                    <option value="mobilidade">Mobilidade</option>
+                                </select>
+                            </label>
+                            <label class="filter-field">
+                                <span>Data pretendida</span>
+                                <input type="date" id="booking-date" required>
+                            </label>
+                            <label class="filter-field">
+                                <span>Hora preferida</span>
+                                <select id="booking-time" required>
+                                    <option value="">Seleciona</option>
+                                    <option value="08:00">08:00</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="20:00">20:00</option>
+                                </select>
+                            </label>
+                            <label class="filter-field booking-notes-field">
+                                <span>Notas</span>
+                                <textarea id="booking-notes" rows="5" placeholder="Conta-nos o teu objetivo, lesoes ou preferencias."></textarea>
+                            </label>
+                        </div>
+                        <button class="btn large" type="submit">Enviar pedido</button>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BeastCenter</h4>
+                <p>O teu ginasio de excelencia</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rapidos</h4>
+                <ul>
+                    <li><a href="../planos.html">Planos</a></li>
+                    <li><a href="../trainers.html">Personal Trainers</a></li>
+                    <li><a href="../aulas.html">Aulas</a></li>
+                    <li><a href="../loja/produtos.html">Loja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nos</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <a href="https://www.facebook.com/BeastCenter" target="_blank" rel="noreferrer">Facebook</a> |
+                <a href="https://www.instagram.com/BeastCenter" target="_blank" rel="noreferrer">Instagram</a>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter &copy; 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../../Script/main.js"></script>
+    <script src="../../Script/api.js"></script>
+    <script src="../../Script/trainers-data.js"></script>
+    <script src="../../Script/trainer-booking.js"></script>
+</body>
+</html>
