@@ -1,6 +1,49 @@
 (function () {
     "use strict";
 
+    var mockTrainers = [
+        {
+            name: "Tiago Rocha",
+            specialization: "Hipertrofia e Performance",
+            experience: 8,
+            description: "Especialista em ganho de massa muscular, progressao de carga e periodizacao para resultados consistentes.",
+            rating: 4.9,
+            clients: 48,
+            status: "ativo",
+            tags: ["Hipertrofia", "Forca", "Performance"]
+        },
+        {
+            name: "Mariana Sousa",
+            specialization: "Emagrecimento e Mobilidade",
+            experience: 6,
+            description: "Trabalha recomposicao corporal, mobilidade e aderencia ao treino com abordagem proxima e tecnica.",
+            rating: 4.8,
+            clients: 39,
+            status: "ativo",
+            tags: ["Emagrecimento", "Mobilidade", "Bem-estar"]
+        },
+        {
+            name: "Diogo Martins",
+            specialization: "Condicionamento Fisico",
+            experience: 7,
+            description: "Focado em resistencia, condicionamento e preparacao fisica geral para membros de todos os niveis.",
+            rating: 4.7,
+            clients: 44,
+            status: "ativo",
+            tags: ["Cardio", "HIIT", "Condicao Fisica"]
+        },
+        {
+            name: "Ines Almeida",
+            specialization: "Pilates e Core",
+            experience: 5,
+            description: "Ajuda a melhorar postura, estabilidade e controlo corporal com acompanhamento personalizado.",
+            rating: 4.9,
+            clients: 31,
+            status: "ativo",
+            tags: ["Pilates", "Core", "Postura"]
+        }
+    ];
+
     function slugify(value) {
         return (value || "")
             .toLowerCase()
@@ -11,13 +54,19 @@
 
     async function readTrainers() {
         if (!window.BeastCenterApi) {
-            return [];
+            return mockTrainers;
         }
 
-        var trainers = await window.BeastCenterApi.getTrainers();
-        return trainers.filter(function (trainer) {
-            return trainer.status === "ativo";
-        });
+        try {
+            var trainers = await window.BeastCenterApi.getTrainers();
+            var active = trainers.filter(function (trainer) {
+                return trainer.status === "ativo";
+            });
+
+            return active.length > 0 ? active : mockTrainers;
+        } catch (error) {
+            return mockTrainers;
+        }
     }
 
     function renderKpis(trainers) {
@@ -48,7 +97,7 @@
                 (hasImage
                     ? "<img class='trainer-photo-real' src='" + trainer.image + "' alt='" + trainer.name + "' onerror=\"this.style.display='none';this.nextElementSibling.style.display='grid';\">" +
                       "<div class='trainer-photo-slot' role='img' aria-label='Espaco para foto do treinador " + trainer.name + "' style='display:none;'><span>Espaco para Foto</span><small>" + trainer.image + "</small></div>"
-                    : "<div class='trainer-photo-slot' role='img' aria-label='Espaco para foto do treinador " + trainer.name + "'><span>Espaco para Foto</span><small>/images/trainers/" + nameSlug + ".jpg</small></div>"
+                    : "<div class='trainer-photo-slot' role='img' aria-label='Espaco para foto do treinador " + trainer.name + "'><span>Espaco para Foto</span><small>Coloca a imagem em /images/trainers/" + nameSlug + ".jpg</small></div>"
                 ) +
                 "<div class='trainer-card-body'>" +
                     "<h3>" + trainer.name + "</h3>" +
@@ -72,11 +121,6 @@
     function renderGrid(trainers) {
         var grid = document.getElementById("trainers-grid");
         if (!grid) {
-            return;
-        }
-
-        if (trainers.length === 0) {
-            grid.innerHTML = "<p class='subtitle'>Sem trainers ativos neste momento.</p>";
             return;
         }
 
