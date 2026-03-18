@@ -690,34 +690,6 @@ footer::before {
     color: var(--text-light);
 }
 
-.trainer-photo-help {
-    margin: 1rem auto 0;
-    max-width: 760px;
-    padding: 1rem 1.15rem;
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    box-shadow: var(--shadow-soft);
-    text-align: left;
-}
-
-.trainer-photo-help strong {
-    display: block;
-    margin-bottom: 0.3rem;
-    color: #111111;
-}
-
-.trainer-photo-help span {
-    color: var(--text-light);
-}
-
-.trainer-photo-help code {
-    padding: 0.18rem 0.42rem;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.06);
-    color: #111111;
-}
-
 .trainers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -759,8 +731,9 @@ footer::before {
 
 .trainer-photo-real {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4 / 4.2;
     object-fit: cover;
+    object-position: center 16%;
     display: block;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
@@ -887,8 +860,9 @@ footer::before {
 
 .trainer-profile-photo {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 4 / 4.8;
     object-fit: cover;
+    object-position: center 14%;
     display: block;
 }
 
