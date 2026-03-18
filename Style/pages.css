@@ -842,6 +842,7 @@ footer::before {
     display: grid;
     grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
     gap: 1.5rem;
+    align-items: start;
 }
 
 .trainer-profile-photo-wrap,
@@ -912,7 +913,7 @@ footer::before {
 .trainer-profile-stats,
 .trainer-booking-summary {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(140px, 1fr));
     gap: 0.9rem;
 }
 
@@ -984,6 +985,10 @@ footer::before {
 .trainer-booking-card,
 .trainer-booking-form-shell {
     padding: 1.4rem;
+}
+
+.trainer-booking-form-shell {
+    align-self: start;
 }
 
 .trainer-booking-card {
@@ -1064,8 +1069,7 @@ footer::before {
         radial-gradient(280px 160px at 100% 0%, rgba(228, 30, 43, 0.08), transparent 60%),
         rgba(255, 255, 255, 0.96);
     border: 1px solid rgba(0, 0, 0, 0.06);
-    min-height: 100%;
-    align-content: center;
+    align-content: start;
 }
 
 .trainer-booking-locked h2 {
