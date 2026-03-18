@@ -94,10 +94,31 @@
 
     function withDerivedFields(trainer) {
         var slug = slugify(trainer.name);
+        var titleSlug = String(trainer.name || "")
+            .trim()
+            .split(/\s+/)
+            .map(function (part) {
+                return part.charAt(0).toUpperCase() + part.slice(1);
+            })
+            .join("-");
+        var imageCandidates = [
+            "../images/trainers/" + slug + ".jpg",
+            "../images/trainers/" + slug + ".png",
+            "../images/trainers/" + slug + ".jpg.png",
+            "../images/trainers/" + titleSlug + ".jpg",
+            "../images/trainers/" + titleSlug + ".png",
+            "../images/trainers/" + titleSlug + ".jpg.png"
+        ];
+        var profileImageCandidates = imageCandidates.map(function (path) {
+            return path.replace("../images/", "../../images/");
+        });
+
         return Object.assign({}, trainer, {
             slug: slug,
             image: trainer.image || "../../images/trainers/" + slug + ".jpg",
-            publicImage: trainer.image || "../images/trainers/" + slug + ".jpg"
+            publicImage: trainer.image || "../images/trainers/" + slug + ".jpg",
+            imageCandidates: imageCandidates,
+            profileImageCandidates: profileImageCandidates
         });
     }
 

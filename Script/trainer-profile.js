@@ -52,9 +52,18 @@
         }
 
         if (image) {
-            image.src = "../../images/trainers/" + trainer.slug + ".jpg";
+            var candidates = Array.isArray(trainer.profileImageCandidates) ? trainer.profileImageCandidates.slice() : ["../../images/trainers/" + trainer.slug + ".jpg"];
+            var index = 0;
+
+            image.src = candidates[0];
             image.alt = trainer.name;
             image.onerror = function () {
+                index += 1;
+                if (index < candidates.length) {
+                    image.src = candidates[index];
+                    return;
+                }
+
                 image.style.display = "none";
                 if (fallback) {
                     fallback.style.display = "grid";

@@ -32,7 +32,7 @@
 
         return (
             "<article class='trainer-card'>" +
-                "<img class='trainer-photo-real' src='../images/trainers/" + trainer.slug + ".jpg' alt='" + trainer.name + "' onerror=\"this.style.display='none';this.nextElementSibling.style.display='grid';\">" +
+                "<img class='trainer-photo-real' data-image-candidates='" + encodeURIComponent(JSON.stringify(trainer.imageCandidates || [])) + "' src='" + (trainer.imageCandidates && trainer.imageCandidates[0] ? trainer.imageCandidates[0] : "../images/trainers/" + trainer.slug + ".jpg") + "' alt='" + trainer.name + "'>" +
                 "<div class='trainer-photo-slot' role='img' aria-label='Espaco para foto do treinador " + trainer.name + "' style='display:none;'><span>Espaco para Foto</span><small>Coloca a imagem em /images/trainers/" + trainer.slug + ".jpg</small></div>" +
                 "<div class='trainer-card-body'>" +
                     "<h3>" + trainer.name + "</h3>" +
@@ -60,6 +60,36 @@
         }
 
         grid.innerHTML = trainers.map(cardTemplate).join("");
+        bindTrainerImages(grid);
+    }
+
+    function bindTrainerImages(scope) {
+        Array.prototype.slice.call(scope.querySelectorAll(".trainer-photo-real")).forEach(function (image) {
+            var raw = image.getAttribute("data-image-candidates");
+            var candidates = [];
+            var index = 0;
+
+            try {
+                candidates = JSON.parse(decodeURIComponent(raw || ""));
+            } catch (error) {
+                candidates = [];
+            }
+
+            function tryNext() {
+                index += 1;
+                if (index >= candidates.length) {
+                    image.style.display = "none";
+                    if (image.nextElementSibling) {
+                        image.nextElementSibling.style.display = "grid";
+                    }
+                    return;
+                }
+
+                image.src = candidates[index];
+            }
+
+            image.onerror = tryNext;
+        });
     }
 
     async function init() {
