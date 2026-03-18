@@ -24,6 +24,11 @@
         return !!(user && user.planStatus === "active" && user.paymentStatus === "paid" && user.plan && user.plan !== "none");
     }
 
+    function getDashboardUrl() {
+        var user = readCurrentUser();
+        return user && user.role === "admin" ? "admin/dashboard.html" : "cliente/dashboard.html";
+    }
+
     function formatPrice(value) {
         return Number(value || 0).toFixed(2).replace(".", ",") + "€/mes";
     }
@@ -236,6 +241,17 @@
             updateSummary();
             disablePlanCheckoutForActiveUser();
             setMessage("Pagamento confirmado. O teu plano foi ativado com sucesso.", "success");
+
+            window.alert("Pagamento concluido com sucesso. O separador vai ser fechado.");
+
+            setTimeout(function () {
+                window.close();
+                setTimeout(function () {
+                    if (!window.closed) {
+                        window.location.href = getDashboardUrl();
+                    }
+                }, 350);
+            }, 250);
         } catch (error) {
             setMessage(error.message || "Nao foi possivel confirmar o pagamento.", "error");
         }

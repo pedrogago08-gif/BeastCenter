@@ -221,6 +221,14 @@
             return;
         }
 
+        if (!window.confirm("Tens a certeza que queres mudar para " + planLabel(state.selectedPlan) + "?")) {
+            return;
+        }
+
+        if (!window.confirm("Confirma que queres avancar com a alteracao do plano e respetivo pagamento?")) {
+            return;
+        }
+
         try {
             setDashboardMessage("A atualizar o teu plano...", "");
             var response = await window.BeastCenterApi.activatePlan(user.id, {
@@ -240,6 +248,14 @@
         var user = readCurrentUser();
 
         if (!user || !hasActivePlan(user)) {
+            return;
+        }
+
+        if (!window.confirm("Tens a certeza que queres cancelar o teu plano atual?")) {
+            return;
+        }
+
+        if (!window.confirm("Esta acao vai remover o plano ativo da tua conta. Queres mesmo continuar?")) {
             return;
         }
 
