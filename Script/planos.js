@@ -62,6 +62,47 @@
         box.textContent = message;
     }
 
+    function updatePlansCta() {
+        var user = readCurrentUser();
+        var copy = document.getElementById("plans-cta-copy");
+        var button = document.getElementById("plans-cta-button");
+        var title = document.querySelector("#plans-cta-container h2");
+
+        if (!copy || !button || !title) {
+            return;
+        }
+
+        if (!user) {
+            title.textContent = "Pronto para Começar?";
+            copy.textContent = "Junta-te à família BeastCenter e transforma o teu corpo hoje!";
+            button.textContent = "Criar Conta";
+            button.onclick = function () {
+                window.location.href = "login.html";
+            };
+            return;
+        }
+
+        if (hasActivePaidPlan(user)) {
+            title.textContent = "Já tens um plano ativo";
+            copy.textContent = "Entra no teu dashboard para gerires a subscrição, veres benefícios e tratares de futuras alterações.";
+            button.textContent = "Abrir Dashboard";
+            button.onclick = function () {
+                window.location.href = getDashboardUrl();
+            };
+            return;
+        }
+
+        title.textContent = "Falta só ativar o teu plano";
+        copy.textContent = "Já tens conta iniciada. Escolhe o plano ideal acima e confirma o pagamento para desbloquear o acesso completo.";
+        button.textContent = "Ir para o pagamento";
+        button.onclick = function () {
+            var checkout = document.getElementById("checkout");
+            if (checkout) {
+                checkout.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        };
+    }
+
     function updateSummary() {
         var user = readCurrentUser();
         var planName = document.getElementById("selected-plan-name");
@@ -266,6 +307,7 @@
         bindPaymentMethods();
         showPaymentPanel(null);
         updateSummary();
+        updatePlansCta();
 
         if (hasActivePaidPlan(readCurrentUser())) {
             disablePlanCheckoutForActiveUser();

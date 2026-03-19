@@ -561,10 +561,10 @@
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <div class="container">
+        <div class="container" id="plans-cta-container">
             <h2>Pronto para Começar?</h2>
-            <p>Junta-te à família BeastCenter e transforma o teu corpo hoje!</p>
-            <button class="btn large" onclick="window.location.href='login.html'">Criar Conta</button>
+            <p id="plans-cta-copy">Junta-te à família BeastCenter e transforma o teu corpo hoje!</p>
+            <button class="btn large" id="plans-cta-button" onclick="window.location.href='login.html'">Criar Conta</button>
         </div>
     </section>
 
@@ -572,6 +572,7 @@
     <footer id="sobre">
         <div class="footer-content">
             <div class="footer-section">
+                <span class="footer-kicker">Clube Premium</span>
                 <h4>BeastCenter</h4>
                 <p>O teu ginásio de excelência</p>
                 <p>Transforma o teu corpo, transforma a tua vida</p>
@@ -586,9 +587,11 @@
             </div>
             <div class="footer-section">
                 <h4>Sobre Nós</h4>
-                <p>Email: contacto@beastcenter.com</p>
-                <p>Tel: +351 123 456 789</p>
-                <p>Morada: Rua do Ginásio, 123, Lisboa</p>
+                <div class="footer-contact-list">
+                    <p><strong>Email</strong><span>contacto@beastcenter.com</span></p>
+                    <p><strong>Tel</strong><span>+351 123 456 789</span></p>
+                    <p><strong>Morada</strong><span>Rua do Ginásio, 123, Lisboa</span></p>
+                </div>
             </div>
             <div class="footer-section">
                 <h4>Redes Sociais</h4>
@@ -600,7 +603,9 @@
                 </div>
             </div>
         </div>
-        <p class="copyright">BeastCenter © 2025 - Todos os direitos reservados.</p>
+        <div class="footer-bottom-bar">
+            <p class="copyright">BeastCenter © 2025 - Todos os direitos reservados.</p>
+        </div>
     </footer>
 
     <!-- Ligação ao ficheiro JavaScript -->
