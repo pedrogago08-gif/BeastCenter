@@ -23,8 +23,8 @@
     }
 
     function cardTemplate(trainer) {
-        var profileUrl = "trainers/perfil.html?trainer=" + encodeURIComponent(trainer.slug);
-        var bookingUrl = "trainers/marcar-sessao.html?trainer=" + encodeURIComponent(trainer.slug);
+        var profileUrl = "/trainers/perfil.html?trainer=" + encodeURIComponent(trainer.slug);
+        var bookingUrl = "/trainers/marcar-sessao.html?trainer=" + encodeURIComponent(trainer.slug);
         var desc = trainer.description || "Acompanhamento personalizado para evolucao segura e consistente.";
         var tags = Array.isArray(trainer.tags) && trainer.tags.length > 0
             ? trainer.tags.slice(0, 3)

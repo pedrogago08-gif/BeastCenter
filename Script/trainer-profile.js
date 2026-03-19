@@ -73,7 +73,7 @@
 
         var bookLink = document.getElementById("trainer-book-link");
         if (bookLink) {
-            bookLink.href = "marcar-sessao.html?trainer=" + encodeURIComponent(trainer.slug);
+            bookLink.href = "/trainers/marcar-sessao.html?trainer=" + encodeURIComponent(trainer.slug);
         }
     }
 

@@ -40,6 +40,33 @@
         return "Noite";
     }
 
+    function weekdayKey(dateString) {
+        var date = new Date(dateString);
+        var day = date.getDay();
+        return day === 0 ? 7 : day;
+    }
+
+    function formatWeekdayLabel(dateString) {
+        try {
+            return new Intl.DateTimeFormat("pt-PT", {
+                weekday: "long"
+            }).format(new Date(dateString));
+        } catch (error) {
+            return "";
+        }
+    }
+
+    function formatDayNumber(dateString) {
+        try {
+            return new Intl.DateTimeFormat("pt-PT", {
+                day: "2-digit",
+                month: "2-digit"
+            }).format(new Date(dateString));
+        } catch (error) {
+            return dateString;
+        }
+    }
+
     function setStatusBanner(message, type) {
         var banner = byId("aulas-status-banner");
         if (!banner) {
@@ -48,6 +75,62 @@
 
         banner.className = "aulas-status-banner" + (type ? " " + type : "");
         banner.textContent = message;
+    }
+
+    function hasActiveFilters() {
+        return filters.type !== "all" || filters.trainer !== "all" || filters.timeOfDay !== "all";
+    }
+
+    function matchesFilters(item) {
+        if (filters.type !== "all" && item.type !== filters.type) {
+            return false;
+        }
+
+        if (filters.trainer !== "all" && item.trainerId !== filters.trainer) {
+            return false;
+        }
+
+        if (filters.timeOfDay !== "all") {
+            var hour = Number(String(item.time).split(":")[0] || 0);
+            var period = hour < 12 ? "manha" : (hour < 18 ? "tarde" : "noite");
+            if (period !== filters.timeOfDay) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function bindImageFallbacks(scope, imageSelector, fallbackSelector) {
+        if (!scope) {
+            return;
+        }
+
+        Array.prototype.slice.call(scope.querySelectorAll(imageSelector)).forEach(function (image) {
+            var raw = image.getAttribute("data-image-candidates");
+            var candidates = [];
+            var index = 0;
+
+            try {
+                candidates = JSON.parse(decodeURIComponent(raw || ""));
+            } catch (error) {
+                candidates = [];
+            }
+
+            image.onerror = function () {
+                index += 1;
+                if (index < candidates.length) {
+                    image.src = candidates[index];
+                    return;
+                }
+
+                image.style.display = "none";
+                var fallback = image.parentElement ? image.parentElement.querySelector(fallbackSelector) : null;
+                if (fallback) {
+                    fallback.style.display = "grid";
+                }
+            };
+        });
     }
 
     function renderStats(classes) {
@@ -129,13 +212,78 @@
             return (
                 "<article class='aulas-trainer-card'>" +
                     "<div class='aulas-trainer-photo'>" +
-                        "<span>" + trainer.initials + "</span>" +
-                        "<small>Foto placeholder</small>" +
+                        "<img class='aulas-trainer-photo-real' src='" + (trainer.imageCandidates && trainer.imageCandidates[0] ? trainer.imageCandidates[0] : "") + "' alt='" + trainer.name + "' data-image-candidates='" + encodeURIComponent(JSON.stringify(trainer.imageCandidates || [])) + "'>" +
+                        "<div class='aulas-trainer-photo-fallback' style='display:none;'>" +
+                            "<span>" + trainer.initials + "</span>" +
+                        "</div>" +
                     "</div>" +
                     "<div class='aulas-trainer-body'>" +
                         "<h3>" + trainer.name + "</h3>" +
                         "<p class='trainer-specialty'>" + trainer.specialty + "</p>" +
                         "<p>" + trainer.bio + "</p>" +
+                    "</div>" +
+                "</article>"
+            );
+        }).join("");
+
+        bindImageFallbacks(grid, ".aulas-trainer-photo-real", ".aulas-trainer-photo-fallback");
+    }
+
+    function renderWeeklySchedule(classes) {
+        var grid = byId("aulas-week-grid");
+        var dayLabels = {
+            1: "Segunda",
+            2: "Terca",
+            3: "Quarta",
+            4: "Quinta",
+            5: "Sexta",
+            6: "Sabado",
+            7: "Domingo"
+        };
+        var grouped = {
+            1: [],
+            2: [],
+            3: [],
+            4: [],
+            5: [],
+            6: [],
+            7: []
+        };
+
+        if (!grid) {
+            return;
+        }
+
+        classes.forEach(function (item) {
+            grouped[weekdayKey(item.date)].push(item);
+        });
+
+        grid.innerHTML = Object.keys(grouped).filter(function (key) {
+            return grouped[key].length > 0;
+        }).map(function (key) {
+            var items = grouped[key];
+            var firstDate = items[0] ? formatDayNumber(items[0].date) : "";
+
+            return (
+                "<article class='aulas-week-day'>" +
+                    "<div class='aulas-week-head'>" +
+                        "<h3>" + dayLabels[key] + "</h3>" +
+                        "<span>" + firstDate + "</span>" +
+                    "</div>" +
+                    "<div class='aulas-week-list'>" +
+                        items.map(function (item) {
+                            var isMatch = !hasActiveFilters() || matchesFilters(item);
+                            return (
+                                "<div class='aulas-week-item" + (isMatch ? " is-match" : " is-muted") + "'>" +
+                                    "<div class='aulas-week-item-top'>" +
+                                        "<strong>" + item.time + "</strong>" +
+                                        "<span>" + item.availableSlots + " vagas</span>" +
+                                    "</div>" +
+                                    "<h4>" + item.title + "</h4>" +
+                                    "<p>" + item.trainerName + "</p>" +
+                                "</div>"
+                            );
+                        }).join("") +
                     "</div>" +
                 "</article>"
             );
@@ -156,18 +304,9 @@
             bookedMap[item.id] = true;
         });
 
-        if (classes.length === 0) {
-            grid.innerHTML = (
-                "<div class='aulas-empty-state'>" +
-                    "<h3>Sem aulas para esse filtro</h3>" +
-                    "<p>Ajusta os filtros para veres outras opcoes disponiveis.</p>" +
-                "</div>"
-            );
-            return;
-        }
-
         grid.innerHTML = classes.map(function (item) {
             var isBooked = !!bookedMap[item.id];
+            var isMatch = !hasActiveFilters() || matchesFilters(item);
             var actionMarkup = "";
 
             if (!currentUser) {
@@ -179,7 +318,7 @@
             }
 
             return (
-                "<article class='aulas-class-card'>" +
+                "<article class='aulas-class-card" + (isMatch ? " is-match" : " is-muted") + "'>" +
                     "<div class='aulas-class-top'>" +
                         "<div>" +
                             "<span class='class-type-pill'>" + formatTypeLabel(item.type) + "</span>" +
@@ -195,7 +334,10 @@
                         "<div><strong>Local</strong><span>" + item.location + "</span></div>" +
                     "</div>" +
                     "<div class='aulas-trainer-strip'>" +
-                        "<div class='trainer-mini-avatar'>" + item.trainerInitials + "</div>" +
+                        "<div class='trainer-mini-avatar'>" +
+                            "<img class='trainer-mini-avatar-image' src='" + (item.trainerImageCandidates && item.trainerImageCandidates[0] ? item.trainerImageCandidates[0] : "") + "' alt='" + item.trainerName + "' data-image-candidates='" + encodeURIComponent(JSON.stringify(item.trainerImageCandidates || [])) + "'>" +
+                            "<span class='trainer-mini-avatar-fallback' style='display:none;'>" + item.trainerInitials + "</span>" +
+                        "</div>" +
                         "<div>" +
                             "<strong>" + item.trainerName + "</strong>" +
                             "<span>" + item.trainerSpecialty + "</span>" +
@@ -211,6 +353,8 @@
                 "</article>"
             );
         }).join("");
+
+        bindImageFallbacks(grid, ".trainer-mini-avatar-image", ".trainer-mini-avatar-fallback");
     }
 
     function updateBannerByUser() {
@@ -230,7 +374,8 @@
     }
 
     function rerender() {
-        var classes = getHelpers().filterClasses(filters);
+        var classes = getHelpers().getAllClasses();
+        renderWeeklySchedule(classes);
         renderClassCards(classes);
         updateBannerByUser();
         bindBookingButtons();

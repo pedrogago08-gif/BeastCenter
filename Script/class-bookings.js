@@ -3,7 +3,7 @@
 
     var CLASSES_KEY = "beastcenter_mock_classes_v2";
 
-    var trainers = [
+    var rawTrainers = [
         {
             id: "trainer-tiago-rocha",
             name: "Tiago Rocha",
@@ -47,6 +47,47 @@
             initials: "RP"
         }
     ];
+
+    function slugify(value) {
+        return String(value || "")
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9\-]/g, "");
+    }
+
+    function buildImageCandidates(name) {
+        var slug = slugify(name);
+        var titleSlug = String(name || "")
+            .trim()
+            .split(/\s+/)
+            .map(function (part) {
+                return part.charAt(0).toUpperCase() + part.slice(1);
+            })
+            .join("-");
+
+        return [
+            "../images/trainers/" + slug + ".jpg",
+            "../images/trainers/" + slug + ".png",
+            "../images/trainers/" + slug + ".jpg.png",
+            "../images/trainers/" + titleSlug + ".jpg",
+            "../images/trainers/" + titleSlug + ".png",
+            "../images/trainers/" + titleSlug + ".jpg.png"
+        ];
+    }
+
+    function withTrainerMedia(trainer) {
+        var slug = slugify(trainer.name);
+        return Object.assign({}, trainer, {
+            slug: slug,
+            imageCandidates: buildImageCandidates(trainer.name),
+            profileImageCandidates: buildImageCandidates(trainer.name).map(function (path) {
+                return path.replace("../images/", "../../images/");
+            })
+        });
+    }
+
+    var trainers = rawTrainers.map(withTrainerMedia);
 
     function readJson(key, fallback) {
         try {
@@ -237,6 +278,8 @@
             trainerSpecialty: trainer ? trainer.specialty : "",
             trainerBio: trainer ? trainer.bio : "",
             trainerInitials: trainer ? trainer.initials : "BC",
+            trainerSlug: trainer ? trainer.slug : "",
+            trainerImageCandidates: trainer ? trainer.imageCandidates : [],
             bookedUserKeys: bookedUserKeys,
             availableSlots: availableSlots
         });

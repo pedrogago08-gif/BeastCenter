@@ -794,9 +794,9 @@ footer::before {
 
 .trainer-photo-real {
     width: 100%;
-    aspect-ratio: 4 / 4.9;
+    aspect-ratio: 4 / 5.45;
     object-fit: cover;
-    object-position: center 10%;
+    object-position: center 4%;
     display: block;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
@@ -903,7 +903,7 @@ footer::before {
 .trainer-profile-shell,
 .trainer-booking-layout {
     display: grid;
-    grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
     gap: 1.5rem;
     align-items: start;
 }
@@ -924,9 +924,9 @@ footer::before {
 
 .trainer-profile-photo {
     width: 100%;
-    aspect-ratio: 4 / 5.2;
+    aspect-ratio: 4 / 6;
     object-fit: cover;
-    object-position: center 8%;
+    object-position: center 4%;
     display: block;
 }
 
@@ -1072,14 +1072,14 @@ footer::before {
 
 .trainer-booking-image {
     width: 100%;
-    aspect-ratio: 4 / 4.4;
+    aspect-ratio: 4 / 5.1;
     object-fit: cover;
-    object-position: center 10%;
+    object-position: center 4%;
     display: block;
 }
 
 .trainer-booking-fallback {
-    aspect-ratio: 4 / 4.4;
+    aspect-ratio: 4 / 5.1;
 }
 
 .trainer-booking-form {
@@ -1447,6 +1447,98 @@ footer::before {
     border-color: rgba(76, 175, 80, 0.3);
 }
 
+.aulas-week-section {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.aulas-week-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.aulas-week-day {
+    padding: 1rem;
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    box-shadow: var(--shadow-soft);
+}
+
+.aulas-week-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin-bottom: 0.9rem;
+}
+
+.aulas-week-head h3 {
+    font-size: 1.15rem;
+    margin: 0;
+}
+
+.aulas-week-head span {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.aulas-week-list {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.aulas-week-item,
+.aulas-week-empty {
+    padding: 0.9rem;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(247, 247, 247, 0.98), rgba(255, 255, 255, 0.98));
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: 0.25s ease;
+}
+
+.aulas-week-item-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.35rem;
+}
+
+.aulas-week-item-top strong {
+    color: #111111;
+}
+
+.aulas-week-item-top span,
+.aulas-week-item p,
+.aulas-week-empty {
+    color: var(--text-light);
+}
+
+.aulas-week-item h4 {
+    margin-bottom: 0.15rem;
+}
+
+.aulas-week-item.is-match {
+    border-color: rgba(228, 30, 43, 0.32);
+    box-shadow: 0 14px 36px rgba(228, 30, 43, 0.12);
+    background: linear-gradient(180deg, rgba(255, 248, 248, 0.99), rgba(255, 255, 255, 0.99));
+}
+
+.aulas-week-item.is-muted {
+    background: rgba(248, 248, 248, 0.86);
+    border-color: rgba(0, 0, 0, 0.04);
+}
+
+.aulas-week-item.is-muted h4,
+.aulas-week-item.is-muted strong,
+.aulas-week-item.is-muted p,
+.aulas-week-item.is-muted span {
+    color: rgba(26, 26, 26, 0.5);
+}
+
 .aulas-tipos {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.95), rgba(18, 18, 18, 0.95));
     color: var(--white);
@@ -1542,7 +1634,27 @@ footer::before {
     background: rgba(255, 255, 255, 0.94);
     border: 1px solid rgba(255, 255, 255, 0.75);
     box-shadow: var(--shadow-soft);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.aulas-class-card.is-match {
+    border-color: rgba(228, 30, 43, 0.34);
+    box-shadow: var(--glow);
+}
+
+.aulas-class-card.is-muted {
+    background: rgba(255, 255, 255, 0.78);
+    border-color: rgba(0, 0, 0, 0.05);
+}
+
+.aulas-class-card.is-muted .aulas-class-top h3,
+.aulas-class-card.is-muted .aulas-class-top p,
+.aulas-class-card.is-muted .aulas-class-meta span,
+.aulas-class-card.is-muted .aulas-trainer-strip span,
+.aulas-class-card.is-muted .class-extra span,
+.aulas-class-card.is-muted .aulas-class-meta strong,
+.aulas-class-card.is-muted .aulas-trainer-strip strong {
+    color: rgba(26, 26, 26, 0.52);
 }
 
 .aulas-class-top {
@@ -1620,14 +1732,32 @@ footer::before {
 }
 
 .trainer-mini-avatar {
+    position: relative;
     width: 48px;
     height: 48px;
     border-radius: 16px;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #141414, #4B0A10 75%, var(--primary-color));
     color: var(--white);
+    font-weight: 700;
+}
+
+.trainer-mini-avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 4%;
+    display: block;
+}
+
+.trainer-mini-avatar-fallback {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
     font-weight: 700;
 }
 
@@ -1699,17 +1829,32 @@ footer::before {
 }
 
 .aulas-trainer-photo {
-    display: grid;
-    place-items: center;
-    gap: 0.3rem;
     aspect-ratio: 4 / 3;
+    overflow: hidden;
+    position: relative;
     background:
         linear-gradient(135deg, rgba(228, 30, 43, 0.12), rgba(10, 10, 10, 0.08)),
         repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.56) 0px, rgba(255, 255, 255, 0.56) 10px, rgba(255, 255, 255, 0.82) 10px, rgba(255, 255, 255, 0.82) 20px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.aulas-trainer-photo span {
+.aulas-trainer-photo-real {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 4%;
+    display: block;
+}
+
+.aulas-trainer-photo-fallback {
+    position: absolute;
+    inset: 0;
+    display: none;
+    place-items: center;
+    background: linear-gradient(135deg, rgba(228, 30, 43, 0.12), rgba(10, 10, 10, 0.08));
+}
+
+.aulas-trainer-photo-fallback span {
     width: 74px;
     height: 74px;
     border-radius: 24px;
@@ -1721,10 +1866,6 @@ footer::before {
     font-weight: 700;
     letter-spacing: 0.08em;
     font-size: 1.1rem;
-}
-
-.aulas-trainer-photo small {
-    color: #4B4B4B;
 }
 
 .aulas-trainer-body {
