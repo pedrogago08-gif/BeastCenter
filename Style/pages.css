@@ -1515,6 +1515,23 @@ footer::before {
     transition: 0.25s ease;
 }
 
+.aulas-week-item-button {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    appearance: none;
+}
+
+.aulas-week-item-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08);
+}
+
+.aulas-week-item-button:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(228, 30, 43, 0.12), 0 14px 28px rgba(0, 0, 0, 0.08);
+}
+
 .aulas-week-item-top {
     display: flex;
     justify-content: space-between;
@@ -1541,6 +1558,29 @@ footer::before {
 
 .aulas-week-item p {
     font-size: 0.92rem;
+}
+
+.aulas-week-item-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.aulas-week-item-footer span {
+    color: #7b7b7b;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.aulas-week-item-footer strong {
+    color: var(--primary-color);
+    font-size: 0.84rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 .aulas-week-item.is-match {

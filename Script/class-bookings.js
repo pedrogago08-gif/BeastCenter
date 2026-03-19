@@ -455,6 +455,7 @@
         }) || null;
         var bookedUserKeys = Array.isArray(rawClass.bookedUserKeys) ? rawClass.bookedUserKeys : [];
         var availableSlots = Math.max(Number(rawClass.capacity || 0) - bookedUserKeys.length, 0);
+        var bookingFee = Number(rawClass.bookingFee);
 
         return Object.assign({}, rawClass, {
             trainer: trainer,
@@ -465,7 +466,8 @@
             trainerSlug: trainer ? trainer.slug : "",
             trainerImageCandidates: trainer ? trainer.imageCandidates : [],
             bookedUserKeys: bookedUserKeys,
-            availableSlots: availableSlots
+            availableSlots: availableSlots,
+            bookingFee: Number.isFinite(bookingFee) ? bookingFee : 5
         });
     }
 
@@ -489,6 +491,7 @@
                 trainerId: item.trainerId,
                 location: item.location,
                 level: item.level,
+                bookingFee: Number.isFinite(Number(item.bookingFee)) ? Number(item.bookingFee) : 5,
                 bookedUserKeys: Array.isArray(item.bookedUserKeys) ? item.bookedUserKeys : []
             };
         }));

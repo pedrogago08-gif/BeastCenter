@@ -67,6 +67,10 @@
         }
     }
 
+    function formatPrice(value) {
+        return Number(value || 0).toFixed(2).replace(".", ",") + "€";
+    }
+
     function setStatusBanner(message, type) {
         var banner = byId("aulas-status-banner");
         if (!banner) {
@@ -317,14 +321,18 @@
                                 ? items.map(function (item) {
                                     var isMatch = !hasActiveFilters() || matchesFilters(item);
                                     return (
-                                        "<div class='aulas-week-item" + (isMatch ? " is-match" : " is-muted") + "'>" +
+                                        "<button type='button' class='aulas-week-item aulas-week-item-button" + (isMatch ? " is-match" : " is-muted") + "' data-class-id='" + item.id + "'>" +
                                             "<div class='aulas-week-item-top'>" +
                                                 "<strong>" + item.time + "</strong>" +
                                                 "<span>" + item.availableSlots + " vagas</span>" +
                                             "</div>" +
                                             "<h4>" + item.title + "</h4>" +
                                             "<p>" + item.trainerName + "</p>" +
-                                        "</div>"
+                                            "<div class='aulas-week-item-footer'>" +
+                                                "<span>Taxa " + formatPrice(item.bookingFee || 5) + "</span>" +
+                                                "<strong>Marcar vaga</strong>" +
+                                            "</div>" +
+                                        "</button>"
                                     );
                                 }).join("")
                                 : "<div class='aulas-week-empty'>Sem aulas agendadas neste dia.</div>"
@@ -333,6 +341,40 @@
                 "</article>"
             );
         }).join("");
+    }
+
+    function bindWeeklyBookings() {
+        Array.prototype.slice.call(document.querySelectorAll(".aulas-week-item-button")).forEach(function (button) {
+            button.addEventListener("click", function () {
+                var classId = button.getAttribute("data-class-id");
+                var item = getHelpers().getClassById(classId);
+                var currentUser = getHelpers().readCurrentUser();
+
+                if (!item) {
+                    return;
+                }
+
+                if (!currentUser) {
+                    setStatusBanner("Precisas de iniciar sessao para marcares uma vaga nesta aula.", "warning");
+                    window.alert("Precisas de iniciar sessao para marcares uma vaga nesta aula.");
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                if (!getHelpers().hasActivePlan(currentUser)) {
+                    setStatusBanner("Precisas de um plano ativo para reservares esta aula.", "warning");
+                    window.alert("Precisas de um plano ativo para marcar uma vaga nesta aula.");
+                    window.location.href = "planos.html";
+                    return;
+                }
+
+                if (!window.confirm("Queres marcar uma vaga para " + item.title + " em " + getHelpers().formatShortDate(item.date) + " às " + item.time + "?\n\nTaxa de reserva: " + formatPrice(item.bookingFee || 5))) {
+                    return;
+                }
+
+                handleBooking(classId);
+            });
+        });
     }
 
     function renderClassCards(classes) {
@@ -425,6 +467,7 @@
         updateBannerByUser();
         updateCtaByUser();
         bindBookingButtons();
+        bindWeeklyBookings();
     }
 
     function handleBooking(classId) {
