@@ -66,6 +66,10 @@
                         <span class="valor" id="desconto">- 0,00€</span>
                     </div>
 
+                    <div class="resumo-linha">
+                        <span>Envio:</span>
+                        <span class="valor" id="envio">5,99€</span>
+                    </div>
 
                     <div class="resumo-linha desconto-info">
                         <span>Faltam <strong>50,00€</strong> para portes grátis!</span>
@@ -91,17 +95,18 @@
                     </div>
 
                     <!-- Botão de finalizar compra -->
-                    <button class="btn large checkout-btn" onclick="window.location.href='checkout.html'">Finalizar Compra</button>
+                    <button class="btn large checkout-btn" id="start-checkout-btn" type="button">Finalizar Compra</button>
+                    <a class="btn secondary dashboard-shortcut" id="shop-dashboard-link" href="../cliente/dashboard.html" hidden>Voltar ao dashboard</a>
 
                     <!-- Métodos de pagamento aceites -->
                     <div class="payment-methods">
                         <p>Pagamento seguro com:</p>
                         <div class="payment-icons">
-                            <img src="/images/payment/visa.png" alt="Visa">
-                            <img src="/images/payment/mastercard.png" alt="Mastercard">
-                            <img src="/images/payment/mbway.png" alt="MB Way">
-                            <img src="/images/payment/multibanco.png" alt="Multibanco">
-                            <img src="/images/payment/paypal.png" alt="PayPal">
+                            <span>Visa</span>
+                            <span>Mastercard</span>
+                            <span>MB Way</span>
+                            <span>Multibanco</span>
+                            <span>PayPal</span>
                         </div>
                     </div>
 
@@ -132,32 +137,32 @@
             <h2>Também podes gostar</h2>
             <div class="produtos-grid-small">
 
-                <div class="produto-card-small">
+                <div class="produto-card-small" data-product-id="whey-vanilla">
                     <img src="../../images/products/whey-vanilla.jpg" alt="Whey Protein Isolado">
                     <h4>Whey Isolado</h4>
                     <span class="price">39,99€</span>
-                    <button class="btn small" onclick="addToCart('whey-vanilla', 'Whey Protein Baunilha 1kg', 39.99)">Adicionar</button>
+                    <button class="btn small" type="button" onclick="addToCart('whey-vanilla', 'Whey Protein Baunilha 1kg', 39.99)">Adicionar</button>
                 </div>
 
-                <div class="produto-card-small">
+                <div class="produto-card-small" data-product-id="creatina">
                     <img src="../../images/products/creatina.jpg" alt="Creatina">
                     <h4>Creatina</h4>
                     <span class="price">24,99€</span>
-                    <button class="btn small" onclick="addToCart('creatina', 'Creatina Monohidratada 300g', 24.99)">Adicionar</button>
+                    <button class="btn small" type="button" onclick="addToCart('creatina', 'Creatina Monohidratada 300g', 24.99)">Adicionar</button>
                 </div>
 
-                <div class="produto-card-small">
+                <div class="produto-card-small" data-product-id="bcaa">
                     <img src="../../images/products/bcaa.jpg" alt="BCAA">
                     <h4>BCAA 2:1:1 - Limão</h4>
                     <span class="price">29,99€</span>
-                    <button class="btn small" onclick="addToCart('bcaa', 'BCAA 2:1:1 Limão 500g', 29.99)">Adicionar</button>
+                    <button class="btn small" type="button" onclick="addToCart('bcaa', 'BCAA 2:1:1 Limão 500g', 29.99)">Adicionar</button>
                 </div>
 
-                <div class="produto-card-small">
+                <div class="produto-card-small" data-product-id="proteinbar">
                     <img src="../../images/products/proteinbar.jpg" alt="Barras de Proteína">
                     <h4>Barras Proteína</h4>
                     <span class="price">19,99€</span>
-                    <button class="btn small" onclick="addToCart('proteinbar', 'Barras de Proteína Pack 12', 19.99)">Adicionar</button>
+                    <button class="btn small" type="button" onclick="addToCart('proteinbar', 'Barras de Proteína Pack 12', 19.99)">Adicionar</button>
                 </div>
 
             </div>

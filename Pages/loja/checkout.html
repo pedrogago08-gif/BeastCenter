@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Checkout da loja BeastCenter">
+    <title>Checkout - BeastCenter</title>
+    <link rel="stylesheet" href="../../Style/loja.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="../../images/logo.png" alt="Logo BeastCenter">
+            BeastCenter
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="../planos.html">Planos</a></li>
+                <li><a href="../trainers.html">Personal Trainers</a></li>
+                <li><a href="../aulas.html">Aulas</a></li>
+                <li><a href="produtos.html">Loja</a></li>
+                <li><a href="#sobre">Sobre Nos</a></li>
+                <li><button class="cart-btn" type="button" onclick="window.location.href='carrinho.html'">Carrinho (<span id="cart-count">0</span>)</button></li>
+                <li><button class="login-btn" type="button" onclick="window.location.href='../login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-small">
+        <h1>Checkout BeastCenter</h1>
+        <p>Confirma a entrega, escolhe o pagamento e fecha a tua encomenda em seguranca.</p>
+    </section>
+
+    <section class="checkout-section">
+        <div class="container">
+            <div class="checkout-layout">
+                <div class="checkout-form-shell" id="checkout-form-shell">
+                    <div class="checkout-block-head">
+                        <h2>Dados de entrega</h2>
+                        <p>Preenche a morada e escolhe como queres pagar.</p>
+                    </div>
+
+                    <form id="checkout-form" class="checkout-form" novalidate>
+                        <div class="checkout-form-grid">
+                            <label>
+                                <span>Nome completo</span>
+                                <input id="checkout-name" type="text" placeholder="Nome do destinatario">
+                            </label>
+                            <label>
+                                <span>Email</span>
+                                <input id="checkout-email" type="email" placeholder="email@exemplo.com">
+                            </label>
+                            <label>
+                                <span>Telemovel</span>
+                                <input id="checkout-phone" type="tel" placeholder="912 345 678">
+                            </label>
+                            <label>
+                                <span>Tipo de entrega</span>
+                                <select id="checkout-delivery-type">
+                                    <option value="standard">Entrega standard 24-48h</option>
+                                    <option value="express">Entrega express 24h</option>
+                                    <option value="pickup">Levantamento na rececao</option>
+                                </select>
+                            </label>
+                            <label class="checkout-field-full">
+                                <span>Morada</span>
+                                <input id="checkout-address" type="text" placeholder="Rua, numero e complemento">
+                            </label>
+                            <label>
+                                <span>Codigo postal</span>
+                                <input id="checkout-postal" type="text" placeholder="0000-000">
+                            </label>
+                            <label>
+                                <span>Cidade</span>
+                                <input id="checkout-city" type="text" placeholder="Cidade">
+                            </label>
+                            <label class="checkout-field-full">
+                                <span>Notas de entrega</span>
+                                <textarea id="checkout-notes" rows="4" placeholder="Instrucoes para o estafeta, horario preferido ou observacoes."></textarea>
+                            </label>
+                        </div>
+
+                        <div class="checkout-payment-shell">
+                            <div class="checkout-block-head">
+                                <h2>Metodo de pagamento</h2>
+                                <p>O pagamento e simulado, mas o fluxo fica preparado para ligacao real mais tarde.</p>
+                            </div>
+
+                            <div class="checkout-method-grid">
+                                <button class="checkout-method selected" type="button" data-method="card">
+                                    <strong>Cartao</strong>
+                                    <span>Credito ou debito</span>
+                                </button>
+                                <button class="checkout-method" type="button" data-method="mbway">
+                                    <strong>MB Way</strong>
+                                    <span>Pagamento rapido</span>
+                                </button>
+                                <button class="checkout-method" type="button" data-method="paypal">
+                                    <strong>PayPal</strong>
+                                    <span>Conta online</span>
+                                </button>
+                                <button class="checkout-method" type="button" data-method="multibanco">
+                                    <strong>Multibanco</strong>
+                                    <span>Referencia</span>
+                                </button>
+                            </div>
+
+                            <div class="checkout-payment-panel" id="checkout-payment-card">
+                                <div class="checkout-form-grid">
+                                    <label class="checkout-field-full">
+                                        <span>Nome no cartao</span>
+                                        <input id="checkout-card-name" type="text" placeholder="Nome como aparece no cartao">
+                                    </label>
+                                    <label class="checkout-field-full">
+                                        <span>Numero do cartao</span>
+                                        <input id="checkout-card-number" type="text" placeholder="0000 0000 0000 0000">
+                                    </label>
+                                    <label>
+                                        <span>Validade</span>
+                                        <input id="checkout-card-expiry" type="text" placeholder="MM/AA">
+                                    </label>
+                                    <label>
+                                        <span>CVV</span>
+                                        <input id="checkout-card-cvv" type="text" placeholder="123">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="checkout-payment-panel" id="checkout-payment-mbway" hidden>
+                                <label>
+                                    <span>Numero MB Way</span>
+                                    <input id="checkout-mbway-phone" type="tel" placeholder="912 345 678">
+                                </label>
+                            </div>
+
+                            <div class="checkout-payment-panel" id="checkout-payment-paypal" hidden>
+                                <label>
+                                    <span>Email PayPal</span>
+                                    <input id="checkout-paypal-email" type="email" placeholder="paypal@email.com">
+                                </label>
+                            </div>
+
+                            <div class="checkout-payment-panel" id="checkout-payment-multibanco" hidden>
+                                <div class="checkout-form-grid">
+                                    <label>
+                                        <span>Nome para referencia</span>
+                                        <input id="checkout-mb-name" type="text" placeholder="Nome do titular">
+                                    </label>
+                                    <label>
+                                        <span>Email para envio</span>
+                                        <input id="checkout-mb-email" type="email" placeholder="email@exemplo.com">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checkout-actions">
+                            <button class="btn large" type="submit">Confirmar pagamento</button>
+                            <a class="btn secondary" href="carrinho.html">Voltar ao carrinho</a>
+                        </div>
+                    </form>
+                </div>
+
+                <aside class="checkout-summary-shell carrinho-resumo" id="checkout-summary-shell">
+                    <div class="checkout-block-head">
+                        <h2>Resumo final</h2>
+                        <p>Confirma os itens antes de terminares a compra.</p>
+                    </div>
+
+                    <div class="checkout-items" id="checkout-items"></div>
+
+                    <div class="checkout-total-box">
+                        <div class="resumo-linha">
+                            <span>Subtotal</span>
+                            <strong id="checkout-subtotal">0,00€</strong>
+                        </div>
+                        <div class="resumo-linha">
+                            <span>Envio</span>
+                            <strong id="checkout-shipping">0,00€</strong>
+                        </div>
+                        <div class="resumo-linha">
+                            <span>Desconto</span>
+                            <strong id="checkout-discount">0,00€</strong>
+                        </div>
+                        <div class="resumo-linha">
+                            <span>Cupao ativo</span>
+                            <strong id="checkout-coupon">Sem cupao</strong>
+                        </div>
+                        <hr>
+                        <div class="resumo-linha total">
+                            <span>Total</span>
+                            <strong id="checkout-total">0,00€</strong>
+                        </div>
+                    </div>
+
+                    <a class="btn secondary dashboard-shortcut" id="shop-dashboard-link" href="../cliente/dashboard.html" hidden>Voltar ao dashboard</a>
+                </aside>
+
+                <section class="checkout-success-panel" id="checkout-success" hidden>
+                    <span class="success-pill">Pagamento concluido</span>
+                    <h2>Encomenda confirmada</h2>
+                    <p>O pagamento foi simulado com sucesso e a encomenda ficou registada localmente.</p>
+                    <div class="checkout-success-grid">
+                        <div>
+                            <strong>Codigo</strong>
+                            <span id="checkout-success-code">BC-000000</span>
+                        </div>
+                        <div>
+                            <strong>Total pago</strong>
+                            <span id="checkout-success-total">0,00€</span>
+                        </div>
+                    </div>
+                    <div class="checkout-actions">
+                        <a class="btn" href="../Index.html">Voltar a home</a>
+                        <a class="btn secondary" id="checkout-success-dashboard" href="../cliente/dashboard.html" hidden>Ir para o dashboard</a>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BeastCenter</h4>
+                <p>O teu ginasio de excelencia</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rapidos</h4>
+                <ul>
+                    <li><a href="../planos.html">Planos</a></li>
+                    <li><a href="../trainers.html">Personal Trainers</a></li>
+                    <li><a href="../aulas.html">Aulas</a></li>
+                    <li><a href="produtos.html">Loja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nos</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <a href="https://www.facebook.com/BeastCenter" target="_blank" rel="noreferrer">Facebook</a> |
+                <a href="https://www.instagram.com/BeastCenter" target="_blank" rel="noreferrer">Instagram</a>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter &copy; 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../../Script/loja.js"></script>
+    <script src="../../Script/main.js"></script>
+</body>
+</html>
