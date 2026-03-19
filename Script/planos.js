@@ -240,23 +240,10 @@
         setMessage("Ja tens um plano ativo. Alteracoes e cancelamentos fazem-se no dashboard.", "success");
     }
 
-    function attemptCloseAfterPayment() {
+    function redirectHomeAfterPayment() {
         setTimeout(function () {
-            window.close();
-
-            setTimeout(function () {
-                if (!window.closed) {
-                    document.documentElement.innerHTML = (
-                        "<head><title>Pagamento concluido</title><meta charset='UTF-8'><style>" +
-                        "body{margin:0;min-height:100vh;display:grid;place-items:center;background:#050505;color:#fff;font-family:Segoe UI,Arial,sans-serif;padding:2rem;}" +
-                        ".close-box{max-width:560px;text-align:center;padding:2rem;border-radius:24px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);}" +
-                        "h1{margin:0 0 0.8rem;font-size:2rem;}p{margin:0;color:rgba(255,255,255,0.82);line-height:1.6;}" +
-                        "</style></head>" +
-                        "<body><div class='close-box'><h1>Pagamento concluido</h1><p>O browser bloqueou o fecho automatico deste separador. Podes fecha-lo manualmente.</p></div></body>"
-                    );
-                }
-            }, 350);
-        }, 250);
+            window.location.href = "/";
+        }, 350);
     }
 
     async function confirmPayment() {
@@ -302,8 +289,8 @@
             disablePlanCheckoutForActiveUser();
             setMessage("Pagamento confirmado. O teu plano foi ativado com sucesso.", "success");
 
-            window.alert("Pagamento concluido com sucesso. O separador vai tentar fechar.");
-            attemptCloseAfterPayment();
+            window.alert("Pagamento concluido com sucesso. Vais ser redirecionado para a home.");
+            redirectHomeAfterPayment();
         } catch (error) {
             setMessage(error.message || "Nao foi possivel confirmar o pagamento.", "error");
         }
