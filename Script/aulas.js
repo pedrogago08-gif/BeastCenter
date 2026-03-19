@@ -77,6 +77,48 @@
         banner.textContent = message;
     }
 
+    function getDashboardUrl() {
+        return "cliente/dashboard.html";
+    }
+
+    function updateCtaByUser() {
+        var user = getHelpers().readCurrentUser();
+        var title = byId("aulas-cta-title");
+        var copy = byId("aulas-cta-copy");
+        var button = byId("aulas-cta-button");
+
+        if (!title || !copy || !button) {
+            return;
+        }
+
+        if (!user) {
+            title.textContent = "A tua agenda comeca aqui";
+            copy.textContent = "Cria conta, escolhe um plano e reserva as aulas que melhor encaixam na tua semana.";
+            button.textContent = "Criar conta";
+            button.onclick = function () {
+                window.location.href = "login.html";
+            };
+            return;
+        }
+
+        if (!getHelpers().hasActivePlan(user)) {
+            title.textContent = "Ativa o teu plano para reservar";
+            copy.textContent = "Ja tens conta iniciada. Falta so ativares um plano para começares a marcar as aulas da semana.";
+            button.textContent = "Ver Planos";
+            button.onclick = function () {
+                window.location.href = "planos.html";
+            };
+            return;
+        }
+
+        title.textContent = "Ja tens acesso completo";
+        copy.textContent = "O teu plano esta ativo. Marca aulas acima e acompanha tudo no teu dashboard pessoal.";
+        button.textContent = "Abrir Dashboard";
+        button.onclick = function () {
+            window.location.href = getDashboardUrl();
+        };
+    }
+
     function hasActiveFilters() {
         return filters.type !== "all" || filters.trainer !== "all" || filters.timeOfDay !== "all";
     }
@@ -378,6 +420,7 @@
         renderWeeklySchedule(classes);
         renderClassCards(classes);
         updateBannerByUser();
+        updateCtaByUser();
         bindBookingButtons();
     }
 
@@ -457,6 +500,7 @@
         renderTypeCards(allClasses);
         renderTrainerCards();
         bindFilters();
+        updateCtaByUser();
         rerender();
     }
 

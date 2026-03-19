@@ -1,7 +1,8 @@
 (function () {
     "use strict";
 
-    var CLASSES_KEY = "beastcenter_mock_classes_v2";
+    var CLASSES_KEY = "beastcenter_mock_classes_v3";
+    var LEGACY_CLASSES_KEYS = ["beastcenter_mock_classes_v2"];
 
     var rawTrainers = [
         {
@@ -156,6 +157,20 @@
                 bookedUserKeys: []
             },
             {
+                id: "class-yoga-desk-reset",
+                title: "Yoga Desk Reset",
+                type: "yoga",
+                description: "Sessao curta para mobilidade da coluna, respiracao e alivio de tensao acumulada durante o dia.",
+                date: nextDateForWeekday(1, 12, 45),
+                time: "12:45",
+                duration: 40,
+                capacity: 18,
+                trainerId: "trainer-mariana-sousa",
+                location: "Studio Zen",
+                level: "Todos os niveis",
+                bookedUserKeys: []
+            },
+            {
                 id: "class-crossfit-engine",
                 title: "Crossfit Engine",
                 type: "crossfit",
@@ -170,6 +185,20 @@
                 bookedUserKeys: []
             },
             {
+                id: "class-hiit-express",
+                title: "HIIT Express",
+                type: "hiit",
+                description: "Treino rapido antes do trabalho com foco em pulso alto, potencia e trabalho metabolico.",
+                date: nextDateForWeekday(2, 7, 15),
+                time: "07:15",
+                duration: 30,
+                capacity: 16,
+                trainerId: "trainer-diogo-martins",
+                location: "Sala Pulse",
+                level: "Todos os niveis",
+                bookedUserKeys: []
+            },
+            {
                 id: "class-yoga-flow",
                 title: "Yoga Flow",
                 type: "yoga",
@@ -180,6 +209,20 @@
                 capacity: 20,
                 trainerId: "trainer-mariana-sousa",
                 location: "Studio Zen",
+                level: "Todos os niveis",
+                bookedUserKeys: []
+            },
+            {
+                id: "class-boxe-technique",
+                title: "Boxe Technique",
+                type: "boxe",
+                description: "Combinacoes tecnicas, deslocamentos e rounds controlados para melhorar coordenacao e ritmo.",
+                date: nextDateForWeekday(2, 20, 0),
+                time: "20:00",
+                duration: 50,
+                capacity: 18,
+                trainerId: "trainer-rafael-pinto",
+                location: "Fight Lab",
                 level: "Todos os niveis",
                 bookedUserKeys: []
             },
@@ -198,6 +241,20 @@
                 bookedUserKeys: []
             },
             {
+                id: "class-pilates-lunch",
+                title: "Pilates Lunch Reset",
+                type: "pilates",
+                description: "Sessao ao meio-dia para ativar o core, melhorar postura e sair com mais energia.",
+                date: nextDateForWeekday(3, 13, 0),
+                time: "13:00",
+                duration: 45,
+                capacity: 14,
+                trainerId: "trainer-ines-almeida",
+                location: "Studio Core",
+                level: "Todos os niveis",
+                bookedUserKeys: []
+            },
+            {
                 id: "class-spinning-rush",
                 title: "Spinning Rush",
                 type: "spinning",
@@ -209,6 +266,20 @@
                 trainerId: "trainer-diogo-martins",
                 location: "Cycling Room",
                 level: "Todos os niveis",
+                bookedUserKeys: []
+            },
+            {
+                id: "class-musculacao-technique",
+                title: "Musculacao Technique",
+                type: "musculacao",
+                description: "Bloco tecnico focado em execucao, estabilidade e forca base para continuares a evoluir.",
+                date: nextDateForWeekday(4, 8, 0),
+                time: "08:00",
+                duration: 55,
+                capacity: 12,
+                trainerId: "trainer-joao-freitas",
+                location: "Sala Strength",
+                level: "Iniciacao",
                 bookedUserKeys: []
             },
             {
@@ -226,6 +297,20 @@
                 bookedUserKeys: []
             },
             {
+                id: "class-cross-training-power",
+                title: "Cross Training Power",
+                type: "crossfit",
+                description: "Sessao explosiva com sled, kettlebell e rounds de alta intensidade em equipa.",
+                date: nextDateForWeekday(4, 18, 45),
+                time: "18:45",
+                duration: 55,
+                capacity: 16,
+                trainerId: "trainer-tiago-rocha",
+                location: "Box Arena",
+                level: "Intermedio",
+                bookedUserKeys: []
+            },
+            {
                 id: "class-funcional-360",
                 title: "Treino Funcional 360",
                 type: "funcional",
@@ -236,6 +321,34 @@
                 capacity: 20,
                 trainerId: "trainer-joao-freitas",
                 location: "Zona Performance",
+                level: "Todos os niveis",
+                bookedUserKeys: []
+            },
+            {
+                id: "class-boxe-conditioning",
+                title: "Boxe Conditioning",
+                type: "boxe",
+                description: "Rounds de saco, corda e trabalho tecnico para fechar a semana com intensidade.",
+                date: nextDateForWeekday(5, 19, 15),
+                time: "19:15",
+                duration: 45,
+                capacity: 16,
+                trainerId: "trainer-rafael-pinto",
+                location: "Fight Lab",
+                level: "Todos os niveis",
+                bookedUserKeys: []
+            },
+            {
+                id: "class-yoga-recovery",
+                title: "Yoga Recovery",
+                type: "yoga",
+                description: "Fluxo mais calmo ao sabado para desbloquear ancas, respiracao e mobilidade global.",
+                date: nextDateForWeekday(6, 9, 0),
+                time: "09:00",
+                duration: 45,
+                capacity: 18,
+                trainerId: "trainer-mariana-sousa",
+                location: "Studio Zen",
                 level: "Todos os niveis",
                 bookedUserKeys: []
             },
@@ -252,14 +365,85 @@
                 location: "Fight Lab",
                 level: "Iniciacao",
                 bookedUserKeys: []
+            },
+            {
+                id: "class-musculacao-weekend",
+                title: "Musculacao Weekend",
+                type: "musculacao",
+                description: "Treino orientado de fim de semana com foco em tecnica, full body e reforco de base.",
+                date: nextDateForWeekday(6, 11, 30),
+                time: "11:30",
+                duration: 60,
+                capacity: 14,
+                trainerId: "trainer-joao-freitas",
+                location: "Sala Strength",
+                level: "Todos os niveis",
+                bookedUserKeys: []
+            },
+            {
+                id: "class-mobility-sunday",
+                title: "Mobility Flow Sunday",
+                type: "funcional",
+                description: "Sessao de mobilidade ativa, estabilidade e trabalho corporal para recuperares em movimento.",
+                date: nextDateForWeekday(0, 10, 30),
+                time: "10:30",
+                duration: 40,
+                capacity: 18,
+                trainerId: "trainer-mariana-sousa",
+                location: "Studio Zen",
+                level: "Todos os niveis",
+                bookedUserKeys: []
+            },
+            {
+                id: "class-spinning-endurance",
+                title: "Spinning Endurance",
+                type: "spinning",
+                description: "Sessao de resistencia continua para trabalhares ritmo, cadencia e capacidade aerobica.",
+                date: nextDateForWeekday(0, 11, 45),
+                time: "11:45",
+                duration: 50,
+                capacity: 20,
+                trainerId: "trainer-diogo-martins",
+                location: "Cycling Room",
+                level: "Todos os niveis",
+                bookedUserKeys: []
             }
         ];
+    }
+
+    function mergeLegacyBookings(classes) {
+        var legacyClasses = [];
+
+        LEGACY_CLASSES_KEYS.forEach(function (key) {
+            var current = readJson(key, []);
+            if (Array.isArray(current) && current.length) {
+                legacyClasses = legacyClasses.concat(current);
+            }
+        });
+
+        if (!legacyClasses.length) {
+            return classes;
+        }
+
+        return classes.map(function (item) {
+            var legacy = legacyClasses.find(function (entry) {
+                return entry.id === item.id;
+            });
+
+            if (!legacy || !Array.isArray(legacy.bookedUserKeys)) {
+                return item;
+            }
+
+            return Object.assign({}, item, {
+                bookedUserKeys: legacy.bookedUserKeys.slice()
+            });
+        });
     }
 
     function ensureSeeded() {
         var classes = readJson(CLASSES_KEY, null);
         if (!Array.isArray(classes) || classes.length === 0) {
-            classes = buildMockClasses();
+            classes = mergeLegacyBookings(buildMockClasses());
             writeJson(CLASSES_KEY, classes);
         }
         return classes;
