@@ -31,7 +31,7 @@
         <header class="topbar">
             <div>
                 <h1>Personal Trainers</h1>
-                <p class="page-kicker">Atribuicao de trainer e sessoes personalizadas vao aparecer aqui quando esse modulo estiver ativo.</p>
+                <p class="page-kicker">As tuas sessoes de PT, creditos premium e proximos pedidos ficam aqui organizados.</p>
             </div>
             <div class="user-info">
                 <span class="notification-icon"><span class="badge">0</span></span>
@@ -48,24 +48,37 @@
             <div class="page-grid">
                 <div class="page-column">
                     <section class="page-panel">
-                        <h2>Trainer atribuido</h2>
-                        <div class="empty-state-block">
-                            <h3>Nenhum trainer ligado a esta conta</h3>
-                            <p>Quando houver atribuicao real, vais ver nome, especialidade e proximas sessoes.</p>
+                        <h2>Minhas Sessoes</h2>
+                        <div id="client-pt-sessions-list" class="booking-list-shell">
+                            <div class="empty-state-block">
+                                <h3>Ainda nao tens sessoes marcadas</h3>
+                                <p>Quando agendares uma sessao com um PT, ela aparece aqui com data, hora e tipo de acesso.</p>
+                            </div>
                         </div>
                     </section>
                 </div>
                 <div class="page-column">
                     <section class="page-hero">
                         <h2>Sessoes personalizadas</h2>
-                        <p>Planos individuais, comunicacao com trainer e disponibilidade vao ser mostrados aqui.</p>
+                        <p id="client-pt-hero-copy">Consulta os beneficios do teu plano e acompanha as sessoes de personal trainer que tens marcadas.</p>
+                    </section>
+                    <section class="page-panel">
+                        <h2>Estado do Plano</h2>
+                        <ul class="panel-list" id="client-pt-plan-summary">
+                            <li><strong>Plano atual</strong><span>Sem plano</span></li>
+                            <li><strong>Sessoes gratis este mes</strong><span>0</span></li>
+                            <li><strong>Sessoes ja marcadas</strong><span>0</span></li>
+                        </ul>
                     </section>
                 </div>
             </div>
         </div>
     </main>
     <script src="../../Script/api.js"></script>
+    <script src="../../Script/trainers-data.js"></script>
+    <script src="../../Script/pt-sessions.js"></script>
     <script src="../../Script/cliente-area.js"></script>
+    <script src="../../Script/cliente-personal-trainers.js"></script>
     <script src="../../Script/main.js"></script>
 </body>
 </html>

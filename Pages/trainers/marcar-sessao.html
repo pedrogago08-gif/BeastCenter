@@ -50,10 +50,10 @@
                 <section class="trainer-booking-form-shell">
                     <div class="trainer-booking-locked" id="trainer-booking-locked" hidden>
                         <span class="status-pill">Acesso reservado</span>
-                        <h2>Precisas de iniciar sessao</h2>
-                        <p>So membros com sessao iniciada podem enviar pedidos de marcacao com personal trainer.</p>
+                        <h2 id="trainer-booking-locked-title">Precisas de iniciar sessao</h2>
+                        <p id="trainer-booking-locked-copy">So membros com sessao iniciada podem enviar pedidos de marcacao com personal trainer.</p>
                         <div class="trainer-profile-actions">
-                            <a class="btn" href="../login.html">Iniciar sessao</a>
+                            <a class="btn" id="trainer-booking-locked-primary" href="../login.html">Iniciar sessao</a>
                             <a class="btn secondary" href="../trainers.html">Voltar aos trainers</a>
                         </div>
                     </div>
@@ -64,6 +64,7 @@
                             <h2>Escolhe os teus dados</h2>
                             <p>Preenche o pedido para enviares a tua preferencia de horario e objetivo.</p>
                         </div>
+                        <div class="trainer-plan-status" id="trainer-plan-status"></div>
                         <div class="booking-form-grid">
                             <label class="filter-field">
                                 <span>Nome</span>
@@ -107,6 +108,78 @@
                                 <textarea id="booking-notes" rows="5" placeholder="Conta-nos o teu objetivo, lesoes ou preferencias."></textarea>
                             </label>
                         </div>
+                        <div class="trainer-payment-shell" id="trainer-payment-shell" hidden>
+                            <div class="trainer-payment-head">
+                                <h3>Pagamento da sessao</h3>
+                                <p id="trainer-payment-copy">Escolhe um metodo para confirmar a marcacao.</p>
+                            </div>
+                            <div class="trainer-payment-grid">
+                                <label class="trainer-payment-option" data-method="card">
+                                    <input type="radio" name="pt-payment-method" value="card">
+                                    <strong>Cartao</strong>
+                                    <span>Confirmacao imediata.</span>
+                                </label>
+                                <label class="trainer-payment-option" data-method="mbway">
+                                    <input type="radio" name="pt-payment-method" value="mbway">
+                                    <strong>MB Way</strong>
+                                    <span>Pagamento por telemovel.</span>
+                                </label>
+                                <label class="trainer-payment-option" data-method="paypal">
+                                    <input type="radio" name="pt-payment-method" value="paypal">
+                                    <strong>PayPal</strong>
+                                    <span>Pagamento pela conta PayPal.</span>
+                                </label>
+                                <label class="trainer-payment-option" data-method="multibanco">
+                                    <input type="radio" name="pt-payment-method" value="multibanco">
+                                    <strong>Multibanco</strong>
+                                    <span>Referencia para pagamento.</span>
+                                </label>
+                            </div>
+                            <div class="trainer-payment-panel" id="pt-payment-form-card" hidden>
+                                <div class="booking-form-grid">
+                                    <label class="filter-field">
+                                        <span>Nome no cartao</span>
+                                        <input type="text" id="pt-card-name">
+                                    </label>
+                                    <label class="filter-field">
+                                        <span>Numero do cartao</span>
+                                        <input type="text" id="pt-card-number" placeholder="0000 0000 0000 0000">
+                                    </label>
+                                    <label class="filter-field">
+                                        <span>Validade</span>
+                                        <input type="text" id="pt-card-expiry" placeholder="MM/AA">
+                                    </label>
+                                    <label class="filter-field">
+                                        <span>CVV</span>
+                                        <input type="text" id="pt-card-cvv" placeholder="123">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="trainer-payment-panel" id="pt-payment-form-mbway" hidden>
+                                <label class="filter-field">
+                                    <span>Numero MB Way</span>
+                                    <input type="tel" id="pt-mbway-phone" placeholder="912 345 678">
+                                </label>
+                            </div>
+                            <div class="trainer-payment-panel" id="pt-payment-form-paypal" hidden>
+                                <label class="filter-field">
+                                    <span>Email PayPal</span>
+                                    <input type="email" id="pt-paypal-email" placeholder="email@paypal.com">
+                                </label>
+                            </div>
+                            <div class="trainer-payment-panel" id="pt-payment-form-multibanco" hidden>
+                                <div class="booking-form-grid">
+                                    <label class="filter-field">
+                                        <span>Nome para referencia</span>
+                                        <input type="text" id="pt-mb-name">
+                                    </label>
+                                    <label class="filter-field">
+                                        <span>Email para envio</span>
+                                        <input type="email" id="pt-mb-email">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <button class="btn large trainer-submit-btn" type="submit">Enviar pedido</button>
                     </form>
                 </section>
@@ -146,6 +219,7 @@
     <script src="../../Script/main.js"></script>
     <script src="../../Script/api.js"></script>
     <script src="../../Script/trainers-data.js"></script>
+    <script src="../../Script/pt-sessions.js"></script>
     <script src="../../Script/trainer-booking.js"></script>
 </body>
 </html>
