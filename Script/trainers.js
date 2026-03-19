@@ -45,8 +45,8 @@
                         "<span>+" + Number(trainer.clients || 0) + " clientes</span>" +
                     "</div>" +
                     "<div class='trainer-actions'>" +
-                        "<button class='btn' onclick=\"window.location.href='" + profileUrl + "'\">Ver Perfil</button>" +
-                        "<button class='btn secondary' onclick=\"window.location.href='" + bookingUrl + "'\">Marcar Sessao</button>" +
+                        "<a class='btn' href='" + profileUrl + "'>Ver Perfil</a>" +
+                        "<a class='btn secondary' href='" + bookingUrl + "'>Marcar Sessao</a>" +
                     "</div>" +
                 "</div>" +
             "</article>"

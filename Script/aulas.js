@@ -291,6 +291,7 @@
             6: [],
             7: []
         };
+        var dayOrder = [1, 2, 3, 4, 5, 6, 7];
 
         if (!grid) {
             return;
@@ -300,32 +301,34 @@
             grouped[weekdayKey(item.date)].push(item);
         });
 
-        grid.innerHTML = Object.keys(grouped).filter(function (key) {
-            return grouped[key].length > 0;
-        }).map(function (key) {
-            var items = grouped[key];
+        grid.innerHTML = dayOrder.map(function (dayKey) {
+            var items = grouped[dayKey];
             var firstDate = items[0] ? formatDayNumber(items[0].date) : "";
 
             return (
                 "<article class='aulas-week-day'>" +
                     "<div class='aulas-week-head'>" +
-                        "<h3>" + dayLabels[key] + "</h3>" +
-                        "<span>" + firstDate + "</span>" +
+                        "<h3>" + dayLabels[dayKey] + "</h3>" +
+                        "<span>" + (firstDate || "Sem data") + "</span>" +
                     "</div>" +
                     "<div class='aulas-week-list'>" +
-                        items.map(function (item) {
-                            var isMatch = !hasActiveFilters() || matchesFilters(item);
-                            return (
-                                "<div class='aulas-week-item" + (isMatch ? " is-match" : " is-muted") + "'>" +
-                                    "<div class='aulas-week-item-top'>" +
-                                        "<strong>" + item.time + "</strong>" +
-                                        "<span>" + item.availableSlots + " vagas</span>" +
-                                    "</div>" +
-                                    "<h4>" + item.title + "</h4>" +
-                                    "<p>" + item.trainerName + "</p>" +
-                                "</div>"
-                            );
-                        }).join("") +
+                        (
+                            items.length
+                                ? items.map(function (item) {
+                                    var isMatch = !hasActiveFilters() || matchesFilters(item);
+                                    return (
+                                        "<div class='aulas-week-item" + (isMatch ? " is-match" : " is-muted") + "'>" +
+                                            "<div class='aulas-week-item-top'>" +
+                                                "<strong>" + item.time + "</strong>" +
+                                                "<span>" + item.availableSlots + " vagas</span>" +
+                                            "</div>" +
+                                            "<h4>" + item.title + "</h4>" +
+                                            "<p>" + item.trainerName + "</p>" +
+                                        "</div>"
+                                    );
+                                }).join("")
+                                : "<div class='aulas-week-empty'>Sem aulas agendadas neste dia.</div>"
+                        ) +
                     "</div>" +
                 "</article>"
             );
