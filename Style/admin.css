@@ -1083,3 +1083,247 @@ select {
         scroll-behavior: auto !important;
     }
 }
+
+/* ==================================================
+   ADMIN VISUAL REFINEMENT
+   ================================================== */
+
+:root {
+    --admin-border-soft: rgba(17, 17, 17, 0.08);
+    --admin-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
+    --admin-shadow-strong: 0 22px 44px rgba(0, 0, 0, 0.12);
+    --admin-radius: 22px;
+    --admin-radius-md: 16px;
+    --admin-radius-sm: 12px;
+}
+
+body {
+    line-height: 1.6;
+    background:
+        radial-gradient(960px 480px at 12% -10%, rgba(228, 30, 43, 0.12), transparent 62%),
+        radial-gradient(760px 420px at 92% -16%, rgba(139, 0, 0, 0.08), transparent 62%),
+        linear-gradient(180deg, #FBFAFA 0%, #F1EFEE 100%);
+}
+
+.admin-sidebar {
+    width: 280px;
+    padding: 1.2rem 1rem;
+    box-shadow: 12px 0 30px rgba(0, 0, 0, 0.18);
+    border-right-color: rgba(228, 30, 43, 0.16);
+}
+
+.admin-content {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+}
+
+.sidebar-header {
+    padding: 1rem;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(228, 30, 43, 0.08));
+}
+
+.sidebar-header img {
+    width: 48px;
+    height: 48px;
+}
+
+.sidebar-header h2 {
+    font-size: 1.7rem;
+    letter-spacing: 0.06em;
+}
+
+.menu-item {
+    padding: 0.88rem 0.95rem;
+    border-radius: 14px;
+    font-weight: 500;
+}
+
+.menu-item.active {
+    box-shadow: inset 2px 0 0 var(--admin-primary);
+}
+
+.admin-topbar {
+    padding: 1.2rem 1.75rem;
+    background: rgba(255, 255, 255, 0.84);
+}
+
+.admin-topbar h1,
+.section-header h2,
+.admin-section > h2,
+.modal-header h2 {
+    letter-spacing: 0.05em;
+}
+
+.admin-topbar h1 {
+    font-size: 2.15rem;
+}
+
+.page-kicker,
+.atividade-info .time,
+.alert-info p,
+.trainer-info p,
+.aula-info p,
+.attendance,
+.percentage,
+.hour {
+    color: #6A6A6A;
+}
+
+.admin-section,
+.stat-card,
+.summary-card,
+.placeholder-card,
+.empty-table,
+.users-table-section,
+.modal-content {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(17, 17, 17, 0.06);
+    box-shadow: var(--admin-shadow);
+}
+
+.admin-section,
+.users-table-section,
+.placeholder-card,
+.empty-table {
+    border-radius: 22px;
+}
+
+.stat-card,
+.summary-card {
+    border-radius: 20px;
+}
+
+.period-selector,
+.search-input,
+.filter-select,
+.form-group input,
+.form-group select,
+textarea {
+    border-radius: 14px;
+    border-color: rgba(17, 17, 17, 0.08);
+    background: rgba(255, 255, 255, 0.98);
+}
+
+.period-selector:focus,
+.search-input:focus,
+.filter-select:focus,
+.form-group input:focus,
+.form-group select:focus,
+textarea:focus {
+    border-color: rgba(228, 30, 43, 0.42);
+    box-shadow: 0 0 0 4px rgba(228, 30, 43, 0.1);
+}
+
+.btn-primary,
+.action-btn,
+.btn-export,
+.btn-secondary,
+.btn-bulk,
+.btn-small,
+.pagination-btn,
+.pagination-number,
+.btn-icon {
+    min-height: 44px;
+    border-radius: 14px;
+}
+
+.btn-primary,
+.action-btn {
+    box-shadow: 0 12px 24px rgba(228, 30, 43, 0.16);
+}
+
+.btn-primary:hover,
+.action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(228, 30, 43, 0.22);
+}
+
+.btn-export,
+.btn-secondary,
+.btn-bulk,
+.btn-small,
+.pagination-btn,
+.pagination-number {
+    background: rgba(255, 255, 255, 0.96);
+}
+
+.btn-export:hover,
+.btn-secondary:hover,
+.btn-bulk:hover,
+.btn-small:hover,
+.pagination-btn:hover:not(:disabled),
+.pagination-number:hover {
+    background: #181818;
+}
+
+.admin-table {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.admin-table thead th {
+    background: #121212;
+    letter-spacing: 0.06em;
+}
+
+.admin-table tbody td {
+    background: rgba(255, 255, 255, 0.96);
+}
+
+.admin-table tbody tr:hover td {
+    background: rgba(228, 30, 43, 0.035);
+}
+
+.bulk-actions {
+    border-radius: 18px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.16);
+}
+
+.modal {
+    background: rgba(0, 0, 0, 0.56);
+}
+
+.modal-content {
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.98);
+}
+
+.detail-item,
+.atividade-item,
+.aula-rank-item,
+.alert-item,
+.trainer-rank-item {
+    border-radius: 16px;
+}
+
+@media (max-width: 900px) {
+    .admin-sidebar {
+        width: 92px;
+    }
+
+    .admin-content {
+        margin-left: 92px;
+        width: calc(100% - 92px);
+    }
+}
+
+@media (max-width: 720px) {
+    body {
+        display: block;
+    }
+
+    .admin-sidebar {
+        position: static;
+        width: 100%;
+        min-height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(228, 30, 43, 0.16);
+        box-shadow: none;
+    }
+
+    .admin-content {
+        width: 100%;
+        margin-left: 0;
+    }
+}

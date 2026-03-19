@@ -993,3 +993,218 @@ select {
         scroll-behavior: auto !important;
     }
 }
+
+/* ==================================================
+   CLIENT AREA VISUAL REFINEMENT
+   ================================================== */
+
+:root {
+    --client-shadow: 0 16px 34px rgba(0, 0, 0, 0.08);
+    --client-shadow-strong: 0 22px 44px rgba(0, 0, 0, 0.12);
+    --client-radius: 22px;
+}
+
+body {
+    line-height: 1.6;
+    background:
+        radial-gradient(960px 480px at 12% -10%, rgba(228, 30, 43, 0.12), transparent 62%),
+        radial-gradient(760px 420px at 92% -16%, rgba(139, 0, 0, 0.08), transparent 62%),
+        linear-gradient(180deg, #FBFAFA 0%, #F1EFEE 100%);
+}
+
+.sidebar {
+    width: 280px;
+    padding: 1.2rem 1rem;
+    box-shadow: 12px 0 30px rgba(0, 0, 0, 0.18);
+    border-right-color: rgba(228, 30, 43, 0.16);
+}
+
+.main-content {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+}
+
+.sidebar-header {
+    padding: 1rem;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(228, 30, 43, 0.08));
+}
+
+.sidebar-header img {
+    width: 48px;
+    height: 48px;
+}
+
+.sidebar-header h2 {
+    font-size: 1.7rem;
+    letter-spacing: 0.06em;
+}
+
+.menu-item {
+    padding: 0.88rem 0.95rem;
+    border-radius: 14px;
+    font-weight: 500;
+}
+
+.menu-item.active {
+    box-shadow: inset 2px 0 0 var(--client-primary);
+}
+
+.topbar {
+    padding: 1.2rem 1.75rem;
+    background: rgba(255, 255, 255, 0.84);
+}
+
+.topbar h1,
+.page-panel h2,
+.dashboard-section h2,
+.page-hero h2,
+.client-hero h2 {
+    letter-spacing: 0.05em;
+}
+
+.topbar h1 {
+    font-size: 2.15rem;
+}
+
+.page-kicker,
+.user-plan,
+.quick-link-card span,
+.page-panel p,
+.page-panel li,
+.page-panel label,
+.booking-card-head p,
+.booking-meta-grid span {
+    color: #6A6A6A;
+}
+
+.dashboard-section,
+.page-panel,
+.quick-link-card,
+.booking-card,
+.payment-form-panel,
+.payment-option,
+.plan-card-shell,
+.client-hero-panel,
+.empty-state-block {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(17, 17, 17, 0.06);
+    box-shadow: var(--client-shadow);
+}
+
+.dashboard-section,
+.page-panel,
+.plan-card-shell,
+.client-hero,
+.page-hero {
+    border-radius: 22px;
+}
+
+.client-hero,
+.page-hero {
+    box-shadow: var(--client-shadow-strong);
+}
+
+.quick-link-card,
+.booking-card,
+.payment-form-panel {
+    border-radius: 18px;
+}
+
+.btn {
+    min-height: 46px;
+    border-radius: 14px;
+    box-shadow: 0 12px 24px rgba(228, 30, 43, 0.18);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(228, 30, 43, 0.24);
+}
+
+.btn.secondary {
+    border-width: 1px;
+    border-color: rgba(228, 30, 43, 0.2);
+    background: transparent;
+    box-shadow: none;
+}
+
+.btn.secondary:hover {
+    background: rgba(228, 30, 43, 0.08);
+    color: var(--client-primary);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.payment-field input,
+.payment-field select {
+    border-radius: 14px;
+    border-color: rgba(17, 17, 17, 0.08);
+    background: rgba(255, 255, 255, 0.98);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.payment-field input:focus,
+.payment-field select:focus {
+    border-color: rgba(228, 30, 43, 0.42);
+    box-shadow: 0 0 0 4px rgba(228, 30, 43, 0.1);
+}
+
+.payment-option {
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.payment-option:hover {
+    transform: translateY(-1px);
+}
+
+.payment-option.selected,
+.plan-manager-select.is-selected {
+    box-shadow: 0 0 0 1px rgba(228, 30, 43, 0.14), 0 14px 26px rgba(228, 30, 43, 0.12);
+}
+
+.quick-link-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--client-shadow-strong);
+}
+
+.booking-meta-grid div,
+.panel-list li,
+.settings-list li,
+.feature-list li {
+    border-radius: 16px;
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        width: 92px;
+    }
+
+    .main-content {
+        margin-left: 92px;
+        width: calc(100% - 92px);
+    }
+}
+
+@media (max-width: 720px) {
+    body {
+        display: block;
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        min-height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(228, 30, 43, 0.16);
+        box-shadow: none;
+    }
+
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+    }
+}

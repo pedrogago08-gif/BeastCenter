@@ -353,5 +353,216 @@ body::before {
     }
 }
 
+/* ==================================================
+   AUTH VISUAL REFINEMENT
+   ================================================== */
+
+:root {
+    --auth-surface: rgba(255, 255, 255, 0.95);
+    --auth-surface-strong: rgba(255, 255, 255, 0.98);
+    --auth-border: rgba(17, 17, 17, 0.08);
+    --auth-border-strong: rgba(228, 30, 43, 0.18);
+    --auth-text: #171717;
+    --auth-text-soft: #656565;
+    --auth-shadow: 0 20px 48px rgba(0, 0, 0, 0.18);
+    --auth-radius: 22px;
+}
+
+body {
+    padding: 2.5rem 1.25rem;
+    background:
+        radial-gradient(760px 420px at 10% -10%, rgba(228, 30, 43, 0.16), transparent 60%),
+        radial-gradient(620px 340px at 100% -10%, rgba(139, 0, 0, 0.1), transparent 60%),
+        linear-gradient(145deg, #050505 0%, #0D0D0E 56%, #171718 100%);
+}
+
+body::before {
+    background-image:
+        linear-gradient(90deg, rgba(228, 30, 43, 0.04), transparent 22%, transparent 78%, rgba(228, 30, 43, 0.04)),
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 70px,
+            rgba(228, 30, 43, 0.03) 70px,
+            rgba(228, 30, 43, 0.03) 140px
+        );
+}
+
+.auth-container {
+    max-width: 540px;
+}
+
+.auth-header {
+    margin-bottom: 1.75rem;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.logo-large {
+    gap: 0.9rem;
+    margin-top: 1.2rem;
+}
+
+.logo-large img {
+    width: 104px;
+    height: 104px;
+    filter: drop-shadow(0 10px 24px rgba(228, 30, 43, 0.18));
+}
+
+.logo-large h1 {
+    font-size: 2.1rem;
+    letter-spacing: 0.08em;
+    text-shadow: none;
+}
+
+.auth-box {
+    padding: 2rem;
+    border-radius: var(--auth-radius);
+    background: var(--auth-surface);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: var(--auth-shadow);
+    backdrop-filter: blur(14px);
+}
+
+.auth-box h2 {
+    color: var(--auth-text);
+    font-size: 1.9rem;
+    line-height: 1.05;
+    margin-bottom: 0.35rem;
+}
+
+.subtitle,
+.switch-auth,
+.password-hint {
+    color: var(--auth-text-soft);
+}
+
+.admin-secret-panel {
+    border-radius: 18px;
+    border-color: rgba(228, 30, 43, 0.14);
+    background: linear-gradient(160deg, rgba(14, 14, 16, 0.97), rgba(36, 12, 14, 0.95));
+    box-shadow: none;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    margin-bottom: 0.45rem;
+    color: var(--auth-text);
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.92rem 1rem;
+    border-radius: 14px;
+    border: 1px solid var(--auth-border);
+    background: var(--auth-surface-strong);
+    color: var(--auth-text);
+}
+
+.form-group input::placeholder,
+.form-group select::placeholder,
+textarea::placeholder {
+    color: #9A9A9A;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: rgba(228, 30, 43, 0.4);
+    box-shadow: 0 0 0 4px rgba(228, 30, 43, 0.1);
+}
+
+.checkbox-label {
+    align-items: flex-start;
+    line-height: 1.55;
+    color: var(--auth-text-soft);
+}
+
+.forgot-password,
+.switch-auth a {
+    font-weight: 700;
+}
+
+.btn-auth,
+.btn-admin-back {
+    min-height: 48px;
+    border-radius: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.btn-auth {
+    background: linear-gradient(135deg, #E41E2B, #8B0000);
+    box-shadow: 0 12px 24px rgba(228, 30, 43, 0.18);
+}
+
+.btn-auth:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(228, 30, 43, 0.24);
+}
+
+.btn-admin-back {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.separator {
+    margin: 1.6rem 0;
+}
+
+.separator::before,
+.separator::after {
+    border-bottom-color: rgba(17, 17, 17, 0.1);
+}
+
+.social-login {
+    gap: 0.75rem;
+}
+
+.btn-social {
+    padding: 0.92rem 1rem;
+    border-radius: 14px;
+    border: 1px solid var(--auth-border);
+    background: var(--auth-surface-strong);
+    font-weight: 700;
+    color: var(--auth-text);
+}
+
+.btn-social:hover {
+    border-color: rgba(228, 30, 43, 0.18);
+    background: rgba(228, 30, 43, 0.04);
+    transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 1.5rem 0.85rem;
+    }
+
+    .auth-box {
+        padding: 1.5rem;
+        border-radius: 20px;
+    }
+
+    .logo-large img {
+        width: 88px;
+        height: 88px;
+    }
+
+    .logo-large h1 {
+        font-size: 1.85rem;
+    }
+}
+
 
 
