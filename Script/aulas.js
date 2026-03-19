@@ -7,6 +7,7 @@
         timeOfDay: "all"
     };
     var NO_SHOW_FEE = 5;
+    var pendingBookingClassId = "";
 
     function getHelpers() {
         return window.BeastCenterClasses;
@@ -70,6 +71,35 @@
 
         banner.className = "aulas-status-banner" + (type ? " " + type : "");
         banner.textContent = message;
+    }
+
+    function openBookingModal(item) {
+        var modal = byId("class-booking-modal");
+        var summary = byId("class-booking-summary");
+
+        if (!modal || !item) {
+            return;
+        }
+
+        pendingBookingClassId = item.id;
+
+        if (summary) {
+            summary.textContent = item.title + " · " + getHelpers().formatShortDate(item.date) + " às " + item.time + " · " + item.trainerName + ".";
+        }
+
+        modal.hidden = false;
+        document.body.classList.add("modal-open");
+    }
+
+    function closeBookingModal() {
+        var modal = byId("class-booking-modal");
+        pendingBookingClassId = "";
+        if (!modal) {
+            return;
+        }
+
+        modal.hidden = true;
+        document.body.classList.remove("modal-open");
     }
 
     function hasActiveFilters() {
@@ -267,8 +297,9 @@
                             items.length
                                 ? items.map(function (item) {
                                     var isMatch = !hasActiveFilters() || matchesFilters(item);
+                                    var isDisabled = hasActiveFilters() && !isMatch;
                                     return (
-                                        "<button type='button' class='aulas-week-item aulas-week-item-button" + (isMatch ? " is-match" : " is-muted") + "' data-class-id='" + item.id + "'>" +
+                                        "<button type='button' class='aulas-week-item aulas-week-item-button" + (isMatch ? " is-match" : " is-muted") + "' data-class-id='" + item.id + "'" + (isDisabled ? " disabled aria-disabled='true'" : "") + ">" +
                                             "<div class='aulas-week-item-top'>" +
                                                 "<strong>" + item.time + "</strong>" +
                                                 "<span>" + item.availableSlots + " vagas</span>" +
@@ -315,18 +346,41 @@
                     return;
                 }
 
-                if (!window.confirm(
-                    "Queres marcar uma vaga para " + item.title + " em " + getHelpers().formatShortDate(item.date) + " as " + item.time + "?\n\n" +
-                    "Aviso importante:\n" +
-                    "- Para desmarcar, tens de o fazer com pelo menos 1 dia de antecedencia.\n" +
-                    "- Se nao compareceres na aula, aplica-se uma multa de " + formatPrice(NO_SHOW_FEE) + ".\n\n" +
-                    "Confirmas a marcacao?"
-                )) {
+                openBookingModal(item);
+            });
+        });
+    }
+
+    function bindBookingModal() {
+        var cancelButton = byId("class-booking-cancel");
+        var confirmButton = byId("class-booking-confirm");
+        var backdrop = byId("class-booking-backdrop");
+
+        if (cancelButton) {
+            cancelButton.addEventListener("click", closeBookingModal);
+        }
+
+        if (backdrop) {
+            backdrop.addEventListener("click", closeBookingModal);
+        }
+
+        if (confirmButton) {
+            confirmButton.addEventListener("click", function () {
+                if (!pendingBookingClassId) {
+                    closeBookingModal();
                     return;
                 }
 
+                var classId = pendingBookingClassId;
+                closeBookingModal();
                 handleBooking(classId);
             });
+        }
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeBookingModal();
+            }
         });
     }
 
@@ -422,6 +476,7 @@
         renderTypeCards(allClasses);
         renderTrainerCards();
         bindFilters();
+        bindBookingModal();
         rerender();
     }
 

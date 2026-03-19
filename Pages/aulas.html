@@ -144,6 +144,33 @@
         <p class="copyright">BeastCenter © 2025 - Todos os direitos reservados.</p>
     </footer>
 
+    <div class="booking-modal" id="class-booking-modal" hidden>
+        <div class="booking-modal-backdrop" id="class-booking-backdrop"></div>
+        <div class="booking-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="class-booking-title">
+            <div class="booking-modal-head">
+                <span class="booking-modal-kicker">Confirmacao de vaga</span>
+                <h3 id="class-booking-title">Marcar aula</h3>
+                <p id="class-booking-summary">Confirma os detalhes antes de reservares a vaga.</p>
+            </div>
+            <div class="booking-modal-body">
+                <div class="booking-modal-rules">
+                    <div class="booking-rule">
+                        <strong>Cancelamento</strong>
+                        <span>Tens de desmarcar com pelo menos 1 dia de antecedencia.</span>
+                    </div>
+                    <div class="booking-rule">
+                        <strong>Falta</strong>
+                        <span>Se nao compareceres, aplica-se uma multa de 5,00 EUR.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="booking-modal-actions">
+                <button class="btn secondary" type="button" id="class-booking-cancel">Cancelar</button>
+                <button class="btn" type="button" id="class-booking-confirm">Confirmar marcacao</button>
+            </div>
+        </div>
+    </div>
+
     <script src="../Script/main.js"></script>
     <script src="../Script/api.js"></script>
     <script src="../Script/class-bookings.js"></script>
