@@ -6,6 +6,7 @@
         trainer: "all",
         timeOfDay: "all"
     };
+    var NO_SHOW_FEE = 5;
 
     function getHelpers() {
         return window.BeastCenterClasses;
@@ -46,16 +47,6 @@
         return day === 0 ? 7 : day;
     }
 
-    function formatWeekdayLabel(dateString) {
-        try {
-            return new Intl.DateTimeFormat("pt-PT", {
-                weekday: "long"
-            }).format(new Date(dateString));
-        } catch (error) {
-            return "";
-        }
-    }
-
     function formatDayNumber(dateString) {
         try {
             return new Intl.DateTimeFormat("pt-PT", {
@@ -68,7 +59,7 @@
     }
 
     function formatPrice(value) {
-        return Number(value || 0).toFixed(2).replace(".", ",") + "€";
+        return Number(value || 0).toFixed(2).replace(".", ",") + " EUR";
     }
 
     function setStatusBanner(message, type) {
@@ -79,48 +70,6 @@
 
         banner.className = "aulas-status-banner" + (type ? " " + type : "");
         banner.textContent = message;
-    }
-
-    function getDashboardUrl() {
-        return "cliente/dashboard.html";
-    }
-
-    function updateCtaByUser() {
-        var user = getHelpers().readCurrentUser();
-        var title = byId("aulas-cta-title");
-        var copy = byId("aulas-cta-copy");
-        var button = byId("aulas-cta-button");
-
-        if (!title || !copy || !button) {
-            return;
-        }
-
-        if (!user) {
-            title.textContent = "A tua agenda comeca aqui";
-            copy.textContent = "Cria conta, escolhe um plano e reserva as aulas que melhor encaixam na tua semana.";
-            button.textContent = "Criar conta";
-            button.onclick = function () {
-                window.location.href = "login.html";
-            };
-            return;
-        }
-
-        if (!getHelpers().hasActivePlan(user)) {
-            title.textContent = "Ativa o teu plano para reservar";
-            copy.textContent = "Ja tens conta iniciada. Falta so ativares um plano para começares a marcar as aulas da semana.";
-            button.textContent = "Ver Planos";
-            button.onclick = function () {
-                window.location.href = "planos.html";
-            };
-            return;
-        }
-
-        title.textContent = "Ja tens acesso completo";
-        copy.textContent = "O teu plano esta ativo. Marca aulas acima e acompanha tudo no teu dashboard pessoal.";
-        button.textContent = "Abrir Dashboard";
-        button.onclick = function () {
-            window.location.href = getDashboardUrl();
-        };
     }
 
     function hasActiveFilters() {
@@ -228,15 +177,13 @@
             return;
         }
 
-        var cards = classes.filter(function (item) {
+        grid.innerHTML = classes.filter(function (item) {
             if (seen[item.type]) {
                 return false;
             }
             seen[item.type] = true;
             return true;
-        });
-
-        grid.innerHTML = cards.map(function (item) {
+        }).map(function (item) {
             return (
                 "<article class='aula-tipo-card'>" +
                     "<div class='icon'>" + item.trainerInitials + "</div>" +
@@ -329,8 +276,8 @@
                                             "<h4>" + item.title + "</h4>" +
                                             "<p>" + item.trainerName + "</p>" +
                                             "<div class='aulas-week-item-footer'>" +
-                                                "<span>Taxa " + formatPrice(item.bookingFee || 5) + "</span>" +
-                                                "<strong>Marcar vaga</strong>" +
+                                                "<span>Clica para reservar</span>" +
+                                                "<strong>Marcar aula</strong>" +
                                             "</div>" +
                                         "</button>"
                                     );
@@ -368,80 +315,19 @@
                     return;
                 }
 
-                if (!window.confirm("Queres marcar uma vaga para " + item.title + " em " + getHelpers().formatShortDate(item.date) + " às " + item.time + "?\n\nTaxa de reserva: " + formatPrice(item.bookingFee || 5))) {
+                if (!window.confirm(
+                    "Queres marcar uma vaga para " + item.title + " em " + getHelpers().formatShortDate(item.date) + " as " + item.time + "?\n\n" +
+                    "Aviso importante:\n" +
+                    "- Para desmarcar, tens de o fazer com pelo menos 1 dia de antecedencia.\n" +
+                    "- Se nao compareceres na aula, aplica-se uma multa de " + formatPrice(NO_SHOW_FEE) + ".\n\n" +
+                    "Confirmas a marcacao?"
+                )) {
                     return;
                 }
 
                 handleBooking(classId);
             });
         });
-    }
-
-    function renderClassCards(classes) {
-        var grid = byId("aulas-cards-grid");
-        var currentUser = getHelpers().readCurrentUser();
-        var hasPlanAccess = getHelpers().hasActivePlan(currentUser);
-        var bookedMap = {};
-
-        if (!grid) {
-            return;
-        }
-
-        getHelpers().getUserBookings(currentUser).forEach(function (item) {
-            bookedMap[item.id] = true;
-        });
-
-        grid.innerHTML = classes.map(function (item) {
-            var isBooked = !!bookedMap[item.id];
-            var isMatch = !hasActiveFilters() || matchesFilters(item);
-            var actionMarkup = "";
-
-            if (!currentUser) {
-                actionMarkup = "<span class='class-action-note'>Inicia sessao para marcares esta aula.</span>";
-            } else if (!hasPlanAccess) {
-                actionMarkup = "<span class='class-action-note warning'>Precisas de um plano ativo para reservar vaga.</span>";
-            } else {
-                actionMarkup = "<button class='btn class-book-btn' data-class-id='" + item.id + "' " + (isBooked ? "disabled" : "") + ">" + (isBooked ? "Ja marcada" : "Marcar aula") + "</button>";
-            }
-
-            return (
-                "<article class='aulas-class-card" + (isMatch ? " is-match" : " is-muted") + "'>" +
-                    "<div class='aulas-class-top'>" +
-                        "<div>" +
-                            "<span class='class-type-pill'>" + formatTypeLabel(item.type) + "</span>" +
-                            "<h3>" + item.title + "</h3>" +
-                            "<p>" + item.description + "</p>" +
-                        "</div>" +
-                        "<div class='class-slot-badge'>" + item.availableSlots + " vagas</div>" +
-                    "</div>" +
-                    "<div class='aulas-class-meta'>" +
-                        "<div><strong>Data</strong><span>" + getHelpers().formatDate(item.date) + "</span></div>" +
-                        "<div><strong>Hora</strong><span>" + item.time + "</span></div>" +
-                        "<div><strong>Duracao</strong><span>" + item.duration + " min</span></div>" +
-                        "<div><strong>Local</strong><span>" + item.location + "</span></div>" +
-                    "</div>" +
-                    "<div class='aulas-trainer-strip'>" +
-                        "<div class='trainer-mini-avatar'>" +
-                            "<img class='trainer-mini-avatar-image' src='" + (item.trainerImageCandidates && item.trainerImageCandidates[0] ? item.trainerImageCandidates[0] : "") + "' alt='" + item.trainerName + "' data-image-candidates='" + encodeURIComponent(JSON.stringify(item.trainerImageCandidates || [])) + "'>" +
-                            "<span class='trainer-mini-avatar-fallback' style='display:none;'>" + item.trainerInitials + "</span>" +
-                        "</div>" +
-                        "<div>" +
-                            "<strong>" + item.trainerName + "</strong>" +
-                            "<span>" + item.trainerSpecialty + "</span>" +
-                        "</div>" +
-                    "</div>" +
-                    "<div class='aulas-class-footer'>" +
-                        "<div class='class-extra'>" +
-                            "<span>Nivel: " + item.level + "</span>" +
-                            "<span>" + timeOfDayLabel(item.time) + "</span>" +
-                        "</div>" +
-                        actionMarkup +
-                    "</div>" +
-                "</article>"
-            );
-        }).join("");
-
-        bindImageFallbacks(grid, ".trainer-mini-avatar-image", ".trainer-mini-avatar-fallback");
     }
 
     function updateBannerByUser() {
@@ -457,17 +343,7 @@
             return;
         }
 
-        setStatusBanner("Ja tens acesso completo. Escolhe uma aula e confirma a tua vaga.", "success");
-    }
-
-    function rerender() {
-        var classes = getHelpers().getAllClasses();
-        renderWeeklySchedule(classes);
-        renderClassCards(classes);
-        updateBannerByUser();
-        updateCtaByUser();
-        bindBookingButtons();
-        bindWeeklyBookings();
+        setStatusBanner("Ja tens acesso completo. Clica numa aula do horario para reservares a tua vaga.", "success");
     }
 
     function handleBooking(classId) {
@@ -500,16 +376,9 @@
         } else {
             window.alert("Aula marcada com sucesso.");
         }
+
         renderStats(getHelpers().getAllClasses());
         rerender();
-    }
-
-    function bindBookingButtons() {
-        Array.prototype.slice.call(document.querySelectorAll(".class-book-btn")).forEach(function (button) {
-            button.addEventListener("click", function () {
-                handleBooking(button.getAttribute("data-class-id"));
-            });
-        });
     }
 
     function bindFilters() {
@@ -539,6 +408,13 @@
         }
     }
 
+    function rerender() {
+        var classes = getHelpers().getAllClasses();
+        renderWeeklySchedule(classes);
+        updateBannerByUser();
+        bindWeeklyBookings();
+    }
+
     function init() {
         var allClasses = getHelpers().getAllClasses();
         renderStats(allClasses);
@@ -546,7 +422,6 @@
         renderTypeCards(allClasses);
         renderTrainerCards();
         bindFilters();
-        updateCtaByUser();
         rerender();
     }
 
