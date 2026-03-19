@@ -63,6 +63,13 @@
         return Number(value || 0).toFixed(2).replace(".", ",") + " EUR";
     }
 
+    function setText(id, value) {
+        var node = byId(id);
+        if (node) {
+            node.textContent = value;
+        }
+    }
+
     function setStatusBanner(message, type) {
         var banner = byId("aulas-status-banner");
         if (!banner) {
@@ -71,35 +78,6 @@
 
         banner.className = "aulas-status-banner" + (type ? " " + type : "");
         banner.textContent = message;
-    }
-
-    function openBookingModal(item) {
-        var modal = byId("class-booking-modal");
-        var summary = byId("class-booking-summary");
-
-        if (!modal || !item) {
-            return;
-        }
-
-        pendingBookingClassId = item.id;
-
-        if (summary) {
-            summary.textContent = item.title + " · " + getHelpers().formatShortDate(item.date) + " às " + item.time + " · " + item.trainerName + ".";
-        }
-
-        modal.hidden = false;
-        document.body.classList.add("modal-open");
-    }
-
-    function closeBookingModal() {
-        var modal = byId("class-booking-modal");
-        pendingBookingClassId = "";
-        if (!modal) {
-            return;
-        }
-
-        modal.hidden = true;
-        document.body.classList.remove("modal-open");
     }
 
     function hasActiveFilters() {
@@ -115,12 +93,8 @@
             return false;
         }
 
-        if (filters.timeOfDay !== "all") {
-            var hour = Number(String(item.time).split(":")[0] || 0);
-            var period = hour < 12 ? "manha" : (hour < 18 ? "tarde" : "noite");
-            if (period !== filters.timeOfDay) {
-                return false;
-            }
+        if (filters.timeOfDay !== "all" && timeOfDayLabel(item.time).toLowerCase() !== filters.timeOfDay) {
+            return false;
         }
 
         return true;
@@ -158,12 +132,42 @@
         });
     }
 
+    function openBookingModal(item) {
+        var modal = byId("class-booking-modal");
+        var summary = byId("class-booking-summary");
+
+        if (!modal || !item) {
+            return;
+        }
+
+        pendingBookingClassId = item.id;
+
+        if (summary) {
+            summary.textContent = item.title + " | " + getHelpers().formatShortDate(item.date) + " as " + item.time + " | " + item.trainerName + ".";
+        }
+
+        modal.hidden = false;
+        document.body.classList.add("modal-open");
+    }
+
+    function closeBookingModal() {
+        var modal = byId("class-booking-modal");
+        pendingBookingClassId = "";
+
+        if (!modal) {
+            return;
+        }
+
+        modal.hidden = true;
+        document.body.classList.remove("modal-open");
+    }
+
     function renderStats(classes) {
-        byId("aulas-stat-total").textContent = String(classes.length);
-        byId("aulas-stat-vagas").textContent = String(classes.reduce(function (sum, item) {
+        setText("aulas-stat-total", String(classes.length));
+        setText("aulas-stat-vagas", String(classes.reduce(function (sum, item) {
             return sum + Number(item.availableSlots || 0);
-        }, 0));
-        byId("aulas-stat-trainers").textContent = String(getHelpers().trainers.length);
+        }, 0)));
+        setText("aulas-stat-trainers", String(getHelpers().trainers.length));
     }
 
     function renderFilterOptions(classes) {
@@ -227,6 +231,7 @@
 
     function renderTrainerCards() {
         var grid = byId("aulas-trainers-grid");
+
         if (!grid) {
             return;
         }
@@ -298,6 +303,7 @@
                                 ? items.map(function (item) {
                                     var isMatch = !hasActiveFilters() || matchesFilters(item);
                                     var isDisabled = hasActiveFilters() && !isMatch;
+
                                     return (
                                         "<button type='button' class='aulas-week-item aulas-week-item-button" + (isMatch ? " is-match" : " is-muted") + "' data-class-id='" + item.id + "'" + (isDisabled ? " disabled aria-disabled='true'" : "") + ">" +
                                             "<div class='aulas-week-item-top'>" +
@@ -321,6 +327,16 @@
         }).join("");
     }
 
+    function redirectToLogin() {
+        setStatusBanner("Precisas de iniciar sessao para marcares uma vaga nesta aula.", "warning");
+        window.location.href = "login.html";
+    }
+
+    function redirectToPlans() {
+        setStatusBanner("Precisas de um plano ativo para reservares esta aula.", "warning");
+        window.location.href = "planos.html";
+    }
+
     function bindWeeklyBookings() {
         Array.prototype.slice.call(document.querySelectorAll(".aulas-week-item-button")).forEach(function (button) {
             button.addEventListener("click", function () {
@@ -333,16 +349,12 @@
                 }
 
                 if (!currentUser) {
-                    setStatusBanner("Precisas de iniciar sessao para marcares uma vaga nesta aula.", "warning");
-                    window.alert("Precisas de iniciar sessao para marcares uma vaga nesta aula.");
-                    window.location.href = "login.html";
+                    redirectToLogin();
                     return;
                 }
 
                 if (!getHelpers().hasActivePlan(currentUser)) {
-                    setStatusBanner("Precisas de um plano ativo para reservares esta aula.", "warning");
-                    window.alert("Precisas de um plano ativo para marcar uma vaga nesta aula.");
-                    window.location.href = "planos.html";
+                    redirectToPlans();
                     return;
                 }
 
@@ -357,21 +369,26 @@
         var backdrop = byId("class-booking-backdrop");
 
         if (cancelButton) {
-            cancelButton.addEventListener("click", closeBookingModal);
+            cancelButton.addEventListener("click", function () {
+                closeBookingModal();
+            });
         }
 
         if (backdrop) {
-            backdrop.addEventListener("click", closeBookingModal);
+            backdrop.addEventListener("click", function () {
+                closeBookingModal();
+            });
         }
 
         if (confirmButton) {
             confirmButton.addEventListener("click", function () {
-                if (!pendingBookingClassId) {
+                var classId = pendingBookingClassId;
+
+                if (!classId) {
                     closeBookingModal();
                     return;
                 }
 
-                var classId = pendingBookingClassId;
                 closeBookingModal();
                 handleBooking(classId);
             });
@@ -397,38 +414,35 @@
             return;
         }
 
-        setStatusBanner("Ja tens acesso completo. Clica numa aula do horario para reservares a tua vaga.", "success");
+        setStatusBanner("Ja tens acesso completo. Clica numa aula do horario para reservares a tua vaga. Se faltares sem desmarcar, aplica-se multa de " + formatPrice(NO_SHOW_FEE) + ".", "success");
     }
 
     function handleBooking(classId) {
         var currentUser = getHelpers().readCurrentUser();
+        var result;
 
         if (!currentUser) {
-            setStatusBanner("Precisas de iniciar sessao para marcar aulas.", "warning");
-            window.alert("Precisas de iniciar sessao para marcar aulas.");
-            window.location.href = "login.html";
+            redirectToLogin();
             return;
         }
 
         if (!getHelpers().hasActivePlan(currentUser)) {
-            setStatusBanner("Precisas de aderir a um plano para reservar vagas.", "warning");
-            window.alert("Precisas de um plano ativo para marcar aulas.");
-            window.location.href = "planos.html";
+            redirectToPlans();
             return;
         }
 
-        var result = getHelpers().bookClass(classId, currentUser);
+        result = getHelpers().bookClass(classId, currentUser);
         if (!result.ok) {
             setStatusBanner(result.message, "warning");
-            window.alert(result.message);
+            if (typeof window.showToast === "function") {
+                window.showToast(result.message, "warning");
+            }
             return;
         }
 
         setStatusBanner("Aula marcada com sucesso. Ja aparece em 'Minhas Aulas' no teu dashboard.", "success");
         if (typeof window.showToast === "function") {
             window.showToast("Aula marcada com sucesso.", "success");
-        } else {
-            window.alert("Aula marcada com sucesso.");
         }
 
         renderStats(getHelpers().getAllClasses());
@@ -471,6 +485,8 @@
 
     function init() {
         var allClasses = getHelpers().getAllClasses();
+
+        closeBookingModal();
         renderStats(allClasses);
         renderFilterOptions(allClasses);
         renderTypeCards(allClasses);
