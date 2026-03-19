@@ -920,14 +920,17 @@ footer::before {
 
 .trainer-profile-photo-wrap {
     overflow: hidden;
+    padding: 1rem;
+    background: linear-gradient(180deg, rgba(248, 248, 248, 0.98), rgba(255, 255, 255, 0.98));
 }
 
 .trainer-profile-photo {
     width: 100%;
     aspect-ratio: 4 / 6;
-    object-fit: cover;
-    object-position: center 4%;
+    object-fit: contain;
+    object-position: center top;
     display: block;
+    border-radius: 24px;
 }
 
 .trainer-profile-photo-slot {
@@ -1073,9 +1076,11 @@ footer::before {
 .trainer-booking-image {
     width: 100%;
     aspect-ratio: 4 / 5.1;
-    object-fit: cover;
-    object-position: center 4%;
+    object-fit: contain;
+    object-position: center top;
     display: block;
+    padding: 0.75rem;
+    background: linear-gradient(180deg, rgba(248, 248, 248, 0.98), rgba(255, 255, 255, 0.98));
 }
 
 .trainer-booking-fallback {

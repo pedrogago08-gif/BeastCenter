@@ -13,6 +13,10 @@
         }
     }
 
+    function getBookingUrl(trainer) {
+        return "marcar-sessao.html?trainer=" + encodeURIComponent(trainer.slug);
+    }
+
     function renderTrainer(trainer) {
         document.title = trainer.name + " - BeastCenter";
         setText("trainer-profile-name", trainer.name);
@@ -73,7 +77,12 @@
 
         var bookLink = document.getElementById("trainer-book-link");
         if (bookLink) {
-            bookLink.href = "/trainers/marcar-sessao.html?trainer=" + encodeURIComponent(trainer.slug);
+            var bookingUrl = getBookingUrl(trainer);
+            bookLink.href = bookingUrl;
+            bookLink.addEventListener("click", function (event) {
+                event.preventDefault();
+                window.location.href = bookingUrl;
+            });
         }
     }
 
