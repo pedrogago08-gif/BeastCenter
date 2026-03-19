@@ -7,7 +7,7 @@
         trainers: [],
         search: "",
         status: "all",
-        editingId: null
+        editingKey: ""
     };
 
     var refs = {
@@ -35,12 +35,29 @@
         summaryRating: document.getElementById("summary-rating")
     };
 
-    function persistLocal() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state.trainers));
+    function readJson(key, fallback) {
+        try {
+            var raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : fallback;
+        } catch (error) {
+            return fallback;
+        }
+    }
+
+    function writeJson(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
     }
 
     function normalizeText(value) {
         return (value || "").toString().trim().toLowerCase();
+    }
+
+    function slugify(value) {
+        return String(value || "")
+            .toLowerCase()
+            .trim()
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9\-]/g, "");
     }
 
     function getInitials(name) {
@@ -55,29 +72,121 @@
     }
 
     function normalizeTrainer(trainer, index) {
+        var apiId = String(trainer._id || trainer.apiId || "");
+        var rowKey = trainer.rowKey || (apiId ? "api:" + apiId : "local:" + slugify(trainer.name || ("trainer-" + index)));
+
         return {
-            id: index + 1,
-            apiId: String(trainer._id || trainer.id || ""),
+            id: Number(index) + 1,
+            rowKey: rowKey,
+            apiId: apiId,
             name: trainer.name || "",
-            specialization: trainer.specialization || "",
+            specialization: trainer.specialization || trainer.specialty || "",
             experience: Number(trainer.experience || 0),
             clients: Number(trainer.clients || 0),
             rating: Number(trainer.rating || 0),
             status: trainer.status || "ativo",
-            image: trainer.image || "",
-            description: trainer.description || "",
-            tags: Array.isArray(trainer.tags) ? trainer.tags : []
+            image: trainer.image || trainer.publicImage || "",
+            description: trainer.description || trainer.bio || "",
+            tags: Array.isArray(trainer.tags) ? trainer.tags.slice() : []
         };
     }
 
+    function assignDisplayIds(trainers) {
+        return trainers.map(function (trainer, index) {
+            return Object.assign({}, trainer, {
+                id: index + 1
+            });
+        });
+    }
+
+    function persistLocal() {
+        writeJson(STORAGE_KEY, state.trainers.map(function (trainer) {
+            return {
+                rowKey: trainer.rowKey,
+                apiId: trainer.apiId,
+                name: trainer.name,
+                specialization: trainer.specialization,
+                experience: trainer.experience,
+                clients: trainer.clients,
+                rating: trainer.rating,
+                status: trainer.status,
+                image: trainer.image,
+                description: trainer.description,
+                tags: trainer.tags
+            };
+        }));
+    }
+
+    function readStoredTrainers() {
+        return assignDisplayIds(readJson(STORAGE_KEY, []).map(normalizeTrainer));
+    }
+
+    function getSeedTrainers() {
+        if (window.BeastCenterTrainersData && Array.isArray(window.BeastCenterTrainersData.mockTrainers)) {
+            return assignDisplayIds(window.BeastCenterTrainersData.mockTrainers.map(normalizeTrainer));
+        }
+        return [];
+    }
+
+    function ensureSeeded() {
+        var stored = readStoredTrainers();
+        var seeds;
+
+        if (stored.length) {
+            return stored;
+        }
+
+        seeds = getSeedTrainers();
+        if (seeds.length) {
+            state.trainers = seeds;
+            persistLocal();
+            return assignDisplayIds(state.trainers);
+        }
+
+        return [];
+    }
+
+    function mergeTrainers(apiTrainers, localTrainers) {
+        var map = {};
+        var order = [];
+
+        localTrainers.forEach(function (trainer) {
+            var key = normalizeText(trainer.name) || trainer.rowKey;
+            if (!map[key]) {
+                order.push(key);
+            }
+            map[key] = trainer;
+        });
+
+        apiTrainers.forEach(function (trainer) {
+            var key = normalizeText(trainer.name) || trainer.rowKey;
+            if (!map[key]) {
+                order.push(key);
+            }
+            map[key] = Object.assign({}, map[key] || {}, trainer);
+        });
+
+        return assignDisplayIds(order.map(function (key) {
+            return map[key];
+        }));
+    }
+
     async function syncFromApi() {
+        var localTrainers = ensureSeeded();
+        var apiTrainers;
+
         if (!window.BeastCenterApi) {
+            state.trainers = localTrainers;
             return;
         }
 
-        var trainers = await window.BeastCenterApi.getTrainers();
-        state.trainers = trainers.map(normalizeTrainer);
-        persistLocal();
+        try {
+            apiTrainers = await window.BeastCenterApi.getTrainers();
+            state.trainers = mergeTrainers(apiTrainers.map(normalizeTrainer), localTrainers);
+            persistLocal();
+        } catch (error) {
+            state.trainers = localTrainers;
+        }
     }
 
     function getFilteredTrainers() {
@@ -86,6 +195,12 @@
             var matchesStatus = state.status === "all" || trainer.status === state.status;
             return matchesSearch && matchesStatus;
         });
+    }
+
+    function getTrainerByKey(key) {
+        return state.trainers.find(function (trainer) {
+            return trainer.rowKey === key;
+        }) || null;
     }
 
     function renderSummary() {
@@ -130,9 +245,9 @@
                     "<td>" + Number(trainer.rating).toFixed(1) + "</td>" +
                     "<td><span class='status-badge " + (trainer.status === "ativo" ? "active" : "inactive") + "'>" + (trainer.status === "ativo" ? "Ativo" : "Inativo") + "</span></td>" +
                     "<td><div class='action-buttons'>" +
-                        "<button class='btn-icon' data-action='edit' data-id='" + trainer.id + "'>Editar</button>" +
-                        "<button class='btn-icon " + (trainer.status === "ativo" ? "danger" : "success") + "' data-action='toggle' data-id='" + trainer.id + "'>" + (trainer.status === "ativo" ? "Desativar" : "Ativar") + "</button>" +
-                        "<button class='btn-icon danger' data-action='delete' data-id='" + trainer.id + "'>Remover</button>" +
+                        "<button class='btn-icon' data-action='edit' data-key='" + trainer.rowKey + "'>Editar</button>" +
+                        "<button class='btn-icon " + (trainer.status === "ativo" ? "danger" : "success") + "' data-action='toggle' data-key='" + trainer.rowKey + "'>" + (trainer.status === "ativo" ? "Desativar" : "Ativar") + "</button>" +
+                        "<button class='btn-icon danger' data-action='delete' data-key='" + trainer.rowKey + "'>Remover</button>" +
                     "</div></td>" +
                 "</tr>"
             );
@@ -146,10 +261,11 @@
 
     function openModal(trainer) {
         refs.form.reset();
+
         if (trainer) {
-            state.editingId = trainer.id;
+            state.editingKey = trainer.rowKey;
             refs.modalTitle.textContent = "Editar Trainer";
-            refs.inputId.value = String(trainer.id);
+            refs.inputId.value = trainer.rowKey;
             refs.inputName.value = trainer.name;
             refs.inputSpecialization.value = trainer.specialization;
             refs.inputExperience.value = String(trainer.experience);
@@ -158,8 +274,9 @@
             refs.inputStatus.value = trainer.status;
             refs.inputImage.value = trainer.image || "";
         } else {
-            state.editingId = null;
+            state.editingKey = "";
             refs.modalTitle.textContent = "Adicionar Trainer";
+            refs.inputId.value = "";
             refs.inputStatus.value = "ativo";
         }
 
@@ -168,6 +285,23 @@
 
     function closeModal() {
         refs.modal.style.display = "none";
+    }
+
+    function updateLocalTrainer(rowKey, payload) {
+        state.trainers = assignDisplayIds(state.trainers.map(function (trainer) {
+            if (trainer.rowKey !== rowKey) {
+                return trainer;
+            }
+            return Object.assign({}, trainer, payload);
+        }));
+        persistLocal();
+    }
+
+    function removeLocalTrainer(rowKey) {
+        state.trainers = assignDisplayIds(state.trainers.filter(function (trainer) {
+            return trainer.rowKey !== rowKey;
+        }));
+        persistLocal();
     }
 
     async function handleFormSubmit(event) {
@@ -182,34 +316,53 @@
             status: refs.inputStatus.value,
             image: refs.inputImage.value.trim()
         };
+        var current;
 
         if (!trainer.name || !trainer.specialization) {
             alert("Preenche nome e especializacao.");
             return;
         }
 
-        if (state.editingId) {
-            var current = state.trainers.find(function (item) { return item.id === state.editingId; });
-            await window.BeastCenterApi.updateTrainer(current.apiId, trainer);
+        if (state.editingKey) {
+            current = getTrainerByKey(state.editingKey);
+            if (current && current.apiId && window.BeastCenterApi) {
+                await window.BeastCenterApi.updateTrainer(current.apiId, trainer);
+                await syncFromApi();
+            } else {
+                updateLocalTrainer(state.editingKey, trainer);
+            }
+        } else if (window.BeastCenterApi) {
+            try {
+                await window.BeastCenterApi.createTrainer(trainer);
+                await syncFromApi();
+            } catch (error) {
+                state.trainers = assignDisplayIds(state.trainers.concat([normalizeTrainer(Object.assign({}, trainer, {
+                    rowKey: "local:" + slugify(trainer.name) + "-" + Date.now()
+                }), state.trainers.length)]));
+                persistLocal();
+            }
         } else {
-            await window.BeastCenterApi.createTrainer(trainer);
+            state.trainers = assignDisplayIds(state.trainers.concat([normalizeTrainer(Object.assign({}, trainer, {
+                rowKey: "local:" + slugify(trainer.name) + "-" + Date.now()
+            }), state.trainers.length)]));
+            persistLocal();
         }
 
-        await syncFromApi();
         closeModal();
         render();
     }
 
     async function handleRowAction(event) {
         var button = event.target.closest("button[data-action]");
+        var action;
+        var trainer;
+
         if (!button) {
             return;
         }
 
-        var action = button.getAttribute("data-action");
-        var trainer = state.trainers.find(function (item) {
-            return item.id === Number(button.getAttribute("data-id"));
-        });
+        action = button.getAttribute("data-action");
+        trainer = getTrainerByKey(button.getAttribute("data-key"));
 
         if (!trainer) {
             return;
@@ -221,10 +374,16 @@
         }
 
         if (action === "toggle") {
-            await window.BeastCenterApi.updateTrainer(trainer.apiId, {
-                status: trainer.status === "ativo" ? "inativo" : "ativo"
-            });
-            await syncFromApi();
+            if (trainer.apiId && window.BeastCenterApi) {
+                await window.BeastCenterApi.updateTrainer(trainer.apiId, {
+                    status: trainer.status === "ativo" ? "inativo" : "ativo"
+                });
+                await syncFromApi();
+            } else {
+                updateLocalTrainer(trainer.rowKey, {
+                    status: trainer.status === "ativo" ? "inativo" : "ativo"
+                });
+            }
             render();
             return;
         }
@@ -233,8 +392,13 @@
             if (!confirm("Remover o trainer " + trainer.name + "?")) {
                 return;
             }
-            await window.BeastCenterApi.deleteTrainer(trainer.apiId);
-            await syncFromApi();
+
+            if (trainer.apiId && window.BeastCenterApi) {
+                await window.BeastCenterApi.deleteTrainer(trainer.apiId);
+                await syncFromApi();
+            } else {
+                removeLocalTrainer(trainer.rowKey);
+            }
             render();
         }
     }
@@ -269,7 +433,11 @@
         refs.exportBtn.addEventListener("click", exportJson);
         refs.closeModalBtn.addEventListener("click", closeModal);
         refs.cancelModalBtn.addEventListener("click", closeModal);
-        refs.form.addEventListener("submit", handleFormSubmit);
+        refs.form.addEventListener("submit", function (event) {
+            handleFormSubmit(event).catch(function (error) {
+                alert(error.message || "Falha ao guardar trainer.");
+            });
+        });
         refs.tbody.addEventListener("click", function (event) {
             handleRowAction(event).catch(function (error) {
                 alert(error.message || "Falha ao atualizar trainer.");
@@ -285,11 +453,8 @@
 
     async function init() {
         bindEvents();
-        try {
-            await syncFromApi();
-        } catch (error) {
-            state.trainers = [];
-        }
+        ensureSeeded();
+        await syncFromApi();
         render();
 
         var params = new URLSearchParams(window.location.search);

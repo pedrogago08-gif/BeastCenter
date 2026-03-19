@@ -11,6 +11,9 @@
         growth: null,
         plans: null
     };
+    var dashboardState = {
+        data: null
+    };
 
     function readJson(key, fallback) {
         try {
@@ -19,6 +22,10 @@
         } catch (error) {
             return fallback;
         }
+    }
+
+    function writeJson(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
     }
 
     function setText(id, value) {
@@ -257,15 +264,28 @@
         return readJson("beastcenter_admin_trainers", []).map(normalizeTrainer);
     }
 
-    function readLocalClasses() {
+    function readLocalClassesWithSource() {
         var publicClasses = readJson("beastcenter_mock_classes_v3", []);
         var adminClasses = readJson("beastcenter_admin_classes", []);
 
         if (Array.isArray(publicClasses) && publicClasses.length) {
-            return publicClasses.map(normalizePublicClass);
+            return {
+                source: "local-public",
+                classes: publicClasses.map(normalizePublicClass)
+            };
         }
 
-        return Array.isArray(adminClasses) ? adminClasses.map(normalizeApiClass) : [];
+        if (Array.isArray(adminClasses) && adminClasses.length) {
+            return {
+                source: "local-admin",
+                classes: adminClasses.map(normalizeApiClass)
+            };
+        }
+
+        return {
+            source: "",
+            classes: []
+        };
     }
 
     function readShopOrders() {
@@ -609,6 +629,66 @@
         }).join("");
     }
 
+    function renderScheduleList(classes) {
+        var container = document.getElementById("admin-schedule-list");
+
+        if (!container) {
+            return;
+        }
+
+        if (!classes.length) {
+            container.innerHTML = "<div class='dashboard-schedule-item is-empty'><div><strong>Sem horario publicado</strong><span>As aulas do site vao aparecer aqui quando existirem no horario atual.</span></div></div>";
+            return;
+        }
+
+        container.innerHTML = classes.slice().sort(function (left, right) {
+            if ((left.dayOfWeek || "") === (right.dayOfWeek || "")) {
+                return String(left.time || "").localeCompare(String(right.time || ""));
+            }
+            return String(left.dayOfWeek || "").localeCompare(String(right.dayOfWeek || ""));
+        }).map(function (item) {
+            return (
+                "<div class='dashboard-schedule-item'>" +
+                    "<div class='dashboard-schedule-main'>" +
+                        "<strong>" + item.title + "</strong>" +
+                        "<span>" + item.dayOfWeek + " | " + item.time + " | " + item.trainerName + "</span>" +
+                        "<small>" + item.enrolledCount + "/" + item.capacity + " inscritos | " + (item.location || "Sem local definido") + "</small>" +
+                    "</div>" +
+                    "<div class='dashboard-schedule-actions'>" +
+                        "<span class='status-badge " + (item.status === "ativa" ? "active" : "inactive") + "'>" + (item.status === "ativa" ? "Ativa" : "Inativa") + "</span>" +
+                        "<button class='btn-small danger-outline' type='button' data-schedule-remove='" + item.id + "'>Retirar</button>" +
+                    "</div>" +
+                "</div>"
+            );
+        }).join("");
+    }
+
+    function removeLocalClass(storageKey, classId) {
+        var current = readJson(storageKey, []);
+        var next = Array.isArray(current) ? current.filter(function (item) {
+            return String(item.id || item._id || "") !== String(classId);
+        }) : [];
+
+        writeJson(storageKey, next);
+    }
+
+    async function removeDashboardClass(classId) {
+        if (!dashboardState.data) {
+            return;
+        }
+
+        if (dashboardState.data.classSource === "local-public") {
+            removeLocalClass("beastcenter_mock_classes_v3", classId);
+        } else if (dashboardState.data.classSource === "local-admin") {
+            removeLocalClass("beastcenter_admin_classes", classId);
+        } else if (window.BeastCenterApi) {
+            await window.BeastCenterApi.deleteClass(classId);
+        }
+
+        dashboardState.data = await buildDashboardData();
+        renderDashboard(dashboardState.data);
+    }
+
     function renderLatestOrders(orders) {
         var container = document.getElementById("admin-latest-orders");
 
@@ -906,8 +986,8 @@
         var apiData = await loadApiData();
         var ptSessions = readPtSessions();
         var users = apiData.users.length ? apiData.users : readLocalUsers();
-        var localClasses = readLocalClasses();
-        var classes = localClasses.length ? localClasses : apiData.classes;
+        var localClassesResult = readLocalClassesWithSource();
+        var classes = localClassesResult.classes.length ? localClassesResult.classes : apiData.classes;
         var trainers = deriveTrainerList(
             apiData.trainers.length ? apiData.trainers : readLocalTrainers(),
             classes,
@@ -917,6 +997,7 @@
         return {
             users: users,
             classes: classes,
+            classSource: localClassesResult.classes.length ? localClassesResult.source : "api",
             trainers: trainers,
             orders: readShopOrders(),
             ptSessions: ptSessions
@@ -924,10 +1005,12 @@
     }
 
     function renderDashboard(data) {
+        dashboardState.data = data;
         renderStats(data);
         renderGrowthChart(data.users);
         renderRecentActivity(data);
         renderPopularClasses(data.classes);
+        renderScheduleList(data.classes);
         renderLatestOrders(data.orders);
         renderAlerts(data);
         renderPlanDistribution(data.users.filter(isClient));
@@ -938,8 +1021,39 @@
         bindGrowthFilter(data.users);
     }
 
+    function bindScheduleActions() {
+        var container = document.getElementById("admin-schedule-list");
+
+        if (!container) {
+            return;
+        }
+
+        container.addEventListener("click", function (event) {
+            var button = event.target.closest("button[data-schedule-remove]");
+            var classId;
+
+            if (!button) {
+                return;
+            }
+
+            classId = button.getAttribute("data-schedule-remove");
+            if (!classId) {
+                return;
+            }
+
+            if (!window.confirm("Retirar esta aula do horario atual?")) {
+                return;
+            }
+
+            removeDashboardClass(classId).catch(function () {
+                alert("Nao foi possivel retirar a aula do horario.");
+            });
+        });
+    }
+
     async function init() {
         var data = await buildDashboardData();
+        bindScheduleActions();
         renderDashboard(data);
     }
 
