@@ -4,7 +4,7 @@
     var CART_KEY = "cart";
     var COUPON_KEY = "appliedCoupon";
     var ORDERS_KEY = "shopOrders";
-    var IMAGE_BASE = "../../images/products/";
+    var IMAGE_BASE = "/images/products/";
     var PAYMENT_METHODS = ["card", "mbway", "paypal", "multibanco"];
     var COUPONS = {
         BEAST10: 0.10,
