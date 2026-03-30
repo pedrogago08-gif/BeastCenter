@@ -1357,4 +1357,18 @@
     }
 }
 
+.shop-filters .categories .category-btn.active {
+    background: linear-gradient(135deg, #E41E2B, #A40D18) !important;
+    background-color: #E41E2B !important;
+    color: #FFFFFF !important;
+    border-color: rgba(228, 30, 43, 0.32) !important;
+    box-shadow: 0 12px 24px rgba(228, 30, 43, 0.2) !important;
+    opacity: 1 !important;
+}
+
+.shop-filters .categories .category-btn.active span,
+.shop-filters .categories .category-btn.active strong {
+    color: #FFFFFF !important;
+}
+
 
