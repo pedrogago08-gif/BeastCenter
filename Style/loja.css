@@ -666,8 +666,9 @@
 
 .category-btn.active,
 .category-btn:hover {
-    background-color: var(--primary-color);
-    border-color: rgba(228, 30, 43, 0.18);
+    background: linear-gradient(135deg, #E41E2B, #A40D18);
+    color: #FFFFFF;
+    border-color: rgba(228, 30, 43, 0.22);
     box-shadow: 0 10px 22px rgba(228, 30, 43, 0.14);
 }
 
