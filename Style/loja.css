@@ -365,6 +365,13 @@
     border-radius: 10px;
 }
 
+.cupao-help {
+    margin-top: 0.75rem;
+    color: #666;
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
 .checkout-btn {
     width: 100%;
     margin-top: 1rem;

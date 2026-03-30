@@ -6,11 +6,6 @@
     var ORDERS_KEY = "shopOrders";
     var IMAGE_BASE = "/images/products/";
     var PAYMENT_METHODS = ["card", "mbway", "paypal", "multibanco"];
-    var COUPONS = {
-        BEAST10: 0.10,
-        BEAST20: 0.20,
-        WELCOME: 0.15
-    };
 
     var PRODUCTS = {
         "tshirt-black": {
@@ -196,6 +191,49 @@
 
     function readCurrentUser() {
         return storageGet("currentUser");
+    }
+
+    function hasActivePaidPlan(user) {
+        return !!(user && user.planStatus === "active" && user.paymentStatus === "paid" && user.plan && user.plan !== "none");
+    }
+
+    function getDiscountRate(plan) {
+        if (plan === "extra") {
+            return 0.10;
+        }
+
+        if (plan === "premium") {
+            return 0.20;
+        }
+
+        return 0;
+    }
+
+    function getCouponOwnerKey(user) {
+        return String((user && (user.id || user.email || user.username || user.name)) || "")
+            .toUpperCase()
+            .replace(/[^A-Z0-9]/g, "");
+    }
+
+    function getPersonalDiscount(user) {
+        if (!hasActivePaidPlan(user)) {
+            return null;
+        }
+
+        var rate = getDiscountRate(user.plan);
+        var ownerKey = getCouponOwnerKey(user);
+        var prefix = user.plan === "premium" ? "PREMIUM20" : "EXTRA10";
+
+        if (!rate || !ownerKey) {
+            return null;
+        }
+
+        return {
+            code: prefix + "-" + ownerKey.slice(-6),
+            rate: rate,
+            ownerKey: ownerKey,
+            label: Math.round(rate * 100) + "% de desconto"
+        };
     }
 
     function getAbsoluteUrl(path) {
@@ -581,18 +619,54 @@
 
     function getAppliedCoupon() {
         var coupon = storageGet(COUPON_KEY);
-        return typeof coupon === "string" ? coupon : "";
+        if (!coupon) {
+            return null;
+        }
+
+        if (typeof coupon === "string") {
+            return { code: coupon, ownerKey: "" };
+        }
+
+        if (typeof coupon === "object" && typeof coupon.code === "string") {
+            return coupon;
+        }
+
+        return null;
+    }
+
+    function validateAppliedCoupon(user) {
+        var applied = getAppliedCoupon();
+        var personal = getPersonalDiscount(user);
+
+        if (!applied || !personal) {
+            return null;
+        }
+
+        if (applied.code !== personal.code) {
+            return null;
+        }
+
+        if (applied.ownerKey && applied.ownerKey !== personal.ownerKey) {
+            return null;
+        }
+
+        return personal;
     }
 
     function calculateTotals() {
+        var currentUser = readCurrentUser();
         var subtotal = cart.reduce(function (sum, item) {
             return sum + Number(item.price || 0) * Number(item.quantity || 0);
         }, 0);
-        var appliedCoupon = getAppliedCoupon();
-        var discountRate = COUPONS[appliedCoupon] || 0;
+        var appliedCoupon = validateAppliedCoupon(currentUser);
+        var discountRate = appliedCoupon ? appliedCoupon.rate : 0;
         var discount = subtotal * discountRate;
         var shipping = subtotal === 0 ? 0 : (subtotal >= 50 ? 0 : 5.99);
         var total = Math.max(subtotal - discount + shipping, 0);
+
+        if (!appliedCoupon && getAppliedCoupon()) {
+            storageRemove(COUPON_KEY);
+        }
 
         return {
             subtotal: subtotal,
@@ -602,7 +676,8 @@
             itemCount: cart.reduce(function (sum, item) {
                 return sum + Number(item.quantity || 0);
             }, 0),
-            appliedCoupon: appliedCoupon
+            appliedCoupon: appliedCoupon ? appliedCoupon.code : "",
+            appliedCouponLabel: appliedCoupon ? appliedCoupon.label + " - " + appliedCoupon.code : "Sem cupao"
         };
     }
 
@@ -616,6 +691,9 @@
         var discountEl = document.getElementById("desconto");
         var discountInfo = document.querySelector(".desconto-info span");
         var checkoutButton = document.getElementById("start-checkout-btn");
+        var couponHelp = document.getElementById("cupao-help");
+        var currentUser = readCurrentUser();
+        var personalCoupon = getPersonalDiscount(currentUser);
 
         if (subtotalEl) {
             subtotalEl.textContent = formatPriceLocal(totals.subtotal);
@@ -655,23 +733,48 @@
         if (checkoutButton) {
             checkoutButton.disabled = totals.itemCount === 0;
         }
+
+        if (couponHelp) {
+            if (!currentUser) {
+                couponHelp.textContent = "Inicia sessao para usares um codigo pessoal de desconto.";
+            } else if (!personalCoupon) {
+                couponHelp.textContent = "Os codigos pessoais da loja ficam disponiveis apenas nos planos Extra e Premium ativos.";
+            } else {
+                couponHelp.textContent = "O teu codigo pessoal: " + personalCoupon.code + " (" + personalCoupon.label + "). Nao pode ser usado noutra conta.";
+            }
+        }
     }
 
     function applyCoupon() {
         var couponInput = document.getElementById("cupao-code");
         var code = couponInput ? couponInput.value.trim().toUpperCase() : "";
+        var currentUser = readCurrentUser();
+        var personal = getPersonalDiscount(currentUser);
 
         if (!code) {
             toastLocal("Por favor, insere um codigo.", "warning");
             return;
         }
 
-        if (!COUPONS[code]) {
-            toastLocal("Cupao invalido.", "error");
+        if (!currentUser) {
+            toastLocal("Precisas de iniciar sessao para usar um codigo pessoal.", "warning");
             return;
         }
 
-        storageSet(COUPON_KEY, code);
+        if (!personal) {
+            toastLocal("Este desconto so esta disponivel para os planos Extra e Premium ativos.", "warning");
+            return;
+        }
+
+        if (code !== personal.code) {
+            toastLocal("Esse codigo nao pertence a esta conta.", "error");
+            return;
+        }
+
+        storageSet(COUPON_KEY, {
+            code: personal.code,
+            ownerKey: personal.ownerKey
+        });
         toastLocal("Cupao aplicado com sucesso.", "success");
         updateCartTotals();
     }
@@ -903,7 +1006,7 @@
             totalEl.textContent = formatPriceLocal(totals.total);
         }
         if (couponEl) {
-            couponEl.textContent = totals.appliedCoupon || "Sem cupao";
+            couponEl.textContent = totals.appliedCouponLabel || "Sem cupao";
         }
     }
 
@@ -1148,6 +1251,7 @@
 
         if (thumbsShell && groups.length <= 1) {
             thumbsShell.hidden = true;
+            thumbsShell.style.display = "none";
             return;
         }
 
