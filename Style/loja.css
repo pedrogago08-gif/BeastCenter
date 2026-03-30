@@ -699,7 +699,10 @@
 
 .shop-filters .categories .category-btn.active,
 .shop-filters .categories .category-btn:hover {
+    background: linear-gradient(135deg, #E41E2B, #A40D18);
     color: #FFFFFF;
+    border-color: rgba(228, 30, 43, 0.24);
+    box-shadow: 0 10px 22px rgba(228, 30, 43, 0.14);
 }
 
 .shop-filters .sort-options {
