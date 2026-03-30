@@ -217,30 +217,6 @@ async function handleRegister(event) {
     return false;
 }
 
-function loginWithGoogle() {
-    handleSocialAuth("google");
-}
-
-function loginWithFacebook() {
-    handleSocialAuth("facebook");
-}
-
-function registerWithGoogle() {
-    handleSocialAuth("google");
-}
-
-function registerWithFacebook() {
-    handleSocialAuth("facebook");
-}
-
-async function handleSocialAuth(provider) {
-    try {
-        await window.BeastCenterApi.socialAuth({ provider: provider });
-    } catch (error) {
-        showToast(error.message || "OAuth indisponivel neste momento", "info");
-    }
-}
-
 document.getElementById("register-password")?.addEventListener("input", function (event) {
     var password = event.target.value;
     var hint = document.querySelector(".password-hint");
