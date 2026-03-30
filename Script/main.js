@@ -118,16 +118,103 @@ function hasActivePaidPlan(user) {
 }
 
 function getRelativeUrl(path) {
-    const currentPath = window.location.pathname.toLowerCase();
-    const isStorePage = currentPath.includes("/pages/loja/");
-    const isClientPage = currentPath.includes("/pages/cliente/");
-    const isAdminPage = currentPath.includes("/pages/admin/");
-
-    if (isStorePage || isClientPage || isAdminPage) {
-        return "../" + path;
+    if (!path) {
+        return "/";
     }
 
-    return path;
+    if (/^(https?:)?\/\//i.test(path) || path.startsWith("#")) {
+        return path;
+    }
+
+    return "/" + String(path).replace(/^\/+/, "");
+}
+
+function getKnownPublicPath(path) {
+    if (!path) {
+        return "";
+    }
+
+    var value = String(path).replace(/\\/g, "/");
+    var match = value.match(/^([^?#]*)(.*)$/);
+    var cleanPath = match ? match[1] : value;
+    var suffix = match ? (match[2] || "") : "";
+
+    if (!cleanPath || cleanPath.startsWith("#")) {
+        return value;
+    }
+
+    if (/^(https?:)?\/\//i.test(cleanPath) || /^(mailto|tel|javascript):/i.test(cleanPath)) {
+        return value;
+    }
+
+    var normalized = cleanPath
+        .replace(/^\.\/+/, "")
+        .replace(/^\/+/, "");
+
+    var routeMap = [
+        { pattern: /(^|\/)Index\.html$/i, path: "Index.html" },
+        { pattern: /(^|\/)login\.html$/i, path: "login.html" },
+        { pattern: /(^|\/)planos\.html$/i, path: "planos.html" },
+        { pattern: /(^|\/)trainers\.html$/i, path: "trainers.html" },
+        { pattern: /(^|\/)aulas\.html$/i, path: "aulas.html" },
+        { pattern: /(^|\/)loja\/produtos\.html$/i, path: "loja/produtos.html" },
+        { pattern: /(^|\/)produtos\.html$/i, path: "loja/produtos.html" },
+        { pattern: /(^|\/)loja\/carrinho\.html$/i, path: "loja/carrinho.html" },
+        { pattern: /(^|\/)carrinho\.html$/i, path: "loja/carrinho.html" },
+        { pattern: /(^|\/)loja\/checkout\.html$/i, path: "loja/checkout.html" },
+        { pattern: /(^|\/)checkout\.html$/i, path: "loja/checkout.html" },
+        { pattern: /(^|\/)cliente\/dashboard\.html$/i, path: "cliente/dashboard.html" },
+        { pattern: /(^|\/)admin\/dashboard\.html$/i, path: "admin/dashboard.html" }
+    ];
+
+    for (var i = 0; i < routeMap.length; i += 1) {
+        if (routeMap[i].pattern.test(normalized)) {
+            return getRelativeUrl(routeMap[i].path) + suffix;
+        }
+    }
+
+    return value;
+}
+
+function normalizePublicInternalLinks() {
+    var navbar = document.querySelector(".navbar");
+    var sidebar = document.querySelector(".sidebar");
+
+    if (!navbar || sidebar) {
+        return;
+    }
+
+    document.querySelectorAll("a[href]").forEach(function (anchor) {
+        var currentHref = anchor.getAttribute("href");
+        var nextHref = getKnownPublicPath(currentHref);
+
+        if (nextHref && nextHref !== currentHref) {
+            anchor.setAttribute("href", nextHref);
+        }
+    });
+
+    var logo = navbar.querySelector(".logo");
+    if (logo) {
+        logo.style.cursor = "pointer";
+        if (!logo.dataset.homeBound) {
+            logo.dataset.homeBound = "true";
+            logo.addEventListener("click", function () {
+                window.location.href = getRelativeUrl("Index.html");
+            });
+        }
+    }
+
+    navbar.querySelectorAll(".cart-btn").forEach(function (button) {
+        button.onclick = function () {
+            window.location.href = getRelativeUrl("loja/carrinho.html");
+        };
+    });
+
+    navbar.querySelectorAll(".login-btn").forEach(function (button) {
+        button.onclick = function () {
+            window.location.href = getRelativeUrl("login.html");
+        };
+    });
 }
 
 function updatePublicNavbar() {
@@ -230,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Utilizador logado:', user.name);
     }
 
+    normalizePublicInternalLinks();
     updatePublicNavbar();
     initHeroSlider();
 });

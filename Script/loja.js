@@ -135,13 +135,39 @@
         return storageGet("currentUser");
     }
 
+    function getAbsoluteUrl(path) {
+        return "/" + String(path || "").replace(/^\/+/, "");
+    }
+
+    function getHomeUrl() {
+        return getAbsoluteUrl("Index.html");
+    }
+
+    function getLoginUrl() {
+        return getAbsoluteUrl("login.html");
+    }
+
+    function getStoreUrl() {
+        return getAbsoluteUrl("loja/produtos.html");
+    }
+
+    function getCartUrl() {
+        return getAbsoluteUrl("loja/carrinho.html");
+    }
+
+    function getCheckoutUrl() {
+        return getAbsoluteUrl("loja/checkout.html");
+    }
+
     function getDashboardUrl() {
         var user = readCurrentUser();
         if (!user) {
-            return "../login.html";
+            return getLoginUrl();
         }
 
-        return user.role === "admin" ? "../admin/dashboard.html" : "../cliente/dashboard.html";
+        return user.role === "admin"
+            ? getAbsoluteUrl("admin/dashboard.html")
+            : getAbsoluteUrl("cliente/dashboard.html");
     }
 
     function formatPriceLocal(value) {
@@ -601,12 +627,54 @@
         var link = document.getElementById("shop-dashboard-link");
         var user = readCurrentUser();
 
-        if (!link || !user) {
+        if (!link) {
             return;
         }
 
         link.hidden = false;
-        link.href = getDashboardUrl();
+        if (user) {
+            link.href = getDashboardUrl();
+            link.textContent = "Voltar ao dashboard";
+            return;
+        }
+
+        link.href = getLoginUrl();
+        link.textContent = "Iniciar sessao";
+    }
+
+    function initStoreLinks() {
+        Array.prototype.slice.call(document.querySelectorAll(".navbar .cart-btn")).forEach(function (button) {
+            button.onclick = function () {
+                window.location.href = getCartUrl();
+            };
+        });
+
+        Array.prototype.slice.call(document.querySelectorAll(".navbar .login-btn")).forEach(function (button) {
+            button.onclick = function () {
+                window.location.href = getLoginUrl();
+            };
+        });
+
+        Array.prototype.slice.call(document.querySelectorAll(".continue-shopping .btn")).forEach(function (button) {
+            button.onclick = function () {
+                window.location.href = getStoreUrl();
+            };
+        });
+
+        Array.prototype.slice.call(document.querySelectorAll("a[href='carrinho.html']")).forEach(function (anchor) {
+            anchor.href = getCartUrl();
+        });
+
+        Array.prototype.slice.call(document.querySelectorAll("a[href='produtos.html']")).forEach(function (anchor) {
+            anchor.href = getStoreUrl();
+        });
+
+        Array.prototype.slice.call(document.querySelectorAll("#checkout-success-dashboard")).forEach(function (anchor) {
+            anchor.href = getDashboardUrl();
+            if (!readCurrentUser()) {
+                anchor.hidden = true;
+            }
+        });
     }
 
     function startCheckout() {
@@ -615,7 +683,7 @@
             return;
         }
 
-        window.location.href = "checkout.html";
+        window.location.href = getCheckoutUrl();
     }
 
     function renderCheckoutSummary() {
@@ -759,7 +827,7 @@
 
         if (!cart.length) {
             toastLocal("O carrinho esta vazio.", "warning");
-            window.location.href = "carrinho.html";
+            window.location.href = getCartUrl();
             return;
         }
 
@@ -845,7 +913,7 @@
         }
 
         if (!cart.length) {
-            window.location.href = "carrinho.html";
+            window.location.href = getCartUrl();
             return;
         }
 
@@ -886,6 +954,7 @@
     }
 
     function init() {
+        initStoreLinks();
         updateCartCount();
         bindCategoryFilters();
         bindSorting();
