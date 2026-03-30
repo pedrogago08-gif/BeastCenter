@@ -18,6 +18,13 @@
             name: "T-shirt BeastCenter Preta",
             shortName: "T-shirt Preta",
             price: 24.99,
+            categoryLabel: "Merch",
+            rating: "5/5",
+            reviews: 45,
+            subtitle: "Corte atletico, algodao premium e conforto para treino ou dia a dia.",
+            longDescription: "A T-shirt BeastCenter foi pensada para quem quer uma peça simples, forte e versatil. O algodao respiravel ajuda a manter o conforto durante o treino, enquanto o corte limpo encaixa bem tambem fora do ginasio.",
+            highlights: ["100% algodao premium", "Corte atletico", "Uso treino e casual"],
+            specs: { formato: "T-shirt unissexo", tamanho: "S ao XXL", entrega: "24-48h uteis" },
             imageNames: ["tshirt-black"],
             placeholder: "Merch"
         },
@@ -26,6 +33,13 @@
             name: "Hoodie BeastCenter Cinza",
             shortName: "Hoodie Cinza",
             price: 49.99,
+            categoryLabel: "Merch",
+            rating: "5/5",
+            reviews: 32,
+            subtitle: "Hoodie premium para recuperacao, rua e dias mais frios.",
+            longDescription: "O hoodie BeastCenter oferece um toque mais pesado e premium, com interior suave e estrutura robusta. Ideal para antes e depois do treino, ou para um visual clean com identidade de marca.",
+            highlights: ["Interior macio", "Capuz estruturado", "Acabamento premium"],
+            specs: { formato: "Hoodie com capuz", tamanho: "S ao XXL", entrega: "24-48h uteis" },
             imageNames: ["hoodie-grey"],
             placeholder: "Hoodie"
         },
@@ -34,6 +48,13 @@
             name: "Garrafa BeastCenter 1L",
             shortName: "Garrafa",
             price: 14.99,
+            categoryLabel: "Merch",
+            rating: "5/5",
+            reviews: 78,
+            subtitle: "Hidratacao diaria com design clean e capacidade de 1 litro.",
+            longDescription: "A garrafa BeastCenter foi pensada para acompanhar treinos intensos, deslocacoes e a rotina do dia. O formato simples torna-a pratica para levares no saco de treino ou no carro.",
+            highlights: ["Capacidade 1 litro", "Design leve", "Uso diario"],
+            specs: { formato: "Garrafa reutilizavel", tamanho: "1L", entrega: "24-48h uteis" },
             imageNames: ["bottle"],
             placeholder: "1L"
         },
@@ -42,6 +63,13 @@
             name: "Toalha BeastCenter",
             shortName: "Toalha",
             price: 9.99,
+            categoryLabel: "Merch",
+            rating: "4/5",
+            reviews: 23,
+            subtitle: "Toalha leve e pratica para treino, studio ou deslocacao.",
+            longDescription: "A toalha BeastCenter combina absorcao rapida com um formato facil de arrumar. Foi pensada para o treino diario e para quem quer uma peça simples e funcional no saco.",
+            highlights: ["Microfibra", "Secagem rapida", "Facil de transportar"],
+            specs: { formato: "Toalha de ginasio", tamanho: "Compacta", entrega: "24-48h uteis" },
             imageNames: ["towel"],
             placeholder: "Gym"
         },
@@ -50,6 +78,13 @@
             name: "Whey Protein Baunilha 1kg",
             shortName: "Whey",
             price: 39.99,
+            categoryLabel: "Suplementos",
+            rating: "5/5",
+            reviews: 0,
+            subtitle: "Formula isolada para recuperacao e suporte ao crescimento muscular.",
+            longDescription: "A whey de baunilha BeastCenter entrega uma dose proteica limpa e facil de integrar no pos-treino ou em qualquer refeicao com menor teor proteico. Sabor equilibrado e textura suave.",
+            highlights: ["25g proteina por dose", "Boa dissolucao", "Sabor baunilha"],
+            specs: { formato: "Pote 1kg", tamanho: "Aprox. 40 doses", entrega: "24-48h uteis" },
             imageNames: ["whey-vanilla", "whey-vanilla2"],
             placeholder: "Whey"
         },
@@ -58,6 +93,13 @@
             name: "Creatina Monohidratada 300g",
             shortName: "Creatina",
             price: 24.99,
+            categoryLabel: "Suplementos",
+            rating: "5/5",
+            reviews: 89,
+            subtitle: "Creatina pura para forca, desempenho e consistencia de treino.",
+            longDescription: "A creatina monohidratada BeastCenter foi pensada para quem quer melhorar o rendimento e a capacidade de repeticao ao longo do tempo. Formula simples, pura e sem extras desnecessarios.",
+            highlights: ["Monohidratada pura", "300g", "Micronizada"],
+            specs: { formato: "Pote 300g", tamanho: "60 doses", entrega: "24-48h uteis" },
             imageNames: ["creatina", "creatina2"],
             placeholder: "Cr"
         },
@@ -66,6 +108,13 @@
             name: "BCAA 2:1:1 Limao 500g",
             shortName: "BCAA",
             price: 29.99,
+            categoryLabel: "Suplementos",
+            rating: "4/5",
+            reviews: 67,
+            subtitle: "Aminoacidos essenciais para suporte de recuperacao e treino intenso.",
+            longDescription: "O BCAA BeastCenter oferece um perfil 2:1:1 pensado para complementar fases de treino exigentes. Sabor limao fresco e dissolucao rapida para tomares antes, durante ou depois do treino.",
+            highlights: ["Ratio 2:1:1", "Sabor limao", "500g"],
+            specs: { formato: "Pote 500g", tamanho: "Aprox. 50 doses", entrega: "24-48h uteis" },
             imageNames: ["bcaa", "bcaa2"],
             placeholder: "BCAA"
         },
@@ -74,6 +123,13 @@
             name: "Pre-Workout Extreme 300g",
             shortName: "Pre",
             price: 34.99,
+            categoryLabel: "Suplementos",
+            rating: "5/5",
+            reviews: 102,
+            subtitle: "Energia, foco e intensidade para puxares mais em cada sessao.",
+            longDescription: "O Pre-Workout Extreme BeastCenter foi desenhado para te colocar no modo certo antes da sessao. Boa combinacao de foco e energia para treinos de forca, intensidade e cardio exigente.",
+            highlights: ["Energia e foco", "300g", "Antes do treino"],
+            specs: { formato: "Pote 300g", tamanho: "30 doses", entrega: "24-48h uteis" },
             imageNames: ["preworkout", "preworkout2"],
             placeholder: "Pre"
         },
@@ -82,6 +138,13 @@
             name: "Barras de Proteina Pack 12",
             shortName: "Bars",
             price: 19.99,
+            categoryLabel: "Snacks",
+            rating: "5/5",
+            reviews: 134,
+            subtitle: "Snack pratico com proteina para lanches, trabalho e pos-treino.",
+            longDescription: "As barras de proteina BeastCenter sao uma opcao facil para teres sempre contigo. O pack de 12 unidades ajuda a manter a consistencia entre treinos, trabalho e rotina.",
+            highlights: ["Pack 12 unidades", "20g proteina", "Sabor brownie"],
+            specs: { formato: "Pack de barras", tamanho: "12 unidades", entrega: "24-48h uteis" },
             imageNames: ["proteinbar", "proteinbar2"],
             placeholder: "Bar"
         }
@@ -159,6 +222,10 @@
         return getAbsoluteUrl("loja/checkout.html");
     }
 
+    function getProductUrl(productId) {
+        return getAbsoluteUrl("loja/produto.html?id=" + encodeURIComponent(productId));
+    }
+
     function getDashboardUrl() {
         var user = readCurrentUser();
         if (!user) {
@@ -201,7 +268,8 @@
 
         return Object.assign({}, product, {
             imageCandidateGroups: imageCandidateGroups,
-            imageCandidates: flattenImageCandidateGroups(imageCandidateGroups)
+            imageCandidates: flattenImageCandidateGroups(imageCandidateGroups),
+            url: getProductUrl(product.id)
         });
     }
 
@@ -360,6 +428,47 @@
         });
     }
 
+    function shouldIgnoreCardClick(target) {
+        return !!(target && target.closest("button, a, input, select, textarea, label"));
+    }
+
+    function bindProductCardLinks() {
+        Array.prototype.slice.call(document.querySelectorAll(".produto-card[data-product-id], .produto-card-small[data-product-id]")).forEach(function (card) {
+            var productId = card.getAttribute("data-product-id");
+            var product = getProduct(productId);
+
+            if (!product || !product.url) {
+                return;
+            }
+
+            card.classList.add("is-clickable");
+            card.setAttribute("tabindex", "0");
+            card.setAttribute("role", "link");
+            card.setAttribute("aria-label", "Ver detalhes de " + product.name);
+
+            card.addEventListener("click", function (event) {
+                if (shouldIgnoreCardClick(event.target)) {
+                    return;
+                }
+
+                window.location.href = product.url;
+            });
+
+            card.addEventListener("keydown", function (event) {
+                if (event.key !== "Enter" && event.key !== " ") {
+                    return;
+                }
+
+                if (shouldIgnoreCardClick(event.target)) {
+                    return;
+                }
+
+                event.preventDefault();
+                window.location.href = product.url;
+            });
+        });
+    }
+
     function updateCartCount() {
         var cartCount = document.getElementById("cart-count");
         if (!cartCount) {
@@ -397,6 +506,35 @@
                 shortName: product.shortName,
                 price: Number(price || product.price || 0),
                 quantity: 1
+            });
+            toastLocal(product.name + " adicionado ao carrinho.", "success");
+        }
+
+        writeCart(cart);
+
+        if (isCartPage()) {
+            renderCart();
+            updateCartTotals();
+        }
+    }
+
+    function addToCartQuantity(productId, productName, price, quantity) {
+        var product = getProduct(productId, productName, price);
+        var amount = Math.max(1, Math.min(10, Number(quantity || 1)));
+        var existingItem = cart.find(function (item) {
+            return item.id === productId;
+        });
+
+        if (existingItem) {
+            existingItem.quantity = Math.min(10, existingItem.quantity + amount);
+            toastLocal(product.name + " - quantidade atualizada.", "success");
+        } else {
+            cart.push({
+                id: product.id,
+                name: product.name,
+                shortName: product.shortName,
+                price: Number(price || product.price || 0),
+                quantity: amount
             });
             toastLocal(product.name + " adicionado ao carrinho.", "success");
         }
@@ -999,18 +1137,147 @@
         });
     }
 
+    function renderProductDetailGallery(product, shell) {
+        var mainImage = shell.querySelector(".product-detail-main-image");
+        var mainFrame = shell.querySelector(".product-detail-visual");
+        var thumbs = Array.prototype.slice.call(shell.querySelectorAll(".product-detail-thumb"));
+        var groups = Array.isArray(product.imageCandidateGroups) ? product.imageCandidateGroups.slice() : [];
+
+        installImageWithFallback(mainImage, product.imageCandidates || [], mainFrame, product, false);
+
+        thumbs.forEach(function (thumb, index) {
+            var candidates = groups[index] || [];
+
+            if (!candidates.length) {
+                thumb.hidden = true;
+                return;
+            }
+
+            thumb.dataset.index = String(index);
+
+            thumb.addEventListener("click", function () {
+                installImageWithFallback(mainImage, candidates, mainFrame, product, false);
+                thumbs.forEach(function (item) {
+                    item.classList.remove("active");
+                });
+                thumb.classList.add("active");
+            });
+
+            installImageWithFallback(thumb.querySelector("img"), candidates, thumb, product, true);
+            if (index === 0) {
+                thumb.classList.add("active");
+            }
+        });
+    }
+
+    function renderProductDetailPage() {
+        var shell = document.getElementById("product-detail-page");
+        if (!shell) {
+            return;
+        }
+
+        var params = new URLSearchParams(window.location.search);
+        var productId = params.get("id");
+        var product = productId ? getProduct(productId) : null;
+
+        if (!productId || !PRODUCTS[productId]) {
+            shell.innerHTML =
+                "<section class='product-detail-empty'>" +
+                    "<h1>Produto nao encontrado</h1>" +
+                    "<p>Este artigo nao existe ou deixou de estar disponivel na loja.</p>" +
+                    "<a class='btn' href='" + getStoreUrl() + "'>Voltar a loja</a>" +
+                "</section>";
+            return;
+        }
+
+        document.title = product.name + " - BeastCenter";
+
+        var chips = (product.highlights || []).map(function (item) {
+            return "<span>" + item + "</span>";
+        }).join("");
+
+        var specs = Object.keys(product.specs || {}).map(function (key) {
+            var label = key.charAt(0).toUpperCase() + key.slice(1);
+            return (
+                "<div class='product-detail-spec'>" +
+                    "<strong>" + label + "</strong>" +
+                    "<span>" + product.specs[key] + "</span>" +
+                "</div>"
+            );
+        }).join("");
+
+        shell.innerHTML =
+            "<section class='product-detail-section'>" +
+                "<div class='product-detail-breadcrumbs'><a href='" + getStoreUrl() + "'>Loja</a><span>/</span><strong>" + product.name + "</strong></div>" +
+                "<div class='product-detail-grid'>" +
+                    "<div class='product-detail-media'>" +
+                        "<div class='product-detail-visual'>" +
+                            "<img class='product-detail-main-image' src='' alt='" + product.name + "'>" +
+                        "</div>" +
+                        "<div class='product-detail-thumbs'>" +
+                            "<button class='product-detail-thumb' type='button'><img src='' alt='" + product.shortName + " vista 1'></button>" +
+                            "<button class='product-detail-thumb' type='button'><img src='' alt='" + product.shortName + " vista 2'></button>" +
+                        "</div>" +
+                    "</div>" +
+                    "<div class='product-detail-info'>" +
+                        "<span class='product-detail-pill'>" + (product.categoryLabel || "Loja") + "</span>" +
+                        "<h1>" + product.name + "</h1>" +
+                        "<div class='product-detail-rating'>" + (product.rating || "5/5") + " <span>(" + Number(product.reviews || 0) + " reviews)</span></div>" +
+                        "<div class='product-detail-price'>" + formatPriceLocal(product.price) + "</div>" +
+                        "<p class='product-detail-subtitle'>" + (product.subtitle || "") + "</p>" +
+                        "<div class='product-detail-highlights'>" + chips + "</div>" +
+                        "<div class='product-detail-actions'>" +
+                            "<label class='product-detail-qty'>" +
+                                "<span>Quantidade</span>" +
+                                "<input id='product-detail-quantity' type='number' min='1' max='10' value='1'>" +
+                            "</label>" +
+                            "<button class='btn large' id='product-detail-add' type='button'>Adicionar ao carrinho</button>" +
+                        "</div>" +
+                        "<div class='product-detail-support'>" +
+                            "<div><strong>Entrega</strong><span>24-48h uteis em Portugal Continental</span></div>" +
+                            "<div><strong>Pagamento</strong><span>Checkout simples com metodos simulados</span></div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+                "<div class='product-detail-bottom'>" +
+                    "<article class='product-detail-panel'>" +
+                        "<h2>Sobre o produto</h2>" +
+                        "<p>" + (product.longDescription || "") + "</p>" +
+                    "</article>" +
+                    "<article class='product-detail-panel'>" +
+                        "<h2>Detalhes rapidos</h2>" +
+                        "<div class='product-detail-specs'>" + specs + "</div>" +
+                    "</article>" +
+                "</div>" +
+            "</section>";
+
+        renderProductDetailGallery(product, shell);
+
+        var addButton = document.getElementById("product-detail-add");
+        var quantityInput = document.getElementById("product-detail-quantity");
+        if (addButton && quantityInput) {
+            addButton.addEventListener("click", function () {
+                var quantity = Math.max(1, Math.min(10, Number(quantityInput.value || 1)));
+                addToCartQuantity(product.id, product.name, product.price, quantity);
+            });
+        }
+    }
+
     function init() {
         initStoreLinks();
         updateCartCount();
         bindCategoryFilters();
         bindSorting();
         bindStoreProductMedia();
+        bindProductCardLinks();
         initRecommendedCards();
         initCartPage();
         initCheckoutPage();
+        renderProductDetailPage();
     }
 
     window.addToCart = addToCart;
+    window.addToCartQuantity = addToCartQuantity;
     window.removeFromCart = removeFromCart;
     window.updateQuantity = updateQuantity;
     window.applyCoupon = applyCoupon;

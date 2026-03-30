@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detalhe de produto da loja BeastCenter">
+    <title>Produto - BeastCenter</title>
+    <link rel="stylesheet" href="../../Style/loja.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <img src="../../images/logo.png" alt="Logo BeastCenter">
+            BeastCenter
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../Index.html">Home</a></li>
+                <li><a href="../planos.html">Planos</a></li>
+                <li><a href="../trainers.html">Personal Trainers</a></li>
+                <li><a href="../aulas.html">Aulas</a></li>
+                <li><a href="produtos.html" class="active">Loja</a></li>
+                <li><a href="#sobre">Sobre Nos</a></li>
+                <li><button class="cart-btn" type="button" onclick="window.location.href='carrinho.html'">Carrinho (<span id="cart-count">0</span>)</button></li>
+                <li><button class="login-btn" type="button" onclick="window.location.href='../login.html'">Login</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-small">
+        <h1>Detalhe do produto</h1>
+        <p>Consulta as imagens, especificacoes e adiciona ao carrinho quando quiseres.</p>
+    </section>
+
+    <main id="product-detail-page" class="container"></main>
+
+    <section class="promo-banner">
+        <div class="container">
+            <h2>Portes gratis acima de 50EUR</h2>
+            <p>Checkout simples, entrega rapida e carrinho sincronizado com a tua sessao.</p>
+        </div>
+    </section>
+
+    <footer id="sobre">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>BeastCenter</h4>
+                <p>O teu ginasio de excelencia</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links Rapidos</h4>
+                <ul>
+                    <li><a href="../planos.html">Planos</a></li>
+                    <li><a href="../trainers.html">Personal Trainers</a></li>
+                    <li><a href="../aulas.html">Aulas</a></li>
+                    <li><a href="produtos.html">Loja</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sobre Nos</h4>
+                <p>Email: contacto@beastcenter.com</p>
+                <p>Tel: +351 123 456 789</p>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociais</h4>
+                <a href="https://www.facebook.com/BeastCenter" target="_blank">Facebook</a> |
+                <a href="https://www.instagram.com/BeastCenter" target="_blank">Instagram</a>
+            </div>
+        </div>
+        <p class="copyright">BeastCenter &#169; 2025 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="../../Script/loja.js"></script>
+    <script src="../../Script/main.js"></script>
+</body>
+</html>
