@@ -402,6 +402,10 @@ select {
     box-shadow: var(--client-shadow);
 }
 
+.dashboard-section[hidden] {
+    display: none !important;
+}
+
 .section-header {
     display: flex;
     align-items: center;
@@ -1084,7 +1088,6 @@ body {
 .booking-card,
 .payment-form-panel,
 .payment-option,
-.plan-card-shell,
 .client-hero-panel,
 .empty-state-block {
     background: rgba(255, 255, 255, 0.94);
@@ -1169,6 +1172,77 @@ body {
 .quick-link-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--client-shadow-strong);
+}
+
+.plan-card-shell {
+    background:
+        radial-gradient(220px 140px at 100% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
+        linear-gradient(135deg, #121212, #2a0c10 58%, #5c0a12 100%);
+    border: 1px solid rgba(228, 30, 43, 0.22);
+    box-shadow: var(--client-shadow-strong);
+    min-height: 0;
+}
+
+.plan-card-shell h2,
+.plan-card-shell h3,
+.plan-card-shell p,
+.plan-card-shell span {
+    color: #ffffff !important;
+}
+
+.plan-card-content {
+    gap: 1rem;
+}
+
+.dashboard-section.plan-card-shell {
+    background:
+        radial-gradient(220px 140px at 100% 0%, rgba(255, 255, 255, 0.16), transparent 60%),
+        linear-gradient(135deg, #121212, #2a0c10 58%, #5c0a12 100%) !important;
+    border-color: rgba(228, 30, 43, 0.22) !important;
+}
+
+.dashboard-section.plan-card-shell .plan-card-content {
+    min-height: 0;
+}
+
+.dashboard-section.plan-card-shell .plan-features:empty,
+.dashboard-section.plan-card-shell .plan-renewal:empty {
+    display: none;
+}
+
+.plan-card-shell .btn.secondary {
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.26);
+}
+
+.plan-card-shell .btn.secondary:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.payment-status-message {
+    margin-top: 1rem;
+    padding: 0.95rem 1rem;
+    border-radius: 16px;
+    background: rgba(17, 17, 17, 0.04);
+    border: 1px solid rgba(17, 17, 17, 0.07);
+    color: #585858;
+}
+
+.payment-status-message:empty {
+    display: none;
+}
+
+.payment-status-message.success {
+    background: rgba(46, 125, 50, 0.08);
+    border-color: rgba(46, 125, 50, 0.16);
+    color: #1f6a28;
+}
+
+.payment-status-message.error {
+    background: rgba(228, 30, 43, 0.08);
+    border-color: rgba(228, 30, 43, 0.16);
+    color: #a60f18;
 }
 
 .booking-meta-grid div,

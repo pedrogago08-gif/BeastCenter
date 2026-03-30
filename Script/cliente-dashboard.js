@@ -358,6 +358,11 @@
         var confirmButton = document.getElementById("confirm-dashboard-plan-btn");
         var cancelButton = document.getElementById("cancel-plan-btn");
 
+        if (manager) {
+            manager.hidden = true;
+        }
+        setDashboardMessage("", "");
+
         if (openManager && manager) {
             openManager.addEventListener("click", function () {
                 manager.hidden = !manager.hidden;

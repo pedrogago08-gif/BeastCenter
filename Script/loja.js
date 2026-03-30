@@ -1140,10 +1140,16 @@
     function renderProductDetailGallery(product, shell) {
         var mainImage = shell.querySelector(".product-detail-main-image");
         var mainFrame = shell.querySelector(".product-detail-visual");
+        var thumbsShell = shell.querySelector(".product-detail-thumbs");
         var thumbs = Array.prototype.slice.call(shell.querySelectorAll(".product-detail-thumb"));
         var groups = Array.isArray(product.imageCandidateGroups) ? product.imageCandidateGroups.slice() : [];
 
         installImageWithFallback(mainImage, product.imageCandidates || [], mainFrame, product, false);
+
+        if (thumbsShell && groups.length <= 1) {
+            thumbsShell.hidden = true;
+            return;
+        }
 
         thumbs.forEach(function (thumb, index) {
             var candidates = groups[index] || [];
@@ -1215,8 +1221,9 @@
                             "<img class='product-detail-main-image' src='' alt='" + product.name + "'>" +
                         "</div>" +
                         "<div class='product-detail-thumbs'>" +
-                            "<button class='product-detail-thumb' type='button'><img src='' alt='" + product.shortName + " vista 1'></button>" +
-                            "<button class='product-detail-thumb' type='button'><img src='' alt='" + product.shortName + " vista 2'></button>" +
+                            (product.imageNames || []).map(function (name, index) {
+                                return "<button class='product-detail-thumb' type='button'><img src='' alt='" + product.shortName + " vista " + (index + 1) + "'></button>";
+                            }).join("") +
                         "</div>" +
                     "</div>" +
                     "<div class='product-detail-info'>" +
